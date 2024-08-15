@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "WinUI3_SwapChainPanel_DWriteCore (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinUI3_SwapChainPanel_DWriteCore (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
