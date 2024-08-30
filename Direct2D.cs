@@ -1,10 +1,15 @@
+#define DWRITE
 using System;
 using System.Runtime.InteropServices;
 using DXGI;
 using WIC;
 using GlobalStructures;
 using static DXGI.DXGITools;
+using System.Runtime.CompilerServices;
+
+#if DWRITE
 using DWrite;
+#endif
 
 namespace Direct2D
 {
@@ -3385,7 +3390,7 @@ namespace Direct2D
         HRESULT CreateSvgDocument(System.Runtime.InteropServices.ComTypes.IStream inputXmlStream, D2D1_SIZE_F viewportSize, out ID2D1SvgDocument svgDocument);
         void DrawSvgDocument(ID2D1SvgDocument svgDocument);
         HRESULT CreateColorContextFromDxgiColorSpace(DXGI_COLOR_SPACE_TYPE colorSpace, out ID2D1ColorContext1 colorContext);
-        HRESULT CreateColorContextFromSimpleColorProfile(D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
+        HRESULT CreateColorContextFromSimpleColorProfile(ref D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
     }
 
     [ComImport]
@@ -3595,7 +3600,7 @@ namespace Direct2D
         new HRESULT CreateSvgDocument(System.Runtime.InteropServices.ComTypes.IStream inputXmlStream, D2D1_SIZE_F viewportSize, out ID2D1SvgDocument svgDocument);
         new void DrawSvgDocument(ID2D1SvgDocument svgDocument);
         new HRESULT CreateColorContextFromDxgiColorSpace(DXGI_COLOR_SPACE_TYPE colorSpace, out ID2D1ColorContext1 colorContext);
-        new HRESULT CreateColorContextFromSimpleColorProfile(D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
+        new HRESULT CreateColorContextFromSimpleColorProfile(ref D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
         #endregion
 
         void BlendImage(ID2D1Image image, D2D1_BLEND_MODE blendMode, ref D2D1_POINT_2F targetOffset,
@@ -3809,7 +3814,7 @@ namespace Direct2D
         new HRESULT CreateSvgDocument(System.Runtime.InteropServices.ComTypes.IStream inputXmlStream, D2D1_SIZE_F viewportSize, out ID2D1SvgDocument svgDocument);
         new void DrawSvgDocument(ID2D1SvgDocument svgDocument);
         new HRESULT CreateColorContextFromDxgiColorSpace(DXGI_COLOR_SPACE_TYPE colorSpace, out ID2D1ColorContext1 colorContext);
-        new HRESULT CreateColorContextFromSimpleColorProfile(D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
+        new HRESULT CreateColorContextFromSimpleColorProfile(ref D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
         #endregion
 
         #region <ID2D1DeviceContext6>
@@ -11473,6 +11478,83 @@ namespace Direct2D
         bool IsBufferPrecisionSupported(D2D1_BUFFER_PRECISION bufferPrecision);        
     }
 
+    [Guid("84ab595a-fc81-4546-bacd-e8ef4d8abe7a")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface ID2D1EffectContext1 : ID2D1EffectContext
+    {
+        #region <ID2D1EffectContext>
+        new void GetDpi(out float dpiX, out float dpiY);
+        new HRESULT CreateEffect(ref Guid effectId, out ID2D1Effect effect);
+        new HRESULT GetMaximumSupportedFeatureLevel([MarshalAs(UnmanagedType.LPArray)] int[] featureLevels,
+             uint featureLevelsCount, out D3D_FEATURE_LEVEL maximumSupportedFeatureLevel);
+        new HRESULT CreateTransformNodeFromEffect(ID2D1Effect effect, out ID2D1TransformNode transformNode);
+        new HRESULT CreateBlendTransform(uint numInputs, D2D1_BLEND_DESCRIPTION blendDescription, out ID2D1BlendTransform transform);
+        new HRESULT CreateBorderTransform(D2D1_EXTEND_MODE extendModeX, D2D1_EXTEND_MODE extendModeY, out ID2D1BorderTransform transform);
+        new HRESULT CreateOffsetTransform(ref D2D1_POINT_2L offset, out ID2D1OffsetTransform transform);
+        new HRESULT CreateBoundsAdjustmentTransform(ref D2D1_RECT_L outputRectangle, out ID2D1BoundsAdjustmentTransform transform);
+        new HRESULT LoadPixelShader(ref Guid shaderId, IntPtr shaderBuffer, uint shaderBufferCount);
+        new HRESULT LoadVertexShader(ref Guid resourceId, IntPtr shaderBuffer, uint shaderBufferCount);
+        new HRESULT LoadComputeShader(ref Guid resourceId, IntPtr shaderBuffer, uint shaderBufferCount);
+        [PreserveSig]
+        new bool IsShaderLoaded(ref Guid shaderId);
+        new HRESULT CreateResourceTexture(ref Guid resourceId, ref D2D1_RESOURCE_TEXTURE_PROPERTIES resourceTextureProperties, IntPtr data, uint strides, uint dataSize, out ID2D1ResourceTexture resourceTexture);
+        new HRESULT FindResourceTexture(ref Guid resourceId, out ID2D1ResourceTexture resourceTexture);
+        new HRESULT CreateVertexBuffer(ref D2D1_VERTEX_BUFFER_PROPERTIES vertexBufferProperties, ref Guid resourceId, ref D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES customVertexBufferProperties, out ID2D1VertexBuffer buffer);
+        new HRESULT FindVertexBuffer(ref Guid resourceId, out ID2D1VertexBuffer buffer);
+        new HRESULT CreateColorContext(D2D1_COLOR_SPACE space, IntPtr profile, uint profileSize, out ID2D1ColorContext colorContext);
+        new HRESULT CreateColorContextFromFilename(string filename, out ID2D1ColorContext colorContext);
+        new HRESULT CreateColorContextFromWicColorContext(IWICColorContext wicColorContext, out ID2D1ColorContext colorContext);
+        new HRESULT CheckFeatureSupport(D2D1_FEATURE feature, out IntPtr featureSupportData, uint featureSupportDataSize);
+        [PreserveSig]
+        new bool IsBufferPrecisionSupported(D2D1_BUFFER_PRECISION bufferPrecision);
+        #endregion
+       
+        HRESULT CreateLookupTable3D(D2D1_BUFFER_PRECISION precision,  [MarshalAs(UnmanagedType.LPArray, SizeConst = 3)] uint[] extents,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] data, uint dataCount, 
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] uint[] strides, out ID2D1LookupTable3D lookupTable);
+    }
+
+    [Guid("577ad2a0-9fc7-4dda-8b18-dab810140052")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface ID2D1EffectContext2 : ID2D1EffectContext1
+    {
+        #region <ID2D1EffectContext>
+        new void GetDpi(out float dpiX, out float dpiY);
+        new HRESULT CreateEffect(ref Guid effectId, out ID2D1Effect effect);
+        new HRESULT GetMaximumSupportedFeatureLevel([MarshalAs(UnmanagedType.LPArray)] int[] featureLevels,
+             uint featureLevelsCount, out D3D_FEATURE_LEVEL maximumSupportedFeatureLevel);
+        new HRESULT CreateTransformNodeFromEffect(ID2D1Effect effect, out ID2D1TransformNode transformNode);
+        new HRESULT CreateBlendTransform(uint numInputs, D2D1_BLEND_DESCRIPTION blendDescription, out ID2D1BlendTransform transform);
+        new HRESULT CreateBorderTransform(D2D1_EXTEND_MODE extendModeX, D2D1_EXTEND_MODE extendModeY, out ID2D1BorderTransform transform);
+        new HRESULT CreateOffsetTransform(ref D2D1_POINT_2L offset, out ID2D1OffsetTransform transform);
+        new HRESULT CreateBoundsAdjustmentTransform(ref D2D1_RECT_L outputRectangle, out ID2D1BoundsAdjustmentTransform transform);
+        new HRESULT LoadPixelShader(ref Guid shaderId, IntPtr shaderBuffer, uint shaderBufferCount);
+        new HRESULT LoadVertexShader(ref Guid resourceId, IntPtr shaderBuffer, uint shaderBufferCount);
+        new HRESULT LoadComputeShader(ref Guid resourceId, IntPtr shaderBuffer, uint shaderBufferCount);
+        [PreserveSig]
+        new bool IsShaderLoaded(ref Guid shaderId);
+        new HRESULT CreateResourceTexture(ref Guid resourceId, ref D2D1_RESOURCE_TEXTURE_PROPERTIES resourceTextureProperties, IntPtr data, uint strides, uint dataSize, out ID2D1ResourceTexture resourceTexture);
+        new HRESULT FindResourceTexture(ref Guid resourceId, out ID2D1ResourceTexture resourceTexture);
+        new HRESULT CreateVertexBuffer(ref D2D1_VERTEX_BUFFER_PROPERTIES vertexBufferProperties, ref Guid resourceId, ref D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES customVertexBufferProperties, out ID2D1VertexBuffer buffer);
+        new HRESULT FindVertexBuffer(ref Guid resourceId, out ID2D1VertexBuffer buffer);
+        new HRESULT CreateColorContext(D2D1_COLOR_SPACE space, IntPtr profile, uint profileSize, out ID2D1ColorContext colorContext);
+        new HRESULT CreateColorContextFromFilename(string filename, out ID2D1ColorContext colorContext);
+        new HRESULT CreateColorContextFromWicColorContext(IWICColorContext wicColorContext, out ID2D1ColorContext colorContext);
+        new HRESULT CheckFeatureSupport(D2D1_FEATURE feature, out IntPtr featureSupportData, uint featureSupportDataSize);
+        [PreserveSig]
+        new bool IsBufferPrecisionSupported(D2D1_BUFFER_PRECISION bufferPrecision);
+        #endregion
+
+        #region <ID2D1EffectContext1>
+        new HRESULT CreateLookupTable3D(D2D1_BUFFER_PRECISION precision, [MarshalAs(UnmanagedType.LPArray, SizeConst = 3)] uint[] extents,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] byte[] data, uint dataCount,
+            [MarshalAs(UnmanagedType.LPArray, SizeConst = 2)] uint[] strides, out ID2D1LookupTable3D lookupTable);
+        #endregion
+       
+        HRESULT CreateColorContextFromDxgiColorSpace(DXGI_COLOR_SPACE_TYPE colorSpace, out ID2D1ColorContext1 colorContext);
+        HRESULT CreateColorContextFromSimpleColorProfile(ref D2D1_SIMPLE_COLOR_PROFILE simpleProfile, out ID2D1ColorContext1 colorContext);
+    }
+
     [StructLayout(LayoutKind.Sequential)]
     public struct D2D1_POINT_2L
     {
@@ -11500,7 +11582,1577 @@ namespace Direct2D
         D2D1_POINT_2L GetOffset();
     }
 
+#if !DWRITE
+    [ComImport]
+    [Guid("2f0da53a-2add-47cd-82ee-d9ec34688e75")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteRenderingParams
+    {
+        [PreserveSig]
+        float GetGamma();
+        [PreserveSig]
+        float GetEnhancedContrast();
+        [PreserveSig]
+        float GetClearTypeLevel();
+        [PreserveSig]
+        DWRITE_PIXEL_GEOMETRY GetPixelGeometry();
+        [PreserveSig]
+        DWRITE_RENDERING_MODE GetRenderingMode();
+    }
 
+    public enum DWRITE_PIXEL_GEOMETRY
+    {
+        /// <summary>
+        /// The red, green, and blue color components of each pixel are assumed to occupy the same point.
+        /// </summary>
+        DWRITE_PIXEL_GEOMETRY_FLAT,
+        /// <summary>
+        /// Each pixel comprises three vertical stripes, with red on the left, green in the center, and 
+        /// blue on the right. This is the most common pixel geometry for LCD monitors.
+        /// </summary>
+        DWRITE_PIXEL_GEOMETRY_RGB,
+        /// <summary>
+        /// Each pixel comprises three vertical stripes, with blue on the left, green in the center, and 
+        /// red on the right.
+        /// </summary>
+        DWRITE_PIXEL_GEOMETRY_BGR
+    }
+
+    public enum DWRITE_RENDERING_MODE
+    {
+        /// <summary>
+        /// Specifies that the rendering mode is determined automatically based on the font and size.
+        /// </summary>
+        DWRITE_RENDERING_MODE_DEFAULT,
+        /// <summary>
+        /// Specifies that no antialiasing is performed. Each pixel is either set to the foreground 
+        /// color of the text or retains the color of the background.
+        /// </summary>
+        DWRITE_RENDERING_MODE_ALIASED,
+        /// <summary>
+        /// Specifies that antialiasing is performed in the horizontal direction and the appearance
+        /// of glyphs is layout-compatible with GDI using CLEARTYPE_QUALITY. Use DWRITE_MEASURING_MODE_GDI_CLASSIC 
+        /// to get glyph advances. The antialiasing may be either ClearType or grayscale depending on
+        /// the text antialiasing mode.
+        /// </summary>
+        DWRITE_RENDERING_MODE_GDI_CLASSIC,
+        /// <summary>
+        /// Specifies that antialiasing is performed in the horizontal direction and the appearance
+        /// of glyphs is layout-compatible with GDI using CLEARTYPE_NATURAL_QUALITY. Glyph advances
+        /// are close to the font design advances, but are still rounded to whole pixels. Use
+        /// DWRITE_MEASURING_MODE_GDI_NATURAL to get glyph advances. The antialiasing may be either
+        /// ClearType or grayscale depending on the text antialiasing mode.
+        /// </summary>
+        DWRITE_RENDERING_MODE_GDI_NATURAL,
+        /// <summary>
+        /// Specifies that antialiasing is performed in the horizontal direction. This rendering
+        /// mode allows glyphs to be positioned with subpixel precision and is therefore suitable
+        /// for natural (i.e., resolution-independent) layout. The antialiasing may be either
+        /// ClearType or grayscale depending on the text antialiasing mode.
+        /// </summary>
+        DWRITE_RENDERING_MODE_NATURAL,
+        /// <summary>
+        /// Similar to natural mode except that antialiasing is performed in both the horizontal
+        /// and vertical directions. This is typically used at larger sizes to make curves and
+        /// diagonal lines look smoother. The antialiasing may be either ClearType or grayscale
+        /// depending on the text antialiasing mode.
+        /// </summary>
+        DWRITE_RENDERING_MODE_NATURAL_SYMMETRIC,
+        /// <summary>
+        /// Specifies that rendering should bypass the rasterizer and use the outlines directly. 
+        /// This is typically used at very large sizes.
+        /// </summary>
+        DWRITE_RENDERING_MODE_OUTLINE,
+        // The following names are obsolete, but are kept as aliases to avoid breaking existing code.
+        // Each of these rendering modes may result in either ClearType or grayscale antialiasing 
+        // depending on the DWRITE_TEXT_ANTIALIASING_MODE.
+        DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC = DWRITE_RENDERING_MODE_GDI_CLASSIC,
+        DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL = DWRITE_RENDERING_MODE_GDI_NATURAL,
+        DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL = DWRITE_RENDERING_MODE_NATURAL,
+        DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC = DWRITE_RENDERING_MODE_NATURAL_SYMMETRIC
+    }
+
+    [ComImport]
+    [Guid("9c906818-31d7-4fd3-a151-7c5e225db55a")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteTextFormat
+    {
+        HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
+        [PreserveSig]
+        DWRITE_TEXT_ALIGNMENT GetTextAlignment();
+        [PreserveSig]
+        DWRITE_PARAGRAPH_ALIGNMENT GetParagraphAlignment();
+        [PreserveSig]
+        DWRITE_WORD_WRAPPING GetWordWrapping();
+        [PreserveSig]
+        DWRITE_READING_DIRECTION GetReadingDirection();
+        [PreserveSig]
+        DWRITE_FLOW_DIRECTION GetFlowDirection();
+        [PreserveSig]
+        float GetIncrementalTabStop();
+        HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
+        [PreserveSig]
+        uint GetFontFamilyNameLength();
+        HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        DWRITE_FONT_WEIGHT GetFontWeight();
+        [PreserveSig]
+        DWRITE_FONT_STYLE GetFontStyle();
+        [PreserveSig]
+        DWRITE_FONT_STRETCH GetFontStretch();
+        [PreserveSig]
+        float GetFontSize();
+        [PreserveSig]
+        uint GetLocaleNameLength();
+        HRESULT GetLocaleName(out string localeName, uint nameSize);
+    }
+
+    public enum DWRITE_TEXT_ALIGNMENT
+    {
+        /// <summary>
+        /// The leading edge of the paragraph text is aligned to the layout box's leading edge.
+        /// </summary>
+        DWRITE_TEXT_ALIGNMENT_LEADING,
+        /// <summary>
+        /// The trailing edge of the paragraph text is aligned to the layout box's trailing edge.
+        /// </summary>
+        DWRITE_TEXT_ALIGNMENT_TRAILING,
+        /// <summary>
+        /// The center of the paragraph text is aligned to the center of the layout box.
+        /// </summary>
+        DWRITE_TEXT_ALIGNMENT_CENTER,
+        /// <summary>
+        /// Align text to the leading side, and also justify text to fill the lines.
+        /// </summary>
+        DWRITE_TEXT_ALIGNMENT_JUSTIFIED
+    }
+
+    public enum DWRITE_PARAGRAPH_ALIGNMENT
+    {
+        /// <summary>
+        /// The first line of paragraph is aligned to the flow's beginning edge of the layout box.
+        /// </summary>
+        DWRITE_PARAGRAPH_ALIGNMENT_NEAR,
+        /// <summary>
+        /// The last line of paragraph is aligned to the flow's ending edge of the layout box.
+        /// </summary>
+        DWRITE_PARAGRAPH_ALIGNMENT_FAR,
+        /// <summary>
+        /// The center of the paragraph is aligned to the center of the flow of the layout box.
+        /// </summary>
+        DWRITE_PARAGRAPH_ALIGNMENT_CENTER
+    }
+
+    public enum DWRITE_WORD_WRAPPING
+    {
+        /// <summary>
+        /// Words are broken across lines to avoid text overflowing the layout box.
+        /// </summary>
+        DWRITE_WORD_WRAPPING_WRAP = 0,
+        /// <summary>
+        /// Words are kept within the same line even when it overflows the layout box.
+        /// This option is often used with scrolling to reveal overflow text. 
+        /// </summary>
+        DWRITE_WORD_WRAPPING_NO_WRAP = 1,
+        /// <summary>
+        /// Words are broken across lines to avoid text overflowing the layout box.
+        /// Emergency wrapping occurs if the word is larger than the maximum width.
+        /// </summary>
+        DWRITE_WORD_WRAPPING_EMERGENCY_BREAK = 2,
+        /// <summary>
+        /// Only wrap whole words, never breaking words (emergency wrapping) when the
+        /// layout width is too small for even a single word.
+        /// </summary>
+        DWRITE_WORD_WRAPPING_WHOLE_WORD = 3,
+        /// <summary>
+        /// Wrap between any valid characters clusters.
+        /// </summary>
+        DWRITE_WORD_WRAPPING_CHARACTER = 4,
+    }
+
+    public enum DWRITE_LINE_SPACING_METHOD
+    {
+        /// <summary>
+        /// Line spacing depends solely on the content, growing to accommodate the size of fonts and inline objects.
+        /// </summary>
+        DWRITE_LINE_SPACING_METHOD_DEFAULT,
+        /// <summary>
+        /// Lines are explicitly set to uniform spacing, regardless of contained font sizes.
+        /// This can be useful to avoid the uneven appearance that can occur from font fallback.
+        /// </summary>
+        DWRITE_LINE_SPACING_METHOD_UNIFORM,
+        /// <summary>
+        /// Line spacing and baseline distances are proportional to the computed values based on the content, the size of the fonts and inline objects.
+        /// </summary>
+        DWRITE_LINE_SPACING_METHOD_PROPORTIONAL
+    }
+
+    public enum DWRITE_READING_DIRECTION
+    {
+        /// <summary>
+        /// Reading progresses from left to right.
+        /// </summary>
+        DWRITE_READING_DIRECTION_LEFT_TO_RIGHT = 0,
+        /// <summary>
+        /// Reading progresses from right to left.
+        /// </summary>
+        DWRITE_READING_DIRECTION_RIGHT_TO_LEFT = 1,
+        /// <summary>
+        /// Reading progresses from top to bottom.
+        /// </summary>
+        DWRITE_READING_DIRECTION_TOP_TO_BOTTOM = 2,
+        /// <summary>
+        /// Reading progresses from bottom to top.
+        /// </summary>
+        DWRITE_READING_DIRECTION_BOTTOM_TO_TOP = 3,
+    }
+
+    public enum DWRITE_FLOW_DIRECTION
+    {
+        /// <summary>
+        /// Text lines are placed from top to bottom.
+        /// </summary>
+        DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM = 0,
+        /// <summary>
+        /// Text lines are placed from bottom to top.
+        /// </summary>
+        DWRITE_FLOW_DIRECTION_BOTTOM_TO_TOP = 1,
+        /// <summary>
+        /// Text lines are placed from left to right.
+        /// </summary>
+        DWRITE_FLOW_DIRECTION_LEFT_TO_RIGHT = 2,
+        /// <summary>
+        /// Text lines are placed from right to left.
+        /// </summary>
+        DWRITE_FLOW_DIRECTION_RIGHT_TO_LEFT = 3,
+    }
+
+    public enum DWRITE_TRIMMING_GRANULARITY
+    {
+        /// <summary>
+        /// No trimming occurs. Text flows beyond the layout width.
+        /// </summary>
+        DWRITE_TRIMMING_GRANULARITY_NONE,
+        /// <summary>
+        /// Trimming occurs at character cluster boundary.
+        /// </summary>
+        DWRITE_TRIMMING_GRANULARITY_CHARACTER,
+        /// <summary>
+        /// Trimming occurs at word boundary.
+        /// </summary>
+        DWRITE_TRIMMING_GRANULARITY_WORD
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_TRIMMING
+    {
+        /// <summary>
+        /// Text granularity of which trimming applies.
+        /// </summary>
+        public DWRITE_TRIMMING_GRANULARITY granularity;
+        /// <summary>
+        /// Character code used as the delimiter signaling the beginning of the portion of text to be preserved,
+        /// most useful for path ellipsis, where the delimiter would be a slash. Leave this zero if there is no
+        /// delimiter.
+        /// </summary>
+        public uint delimiter;
+        /// <summary>
+        /// How many occurrences of the delimiter to step back. Leave this zero if there is no delimiter.
+        /// </summary>
+        public uint delimiterCount;
+    }
+
+
+    public enum DWRITE_FONT_WEIGHT
+    {
+        /// <summary>
+        /// Predefined font weight : Thin (100).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_THIN = 100,
+        /// <summary>
+        /// Predefined font weight : Extra-light (200).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_EXTRA_LIGHT = 200,
+        /// <summary>
+        /// Predefined font weight : Ultra-light (200).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_ULTRA_LIGHT = 200,
+        /// <summary>
+        /// Predefined font weight : Light (300).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_LIGHT = 300,
+        /// <summary>
+        /// Predefined font weight : Semi-light (350).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_SEMI_LIGHT = 350,
+        /// <summary>
+        /// Predefined font weight : Normal (400).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_NORMAL = 400,
+        /// <summary>
+        /// Predefined font weight : Regular (400).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_REGULAR = 400,
+        /// <summary>
+        /// Predefined font weight : Medium (500).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_MEDIUM = 500,
+        /// <summary>
+        /// Predefined font weight : Demi-bold (600).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_DEMI_BOLD = 600,
+        /// <summary>
+        /// Predefined font weight : Semi-bold (600).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_SEMI_BOLD = 600,
+        /// <summary>
+        /// Predefined font weight : Bold (700).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_BOLD = 700,
+        /// <summary>
+        /// Predefined font weight : Extra-bold (800).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_EXTRA_BOLD = 800,
+        /// <summary>
+        /// Predefined font weight : Ultra-bold (800).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_ULTRA_BOLD = 800,
+        /// <summary>
+        /// Predefined font weight : Black (900).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_BLACK = 900,
+        /// <summary>
+        /// Predefined font weight : Heavy (900).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_HEAVY = 900,
+        /// <summary>
+        /// Predefined font weight : Extra-black (950).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_EXTRA_BLACK = 950,
+        /// <summary>
+        /// Predefined font weight : Ultra-black (950).
+        /// </summary>
+        DWRITE_FONT_WEIGHT_ULTRA_BLACK = 950
+    }
+
+    [ComImport]
+    [Guid("8339FDE3-106F-47ab-8373-1C6295EB10B3")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteInlineObject
+    {
+        //HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY, bool isSideways, bool isRightToLeft, IUnknown* clientDrawingEffect);
+        HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY, bool isSideways, bool isRightToLeft, IntPtr clientDrawingEffect);
+        HRESULT GetMetrics(out DWRITE_INLINE_OBJECT_METRICS metrics);
+        HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
+        HRESULT GetBreakConditions(out DWRITE_BREAK_CONDITION breakConditionBefore, out DWRITE_BREAK_CONDITION breakConditionAfter);
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_INLINE_OBJECT_METRICS
+    {
+        /// <summary>
+        /// Width of the inline object.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// Height of the inline object as measured from top to bottom.
+        /// </summary>
+        public float height;
+        /// <summary>
+        /// Distance from the top of the object to the baseline where it is lined up with the adjacent text.
+        /// If the baseline is at the bottom, baseline simply equals height.
+        /// </summary>
+        public float baseline;
+        /// <summary>
+        /// Flag indicating whether the object is to be placed upright or alongside the text baseline
+        /// for vertical text.
+        /// </summary>
+        public bool supportsSideways;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_OVERHANG_METRICS
+    {
+        /// <summary>
+        /// The distance from the left-most visible DIP to its left alignment edge.
+        /// </summary>
+        public float left;
+        /// <summary>
+        /// The distance from the top-most visible DIP to its top alignment edge.
+        /// </summary>
+        public float top;
+        /// <summary>
+        /// The distance from the right-most visible DIP to its right alignment edge.
+        /// </summary>
+        public float right;
+        /// <summary>
+        /// The distance from the bottom-most visible DIP to its bottom alignment edge.
+        /// </summary>
+        public float bottom;
+    }
+
+    public enum DWRITE_BREAK_CONDITION
+    {
+        /// <summary>
+        /// Whether a break is allowed is determined by the condition of the
+        /// neighboring text span or inline object.
+        /// </summary>
+        DWRITE_BREAK_CONDITION_NEUTRAL,
+        /// <summary>
+        /// A break is allowed, unless overruled by the condition of the
+        /// neighboring text span or inline object, either prohibited by a
+        /// May Not or forced by a Must.
+        /// </summary>
+        DWRITE_BREAK_CONDITION_CAN_BREAK,
+        /// <summary>
+        /// There should be no break, unless overruled by a Must condition from
+        /// the neighboring text span or inline object.
+        /// </summary>
+        DWRITE_BREAK_CONDITION_MAY_NOT_BREAK,
+        /// <summary>
+        /// The break must happen, regardless of the condition of the adjacent
+        /// text span or inline object.
+        /// </summary>
+        DWRITE_BREAK_CONDITION_MUST_BREAK
+    }
+
+    [ComImport]
+    [Guid("eaf3a2da-ecf4-4d24-b644-b34f6842024b")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWritePixelSnapping
+    {
+        [PreserveSig]
+        HRESULT IsPixelSnappingDisabled(IntPtr clientDrawingContext, out bool isDisabled);
+        [PreserveSig]
+        HRESULT GetCurrentTransform(IntPtr clientDrawingContext, out DWRITE_MATRIX transform);
+        [PreserveSig]
+        HRESULT GetPixelsPerDip(IntPtr clientDrawingContext, [MarshalAs(UnmanagedType.R4)] out float pixelsPerDip);
+    }
+
+    [ComImport]
+    [Guid("ef8a8135-5cc6-45fe-8825-c5a0724eb819")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteTextRenderer : IDWritePixelSnapping
+    {
+        #region IDWritePixelSnapping
+        [PreserveSig]
+        new HRESULT IsPixelSnappingDisabled(IntPtr clientDrawingContext, out bool isDisabled);
+        [PreserveSig]
+        new HRESULT GetCurrentTransform(IntPtr clientDrawingContext, out DWRITE_MATRIX transform);
+        [PreserveSig]
+        new HRESULT GetPixelsPerDip(IntPtr clientDrawingContext, [MarshalAs(UnmanagedType.R4)] out float pixelsPerDip);
+        #endregion
+
+        [PreserveSig]
+        HRESULT DrawGlyphRun(IntPtr clientDrawingContext, float baselineOriginX, float baselineOriginY, DWRITE_MEASURING_MODE measuringMode,
+        ref DWRITE_GLYPH_RUN glyphRun, IntPtr glyphRunDescription, IntPtr clientDrawingEffect);
+        [PreserveSig]
+        HRESULT DrawUnderline(IntPtr clientDrawingContext, float baselineOriginX, float baselineOriginY, DWRITE_UNDERLINE underline, IntPtr clientDrawingEffect);
+        [PreserveSig]
+        HRESULT DrawStrikethrough(IntPtr clientDrawingContext, float baselineOriginX, float baselineOriginY, DWRITE_STRIKETHROUGH strikethrough, IntPtr clientDrawingEffect);
+        [PreserveSig]
+        HRESULT DrawInlineObject(IntPtr clientDrawingContext, float originX, float originY, IDWriteInlineObject inlineObject, bool isSideways, bool isRightToLeft, IntPtr clientDrawingEffect);
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_MATRIX
+    {
+        /// <summary>
+        /// Horizontal scaling / cosine of rotation
+        /// </summary>
+        public float m11;
+        /// <summary>
+        /// Vertical shear / sine of rotation
+        /// </summary>
+        public float m12;
+        /// <summary>
+        /// Horizontal shear / negative sine of rotation
+        /// </summary>
+        public float m21;
+        /// <summary>
+        /// Vertical scaling / cosine of rotation
+        /// </summary>
+        public float m22;
+        /// <summary>
+        /// Horizontal shift (always orthogonal regardless of rotation)
+        /// </summary>
+        public float dx;
+        /// <summary>
+        /// Vertical shift (always orthogonal regardless of rotation)
+        /// </summary>
+        public float dy;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_GLYPH_RUN
+    {
+        /// <summary>
+        /// The physical font face to draw with.
+        /// </summary>
+        public IntPtr fontFace;
+        /// <summary>
+        /// Logical size of the font in DIPs, not points (equals 1/96 inch).
+        /// </summary>
+        public float fontEmSize;
+        /// <summary>
+        /// The number of glyphs.
+        /// </summary>
+        public uint glyphCount;
+        /// <summary>
+        /// The indices to render.
+        /// </summary>
+        public IntPtr glyphIndices;
+        /// <summary>
+        /// Glyph advance widths.
+        /// </summary>
+        public IntPtr glyphAdvances;
+        /// <summary>
+        /// Glyph offsets.
+        /// </summary>
+        public IntPtr glyphOffsets;
+        /// <summary>
+        /// If true, specifies that glyphs are rotated 90 degrees to the left and vertical metrics are used. Vertical writing is achieved by specifying isSideways = true and rotating the entire run 90 degrees to the right via a rotate transform.
+        /// </summary>
+        public bool isSideways;
+        /// <summary>
+        /// The implicit resolved bidi level of the run. Odd levels indicate right-to-left languages like Hebrew and Arabic, while even levels indicate left-to-right languages like English and Japanese (when written horizontally). For right-to-left languages, the text origin is on the right, and text should be drawn to the left.
+        /// </summary>
+        public uint bidiLevel;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_UNDERLINE
+    {
+        /// <summary>
+        /// Width of the underline, measured parallel to the baseline.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// Thickness of the underline, measured perpendicular to the
+        /// baseline.
+        /// </summary>
+        public float thickness;
+        /// <summary>
+        /// Offset of the underline from the baseline.
+        /// A positive offset represents a position below the baseline and
+        /// a negative offset is above.
+        /// </summary>
+        public float offset;
+        /// <summary>
+        /// Height of the tallest run where the underline applies.
+        /// </summary>
+        public float runHeight;
+        /// <summary>
+        /// Reading direction of the text associated with the underline.  This 
+        /// value is used to interpret whether the width value runs horizontally 
+        /// or vertically.
+        /// </summary>
+        public DWRITE_READING_DIRECTION readingDirection;
+        /// <summary>
+        /// Flow direction of the text associated with the underline.  This value
+        /// is used to interpret whether the thickness value advances top to 
+        /// bottom, left to right, or right to left.
+        /// </summary>
+        public DWRITE_FLOW_DIRECTION flowDirection;
+        /// <summary>
+        /// Locale of the text the underline is being drawn under. Can be
+        /// pertinent where the locale affects how the underline is drawn.
+        /// For example, in vertical text, the underline belongs on the
+        /// left for Chinese but on the right for Japanese.
+        /// This choice is completely left up to higher levels.
+        /// </summary>
+        public string localeName;
+        /// <summary>
+        /// The measuring mode can be useful to the renderer to determine how
+        /// underlines are rendered, e.g. rounding the thickness to a whole pixel
+        /// in GDI-compatible modes.
+        /// </summary>
+        public DWRITE_MEASURING_MODE measuringMode;
+    }
+
+    [ComImport]
+    [Guid("a84cee02-3eea-4eee-a827-87c1a02a0fcc")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontCollection
+    {
+        //[return: MarshalAs(UnmanagedType.U4)]
+        [PreserveSig]
+        uint GetFontFamilyCount();
+        HRESULT GetFontFamily(uint index, out IDWriteFontFamily fontFamily);
+        HRESULT FindFamilyName(string familyName, out uint index, out bool exists);
+        HRESULT GetFontFromFontFace(IDWriteFontFace fontFace, out IDWriteFont font);
+    }
+
+    [ComImport]
+    [Guid("1a0d8438-1d97-4ec1-aef9-a2fb86ed6acb")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontList
+    {
+        HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
+        [PreserveSig]
+        int GetFontCount();
+        HRESULT GetFont(int index, out IDWriteFont font);
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_STRIKETHROUGH
+    {
+        /// <summary>
+        /// Width of the strikethrough, measured parallel to the baseline.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// Thickness of the strikethrough, measured perpendicular to the
+        /// baseline.
+        /// </summary>
+        public float thickness;
+        /// <summary>
+        /// Offset of the strikethrough from the baseline.
+        /// A positive offset represents a position below the baseline and
+        /// a negative offset is above.
+        /// </summary>
+        public float offset;
+        /// <summary>
+        /// Reading direction of the text associated with the strikethrough.  This
+        /// value is used to interpret whether the width value runs horizontally 
+        /// or vertically.
+        /// </summary>
+        public DWRITE_READING_DIRECTION readingDirection;
+        /// <summary>
+        /// Flow direction of the text associated with the strikethrough.  This 
+        /// value is used to interpret whether the thickness value advances top to
+        /// bottom, left to right, or right to left.
+        /// </summary>
+        public DWRITE_FLOW_DIRECTION flowDirection;
+        /// <summary>
+        /// Locale of the range. Can be pertinent where the locale affects the style.
+        /// </summary>
+        public string localeName;
+        /// <summary>
+        /// The measuring mode can be useful to the renderer to determine how
+        /// underlines are rendered, e.g. rounding the thickness to a whole pixel
+        /// in GDI-compatible modes.
+        /// </summary>
+        public DWRITE_MEASURING_MODE measuringMode;
+    }
+
+    [ComImport]
+    [Guid("da20d8ef-812a-4c43-9802-62ec4abd7add")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontFamily : IDWriteFontList
+    {
+        #region IDWriteFontList
+        new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
+        [PreserveSig]
+        new int GetFontCount();
+        new HRESULT GetFont(int index, out IDWriteFont font);
+        #endregion
+
+        HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        HRESULT GetFirstMatchingFont(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFont matchingFont);
+        HRESULT GetMatchingFonts(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFontList matchingFonts);
+    }
+
+    [ComImport]
+    [Guid("acd16696-8c14-4f5d-877e-fe3fc1d32737")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFont
+    {
+        HRESULT GetFontFamily(out IDWriteFontFamily fontFamily);
+        [PreserveSig]
+        DWRITE_FONT_WEIGHT GetWeight();
+        [PreserveSig]
+        DWRITE_FONT_STRETCH GetStretch();
+        [PreserveSig]
+        DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
+        bool IsSymbolFont();
+        HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
+        [PreserveSig]
+        DWRITE_FONT_SIMULATIONS GetSimulations();
+        void GetMetrics(out DWRITE_FONT_METRICS fontMetrics);
+        HRESULT HasCharacter(int unicodeValue, out bool exists);
+        [PreserveSig]
+        HRESULT CreateFontFace(out IDWriteFontFace fontFace);
+    }
+
+    public enum DWRITE_INFORMATIONAL_STRING_ID
+    {
+        /// <summary>
+        /// Unspecified name ID.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_NONE,
+        /// <summary>
+        /// Copyright notice provided by the font.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_COPYRIGHT_NOTICE,
+        /// <summary>
+        /// String containing a version number.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_VERSION_STRINGS,
+        /// <summary>
+        /// Trademark information provided by the font.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_TRADEMARK,
+        /// <summary>
+        /// Name of the font manufacturer.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_MANUFACTURER,
+        /// <summary>
+        /// Name of the font designer.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_DESIGNER,
+        /// <summary>
+        /// URL of font designer (with protocol, e.g., http://, ftp://).
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_DESIGNER_URL,
+        /// <summary>
+        /// Description of the font. Can contain revision information, usage recommendations, history, features, etc.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_DESCRIPTION,
+        /// <summary>
+        /// URL of font vendor (with protocol, e.g., http://, ftp://). If a unique serial number is embedded in the URL, it can be used to register the font.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_FONT_VENDOR_URL,
+        /// <summary>
+        /// Description of how the font may be legally used, or different example scenarios for licensed use. This field should be written in plain language, not legalese.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_LICENSE_DESCRIPTION,
+        /// <summary>
+        /// URL where additional licensing information can be found.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_LICENSE_INFO_URL,
+        /// <summary>
+        /// GDI-compatible family name. Because GDI allows a maximum of four fonts per family, fonts in the same family may have different GDI-compatible family names
+        /// (e.g., "Arial", "Arial Narrow", "Arial Black").
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_WIN32_FAMILY_NAMES,
+        /// <summary>
+        /// GDI-compatible subfamily name.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_WIN32_SUBFAMILY_NAMES,
+        /// <summary>
+        /// Family name preferred by the designer. This enables font designers to group more than four fonts in a single family without losing compatibility with
+        /// GDI. This name is typically only present if it differs from the GDI-compatible family name.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_PREFERRED_FAMILY_NAMES,
+        /// <summary>
+        /// Subfamily name preferred by the designer. This name is typically only present if it differs from the GDI-compatible subfamily name. 
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_PREFERRED_SUBFAMILY_NAMES,
+        /// <summary>
+        /// Sample text. This can be the font name or any other text that the designer thinks is the best example to display the font in.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_SAMPLE_TEXT,
+        /// <summary>
+        /// The full name of the font, e.g. "Arial Bold", from name id 4 in the name table.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_FULL_NAME,
+        /// <summary>
+        /// The postscript name of the font, e.g. "GillSans-Bold" from name id 6 in the name table.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_POSTSCRIPT_NAME,
+        /// <summary>
+        /// The postscript CID findfont name, from name id 20 in the name table.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_POSTSCRIPT_CID_NAME,
+        /// <summary>
+        /// Family name for the weight-width-slope model.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_WWS_FAMILY_NAME,
+        /// <summary>
+        /// Script/language tag to identify the scripts or languages that the font was
+        /// primarily designed to support. See DWRITE_FONT_PROPERTY_ID_DESIGN_SCRIPT_LANGUAGE_TAG
+        /// for a longer description.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_DESIGN_SCRIPT_LANGUAGE_TAG,
+        /// <summary>
+        /// Script/language tag to identify the scripts or languages that the font declares
+        /// it is able to support.
+        /// </summary>
+        DWRITE_INFORMATIONAL_STRING_SUPPORTED_SCRIPT_LANGUAGE_TAG,
+    }
+
+    [ComImport]
+    [Guid("08256209-099a-4b34-b86d-c22b110e7771")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteLocalizedStrings
+    {
+        [PreserveSig]
+        int GetCount();
+        HRESULT FindLocaleName(string localeName, out uint index, out bool exists);
+        HRESULT GetLocaleNameLength(uint index, out uint length);
+        HRESULT GetLocaleName(uint index, out string localeName, uint size);
+        HRESULT GetStringLength(uint index, out uint length);
+        HRESULT GetString(uint index, System.Text.StringBuilder stringBuffer, uint size);
+    }
+
+    /// <summary>
+    /// The font stretch enumeration describes relative change from the normal aspect ratio
+    /// as specified by a font designer for the glyphs in a font.
+    /// Values less than 1 or greater than 9 are considered to be invalid, and they are rejected by font API functions.
+    /// </summary>
+    public enum DWRITE_FONT_STRETCH
+    {
+        /// <summary>
+        /// Predefined font stretch : Not known (0).
+        /// </summary>
+        DWRITE_FONT_STRETCH_UNDEFINED = 0,
+        /// <summary>
+        /// Predefined font stretch : Ultra-condensed (1).
+        /// </summary>
+        DWRITE_FONT_STRETCH_ULTRA_CONDENSED = 1,
+        /// <summary>
+        /// Predefined font stretch : Extra-condensed (2).
+        /// </summary>
+        DWRITE_FONT_STRETCH_EXTRA_CONDENSED = 2,
+        /// <summary>
+        /// Predefined font stretch : Condensed (3).
+        /// </summary>
+        DWRITE_FONT_STRETCH_CONDENSED = 3,
+        /// <summary>
+        /// Predefined font stretch : Semi-condensed (4).
+        /// </summary>
+        DWRITE_FONT_STRETCH_SEMI_CONDENSED = 4,
+        /// <summary>
+        /// Predefined font stretch : Normal (5).
+        /// </summary>
+        DWRITE_FONT_STRETCH_NORMAL = 5,
+        /// <summary>
+        /// Predefined font stretch : Medium (5).
+        /// </summary>
+        DWRITE_FONT_STRETCH_MEDIUM = 5,
+        /// <summary>
+        /// Predefined font stretch : Semi-expanded (6).
+        /// </summary>
+        DWRITE_FONT_STRETCH_SEMI_EXPANDED = 6,
+        /// <summary>
+        /// Predefined font stretch : Expanded (7).
+        /// </summary>
+        DWRITE_FONT_STRETCH_EXPANDED = 7,
+        /// <summary>
+        /// Predefined font stretch : Extra-expanded (8).
+        /// </summary>
+        DWRITE_FONT_STRETCH_EXTRA_EXPANDED = 8,
+        /// <summary>
+        /// Predefined font stretch : Ultra-expanded (9).
+        /// </summary>
+        DWRITE_FONT_STRETCH_ULTRA_EXPANDED = 9
+    }
+
+    public enum DWRITE_FONT_STYLE
+    {
+        /// <summary>
+        /// Font slope style : Normal.
+        /// </summary>
+        DWRITE_FONT_STYLE_NORMAL,
+        /// <summary>
+        /// Font slope style : Oblique.
+        /// </summary>
+        DWRITE_FONT_STYLE_OBLIQUE,
+        /// <summary>
+        /// Font slope style : Italic.
+        /// </summary>
+        DWRITE_FONT_STYLE_ITALIC
+    }
+
+    [ComImport]
+    [Guid("5f49804d-7024-4d43-bfa9-d25984f53849")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontFace
+    {
+        [PreserveSig]
+        DWRITE_FONT_FACE_TYPE GetType();
+        HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
+        [PreserveSig]
+        int GetIndex();
+        [PreserveSig]
+        DWRITE_FONT_SIMULATIONS GetSimulations();
+        [PreserveSig]
+        bool IsSymbolFont();
+        void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
+        UInt16 GetGlyphCount();
+        HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
+        [PreserveSig]
+        HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        void ReleaseFontTable(IntPtr tableContext);
+        HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
+    }
+
+    public enum DWRITE_FONT_FACE_TYPE
+    {
+        /// <summary>
+        /// OpenType font face with CFF outlines.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_CFF,
+        /// <summary>
+        /// OpenType font face with TrueType outlines.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_TRUETYPE,
+        /// <summary>
+        /// OpenType font face that is a part of a TrueType or CFF collection.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_OPENTYPE_COLLECTION,
+        /// <summary>
+        /// A Type 1 font face.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_TYPE1,
+        /// <summary>
+        /// A vector .FON format font face.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_VECTOR,
+        /// <summary>
+        /// A bitmap .FON format font face.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_BITMAP,
+        /// <summary>
+        /// Font face type is not recognized by the DirectWrite font system.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_UNKNOWN,
+        /// <summary>
+        /// The font data includes only the CFF table from an OpenType CFF font.
+        /// This font face type can be used only for embedded fonts (i.e., custom
+        /// font file loaders) and the resulting font face object supports only the
+        /// minimum functionality necessary to render glyphs.
+        /// </summary>
+        DWRITE_FONT_FACE_TYPE_RAW_CFF,
+        // The following name is obsolete, but kept as an alias to avoid breaking existing code.
+        DWRITE_FONT_FACE_TYPE_TRUETYPE_COLLECTION = DWRITE_FONT_FACE_TYPE_OPENTYPE_COLLECTION,
+    }
+
+    public enum DWRITE_FONT_SIMULATIONS
+    {
+        /// <summary>
+        /// No simulations are performed.
+        /// </summary>
+        DWRITE_FONT_SIMULATIONS_NONE = 0x0000,
+        /// <summary>
+        /// Algorithmic emboldening is performed.
+        /// </summary>
+        DWRITE_FONT_SIMULATIONS_BOLD = 0x0001,
+        /// <summary>
+        /// Algorithmic italicization is performed.
+        /// </summary>
+        DWRITE_FONT_SIMULATIONS_OBLIQUE = 0x0002
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_FONT_METRICS
+    {
+        /// <summary>
+        /// The number of font design units per em unit.
+        /// Font files use their own coordinate system of font design units.
+        /// A font design unit is the smallest measurable unit in the em square,
+        /// an imaginary square that is used to size and align glyphs.
+        /// The concept of em square is used as a reference scale factor when defining font size and device transformation semantics.
+        /// The size of one em square is also commonly used to compute the paragraph indentation value.
+        /// </summary>
+        public UInt16 designUnitsPerEm;
+        /// <summary>
+        /// Ascent value of the font face in font design units.
+        /// Ascent is the distance from the top of font character alignment box to English baseline.
+        /// </summary>
+        public UInt16 ascent;
+        /// <summary>
+        /// Descent value of the font face in font design units.
+        /// Descent is the distance from the bottom of font character alignment box to English baseline.
+        /// </summary>
+        public UInt16 descent;
+        /// <summary>
+        /// Line gap in font design units.
+        /// Recommended additional white space to add between lines to improve legibility. The recommended line spacing 
+        /// (baseline-to-baseline distance) is thus the sum of ascent, descent, and lineGap. The line gap is usually 
+        /// positive or zero but can be negative, in which case the recommended line spacing is less than the height
+        /// of the character alignment box.
+        /// </summary>
+        public UInt16 lineGap;
+        /// <summary>
+        /// Cap height value of the font face in font design units.
+        /// Cap height is the distance from English baseline to the top of a typical English capital.
+        /// Capital "H" is often used as a reference character for the purpose of calculating the cap height value.
+        /// </summary>
+        public UInt16 capHeight;
+        /// <summary>
+        /// x-height value of the font face in font design units.
+        /// x-height is the distance from English baseline to the top of lowercase letter "x", or a similar lowercase character.
+        /// </summary>
+        public UInt16 xHeight;
+        /// <summary>
+        /// The underline position value of the font face in font design units.
+        /// Underline position is the position of underline relative to the English baseline.
+        /// The value is usually made negative in order to place the underline below the baseline.
+        /// </summary>
+        public UInt16 underlinePosition;
+        /// <summary>
+        /// The suggested underline thickness value of the font face in font design units.
+        /// </summary>
+        public UInt16 underlineThickness;
+        /// <summary>
+        /// The strikethrough position value of the font face in font design units.
+        /// Strikethrough position is the position of strikethrough relative to the English baseline.
+        /// The value is usually made positive in order to place the strikethrough above the baseline.
+        /// </summary>
+        public UInt16 strikethroughPosition;
+        /// <summary>
+        /// The suggested strikethrough thickness value of the font face in font design units.
+        /// </summary>
+        public UInt16 strikethroughThickness;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_GLYPH_METRICS
+    {
+        /// <summary>
+        /// Specifies the X offset from the glyph origin to the left edge of the black box.
+        /// The glyph origin is the current horizontal writing position.
+        /// A negative value means the black box extends to the left of the origin (often true for lowercase italic 'f').
+        /// </summary>
+        public int leftSideBearing;
+        /// <summary>
+        /// Specifies the X offset from the origin of the current glyph to the origin of the next glyph when writing horizontally.
+        /// </summary>
+        public int advanceWidth;
+        /// <summary>
+        /// Specifies the X offset from the right edge of the black box to the origin of the next glyph when writing horizontally.
+        /// The value is negative when the right edge of the black box overhangs the layout box.
+        /// </summary>
+        public int rightSideBearing;
+        /// <summary>
+        /// Specifies the vertical offset from the vertical origin to the top of the black box.
+        /// Thus, a positive value adds whitespace whereas a negative value means the glyph overhangs the top of the layout box.
+        /// </summary>
+        public int topSideBearing;
+        /// <summary>
+        /// Specifies the Y offset from the vertical origin of the current glyph to the vertical origin of the next glyph when writing vertically.
+        /// (Note that the term "origin" by itself denotes the horizontal origin. The vertical origin is different.
+        /// Its Y coordinate is specified by verticalOriginY value,
+        /// and its X coordinate is half the advanceWidth to the right of the horizontal origin).
+        /// </summary>
+        public int advanceHeight;
+        /// <summary>
+        /// Specifies the vertical distance from the black box's bottom edge to the advance height.
+        /// Positive when the bottom edge of the black box is within the layout box.
+        /// Negative when the bottom edge of black box overhangs the layout box.
+        /// </summary>
+        public int bottomSideBearing;
+        /// <summary>
+        /// Specifies the Y coordinate of a glyph's vertical origin, in the font's design coordinate system.
+        /// The y coordinate of a glyph's vertical origin is the sum of the glyph's top side bearing
+        /// and the top (i.e. yMax) of the glyph's bounding box.
+        /// </summary>
+        public int verticalOriginY;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_GLYPH_OFFSET
+    {
+        /// <summary>
+        /// Offset in the advance direction of the run. A positive advance offset moves the glyph to the right
+        /// (in pre-transform coordinates) if the run is left-to-right or to the left if the run is right-to-left.
+        /// </summary>
+        public float advanceOffset;
+        /// <summary>
+        /// Offset in the ascent direction, i.e., the direction ascenders point. A positive ascender offset moves
+        /// the glyph up (in pre-transform coordinates).
+        /// </summary>
+        public float ascenderOffset;
+    }
+
+    [ComImport]
+    [Guid("53737037-6d14-410b-9bfe-0b182bb70961")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteTextLayout : IDWriteTextFormat
+    {
+        #region IDWriteTextFormat
+        new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
+        [PreserveSig]
+        new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
+        [PreserveSig]
+        new DWRITE_PARAGRAPH_ALIGNMENT GetParagraphAlignment();
+        [PreserveSig]
+        new DWRITE_WORD_WRAPPING GetWordWrapping();
+        [PreserveSig]
+        new DWRITE_READING_DIRECTION GetReadingDirection();
+        [PreserveSig]
+        new DWRITE_FLOW_DIRECTION GetFlowDirection();
+        [PreserveSig]
+        new float GetIncrementalTabStop();
+        new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
+        [PreserveSig]
+        new uint GetFontFamilyNameLength();
+        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new DWRITE_FONT_WEIGHT GetFontWeight();
+        [PreserveSig]
+        new DWRITE_FONT_STYLE GetFontStyle();
+        [PreserveSig]
+        new DWRITE_FONT_STRETCH GetFontStretch();
+        [PreserveSig]
+        new float GetFontSize();
+        [PreserveSig]
+        new uint GetLocaleNameLength();
+        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        #endregion
+
+        HRESULT SetMaxWidth(float maxWidth);
+        HRESULT SetMaxHeight(float maxHeight);
+        HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
+        //HRESULT SetDrawingEffect(IUnknown drawingEffect, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        float GetMaxWidth();
+        [PreserveSig]
+        float GetMaxHeight();
+        HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
+        //HRESULT GetDrawingEffect(uint currentPosition, out IUnknown drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
+        HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
+        HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
+        HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        HRESULT DetermineMinWidth(out float minWidth);
+        HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_TEXT_RANGE
+    {
+        /// <summary>
+        ///         ''' The start text position of the range.
+        ///         ''' </summary>
+        public uint startPosition;
+        /// <summary>
+        ///         ''' The number of text positions in the range.
+        ///         ''' </summary>
+        public uint length;
+        public DWRITE_TEXT_RANGE(uint startPosition, uint length)
+        {
+            this.startPosition = startPosition;
+            this.length = length;
+        }
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_LINE_METRICS
+    {
+        /// <summary>
+        /// The number of total text positions in the line.
+        /// This includes any trailing whitespace and newline characters.
+        /// </summary>
+        public int length;
+        /// <summary>
+        /// The number of whitespace positions at the end of the line.  Newline
+        /// sequences are considered whitespace.
+        /// </summary>
+        public int trailingWhitespaceLength;
+        /// <summary>
+        /// The number of characters in the newline sequence at the end of the line.
+        /// If the count is zero, then the line was either wrapped or it is the
+        /// end of the text.
+        /// </summary>
+        public int newlineLength;
+        /// <summary>
+        /// Height of the line as measured from top to bottom.
+        /// </summary>
+        public float height;
+        /// <summary>
+        /// Distance from the top of the line to its baseline.
+        /// </summary>
+        public float baseline;
+        /// <summary>
+        /// The line is trimmed.
+        /// </summary>
+        public bool isTrimmed;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_TEXT_METRICS
+    {
+        /// <summary>
+        /// Left-most point of formatted text relative to layout box
+        /// (excluding any glyph overhang).
+        /// </summary>
+        public float left;
+        /// <summary>
+        /// Top-most point of formatted text relative to layout box
+        /// (excluding any glyph overhang).
+        /// </summary>
+        public float top;
+        /// <summary>
+        /// The width of the formatted text ignoring trailing whitespace
+        /// at the end of each line.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// The width of the formatted text taking into account the
+        /// trailing whitespace at the end of each line.
+        /// </summary>
+        public float widthIncludingTrailingWhitespace;
+        /// <summary>
+        /// The height of the formatted text. The height of an empty string
+        /// is determined by the size of the default font's line height.
+        /// </summary>
+        public float height;
+        /// <summary>
+        /// Initial width given to the layout. Depending on whether the text
+        /// was wrapped or not, it can be either larger or smaller than the
+        /// text content width.
+        /// </summary>
+        public float layoutWidth;
+        /// <summary>
+        /// Initial height given to the layout. Depending on the length of the
+        /// text, it may be larger or smaller than the text content height.
+        /// </summary>
+        public float layoutHeight;
+        /// <summary>
+        /// The maximum reordering count of any line of text, used
+        /// to calculate the most number of hit-testing boxes needed.
+        /// If the layout has no bidirectional text or no text at all,
+        /// the minimum level is 1.
+        /// </summary>
+        public int maxBidiReorderingDepth;
+        /// <summary>
+        /// Total number of lines.
+        /// </summary>
+        public int lineCount;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_CLUSTER_METRICS
+    {
+        /// <summary>
+        /// The total advance width of all glyphs in the cluster.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// The number of text positions in the cluster.
+        /// </summary>
+        public UInt16 length;
+        /// <summary>
+        /// Indicate whether line can be broken right after the cluster.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U2, SizeConst = 1)]
+        public UInt16 canWrapLineAfter;
+        /// <summary>
+        /// Indicate whether the cluster corresponds to whitespace character.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U2, SizeConst = 1)]
+        public UInt16 isWhitespace;
+        /// <summary>
+        /// Indicate whether the cluster corresponds to a newline character.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U2, SizeConst = 1)]
+        public UInt16 isNewline;
+        /// <summary>
+        /// Indicate whether the cluster corresponds to soft hyphen character.
+        /// </summary>
+        [MarshalAs(UnmanagedType.U2, SizeConst = 1)]
+        public UInt16 isSoftHyphen;
+        /// <summary>
+        /// Indicate whether the cluster is read from right to left.
+        /// </summary>
+        public UInt16 isRightToLeft;
+        [MarshalAs(UnmanagedType.U2, SizeConst = 11)]
+        public UInt16 padding;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_HIT_TEST_METRICS
+    {
+        /// <summary>
+        /// First text position within the geometry.
+        /// </summary>
+        public int textPosition;
+        /// <summary>
+        /// Number of text positions within the geometry.
+        /// </summary>
+        public int length;
+        /// <summary>
+        /// Left position of the top-left coordinate of the geometry.
+        /// </summary>
+        public float left;
+        /// <summary>
+        /// Top position of the top-left coordinate of the geometry.
+        /// </summary>
+        public float top;
+        /// <summary>
+        /// Geometry's width.
+        /// </summary>
+        public float width;
+        /// <summary>
+        /// Geometry's height.
+        /// </summary>
+        public float height;
+        /// <summary>
+        /// Bidi level of text positions enclosed within the geometry.
+        /// </summary>
+        public int bidiLevel;
+        /// <summary>
+        /// Geometry encloses text?
+        /// </summary>
+        public bool isText;
+        /// <summary>
+        /// Range is trimmed.
+        /// </summary>
+        public bool isTrimmed;
+    }
+
+    [ComImport]
+    [Guid("55f1112b-1dc2-4b3c-9541-f46894ed85b6")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteTypography
+    {
+        HRESULT AddFontFeature(DWRITE_FONT_FEATURE fontFeature);
+        [PreserveSig]
+        uint GetFontFeatureCount();
+        HRESULT GetFontFeature(uint fontFeatureIndex, out DWRITE_FONT_FEATURE fontFeature);
+    }
+
+    public enum DWRITE_FONT_FEATURE_TAG
+    {
+        DWRITE_FONT_FEATURE_TAG_ALTERNATIVE_FRACTIONS = 0x63726661, // 'afrc'
+        DWRITE_FONT_FEATURE_TAG_PETITE_CAPITALS_FROM_CAPITALS = 0x63703263, // 'c2pc'
+        DWRITE_FONT_FEATURE_TAG_SMALL_CAPITALS_FROM_CAPITALS = 0x63733263, // 'c2sc'
+        DWRITE_FONT_FEATURE_TAG_CONTEXTUAL_ALTERNATES = 0x746c6163, // 'calt'
+        DWRITE_FONT_FEATURE_TAG_CASE_SENSITIVE_FORMS = 0x65736163, // 'case'
+        DWRITE_FONT_FEATURE_TAG_GLYPH_COMPOSITION_DECOMPOSITION = 0x706d6363, // 'ccmp'
+        DWRITE_FONT_FEATURE_TAG_CONTEXTUAL_LIGATURES = 0x67696c63, // 'clig'
+        DWRITE_FONT_FEATURE_TAG_CAPITAL_SPACING = 0x70737063, // 'cpsp'
+        DWRITE_FONT_FEATURE_TAG_CONTEXTUAL_SWASH = 0x68777363, // 'cswh'
+        DWRITE_FONT_FEATURE_TAG_CURSIVE_POSITIONING = 0x73727563, // 'curs'
+        DWRITE_FONT_FEATURE_TAG_DEFAULT = 0x746c6664, // 'dflt'
+        DWRITE_FONT_FEATURE_TAG_DISCRETIONARY_LIGATURES = 0x67696c64, // 'dlig'
+        DWRITE_FONT_FEATURE_TAG_EXPERT_FORMS = 0x74707865, // 'expt'
+        DWRITE_FONT_FEATURE_TAG_FRACTIONS = 0x63617266, // 'frac'
+        DWRITE_FONT_FEATURE_TAG_FULL_WIDTH = 0x64697766, // 'fwid'
+        DWRITE_FONT_FEATURE_TAG_HALF_FORMS = 0x666c6168, // 'half'
+        DWRITE_FONT_FEATURE_TAG_HALANT_FORMS = 0x6e6c6168, // 'haln'
+        DWRITE_FONT_FEATURE_TAG_ALTERNATE_HALF_WIDTH = 0x746c6168, // 'halt'
+        DWRITE_FONT_FEATURE_TAG_HISTORICAL_FORMS = 0x74736968, // 'hist'
+        DWRITE_FONT_FEATURE_TAG_HORIZONTAL_KANA_ALTERNATES = 0x616e6b68, // 'hkna'
+        DWRITE_FONT_FEATURE_TAG_HISTORICAL_LIGATURES = 0x67696c68, // 'hlig'
+        DWRITE_FONT_FEATURE_TAG_HALF_WIDTH = 0x64697768, // 'hwid'
+        DWRITE_FONT_FEATURE_TAG_HOJO_KANJI_FORMS = 0x6f6a6f68, // 'hojo'
+        DWRITE_FONT_FEATURE_TAG_JIS04_FORMS = 0x3430706a, // 'jp04'
+        DWRITE_FONT_FEATURE_TAG_JIS78_FORMS = 0x3837706a, // 'jp78'
+        DWRITE_FONT_FEATURE_TAG_JIS83_FORMS = 0x3338706a, // 'jp83'
+        DWRITE_FONT_FEATURE_TAG_JIS90_FORMS = 0x3039706a, // 'jp90'
+        DWRITE_FONT_FEATURE_TAG_KERNING = 0x6e72656b, // 'kern'
+        DWRITE_FONT_FEATURE_TAG_STANDARD_LIGATURES = 0x6167696c, // 'liga'
+        DWRITE_FONT_FEATURE_TAG_LINING_FIGURES = 0x6d756e6c, // 'lnum'
+        DWRITE_FONT_FEATURE_TAG_LOCALIZED_FORMS = 0x6c636f6c, // 'locl'
+        DWRITE_FONT_FEATURE_TAG_MARK_POSITIONING = 0x6b72616d, // 'mark'
+        DWRITE_FONT_FEATURE_TAG_MATHEMATICAL_GREEK = 0x6b72676d, // 'mgrk'
+        DWRITE_FONT_FEATURE_TAG_MARK_TO_MARK_POSITIONING = 0x6b6d6b6d, // 'mkmk'
+        DWRITE_FONT_FEATURE_TAG_ALTERNATE_ANNOTATION_FORMS = 0x746c616e, // 'nalt'
+        DWRITE_FONT_FEATURE_TAG_NLC_KANJI_FORMS = 0x6b636c6e, // 'nlck'
+        DWRITE_FONT_FEATURE_TAG_OLD_STYLE_FIGURES = 0x6d756e6f, // 'onum'
+        DWRITE_FONT_FEATURE_TAG_ORDINALS = 0x6e64726f, // 'ordn'
+        DWRITE_FONT_FEATURE_TAG_PROPORTIONAL_ALTERNATE_WIDTH = 0x746c6170, // 'palt'
+        DWRITE_FONT_FEATURE_TAG_PETITE_CAPITALS = 0x70616370, // 'pcap'
+        DWRITE_FONT_FEATURE_TAG_PROPORTIONAL_FIGURES = 0x6d756e70, // 'pnum'
+        DWRITE_FONT_FEATURE_TAG_PROPORTIONAL_WIDTHS = 0x64697770, // 'pwid'
+        DWRITE_FONT_FEATURE_TAG_QUARTER_WIDTHS = 0x64697771, // 'qwid'
+        DWRITE_FONT_FEATURE_TAG_REQUIRED_LIGATURES = 0x67696c72, // 'rlig'
+        DWRITE_FONT_FEATURE_TAG_RUBY_NOTATION_FORMS = 0x79627572, // 'ruby'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_ALTERNATES = 0x746c6173, // 'salt'
+        DWRITE_FONT_FEATURE_TAG_SCIENTIFIC_INFERIORS = 0x666e6973, // 'sinf'
+        DWRITE_FONT_FEATURE_TAG_SMALL_CAPITALS = 0x70636d73, // 'smcp'
+        DWRITE_FONT_FEATURE_TAG_SIMPLIFIED_FORMS = 0x6c706d73, // 'smpl'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_1 = 0x31307373, // 'ss01'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_2 = 0x32307373, // 'ss02'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_3 = 0x33307373, // 'ss03'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_4 = 0x34307373, // 'ss04'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_5 = 0x35307373, // 'ss05'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_6 = 0x36307373, // 'ss06'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_7 = 0x37307373, // 'ss07'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_8 = 0x38307373, // 'ss08'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_9 = 0x39307373, // 'ss09'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_10 = 0x30317373, // 'ss10'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_11 = 0x31317373, // 'ss11'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_12 = 0x32317373, // 'ss12'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_13 = 0x33317373, // 'ss13'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_14 = 0x34317373, // 'ss14'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_15 = 0x35317373, // 'ss15'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_16 = 0x36317373, // 'ss16'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_17 = 0x37317373, // 'ss17'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_18 = 0x38317373, // 'ss18'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_19 = 0x39317373, // 'ss19'
+        DWRITE_FONT_FEATURE_TAG_STYLISTIC_SET_20 = 0x30327373, // 'ss20'
+        DWRITE_FONT_FEATURE_TAG_SUBSCRIPT = 0x73627573, // 'subs'
+        DWRITE_FONT_FEATURE_TAG_SUPERSCRIPT = 0x73707573, // 'sups'
+        DWRITE_FONT_FEATURE_TAG_SWASH = 0x68737773, // 'swsh'
+        DWRITE_FONT_FEATURE_TAG_TITLING = 0x6c746974, // 'titl'
+        DWRITE_FONT_FEATURE_TAG_TRADITIONAL_NAME_FORMS = 0x6d616e74, // 'tnam'
+        DWRITE_FONT_FEATURE_TAG_TABULAR_FIGURES = 0x6d756e74, // 'tnum'
+        DWRITE_FONT_FEATURE_TAG_TRADITIONAL_FORMS = 0x64617274, // 'trad'
+        DWRITE_FONT_FEATURE_TAG_THIRD_WIDTHS = 0x64697774, // 'twid'
+        DWRITE_FONT_FEATURE_TAG_UNICASE = 0x63696e75, // 'unic'
+        DWRITE_FONT_FEATURE_TAG_VERTICAL_WRITING = 0x74726576, // 'vert'
+        DWRITE_FONT_FEATURE_TAG_VERTICAL_ALTERNATES_AND_ROTATION = 0x32747276, // 'vrt2'
+        DWRITE_FONT_FEATURE_TAG_SLASHED_ZERO = 0x6f72657a, // 'zero'
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_FONT_FEATURE
+    {
+        /// <summary>
+        /// The feature OpenType name identifier.
+        /// </summary>
+        public DWRITE_FONT_FEATURE_TAG nameTag;
+        /// <summary>
+        /// Execution parameter of the feature.
+        /// </summary>
+        /// <remarks>
+        /// The parameter should be non-zero to enable the feature.  Once enabled, a feature can't be disabled again within
+        /// the same range.  Features requiring a selector use this value to indicate the selector index. 
+        /// </remarks>
+        public uint parameter;
+
+        public DWRITE_FONT_FEATURE(DWRITE_FONT_FEATURE_TAG nameTag, uint parameter)
+        {
+            this.nameTag = nameTag;
+            this.parameter = parameter;
+        }
+    }
+
+    public enum DWRITE_PAINT_FEATURE_LEVEL : int
+    {
+        /// <summary>
+        /// No paint API support.
+        /// </summary>
+        DWRITE_PAINT_FEATURE_LEVEL_NONE = 0,
+
+        /// <summary>
+        /// Specifies a level of functionality corresponding to OpenType COLR version 0.
+        /// </summary>
+        DWRITE_PAINT_FEATURE_LEVEL_COLR_V0 = 1,
+
+        /// <summary>
+        /// Specifies a level of functionality corresponding to OpenType COLR version 1.
+        /// </summary>
+        DWRITE_PAINT_FEATURE_LEVEL_COLR_V1 = 2
+    }
+
+    [ComImport]
+    [Guid("727cad4e-d6af-4c9e-8a08-d695b11caa49")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontFileLoader
+    {
+        [PreserveSig]
+        HRESULT CreateStreamFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out IDWriteFontFileStream fontFileStream);
+    }
+
+    [ComImport]
+    [Guid("739d886a-cef5-47dc-8769-1a8b41bebbb0")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontFile
+    {
+        HRESULT GetReferenceKey(out IntPtr fontFileReferenceKey, out int fontFileReferenceKeySize);
+        HRESULT GetLoader(out IDWriteFontFileLoader fontFileLoader);
+        HRESULT Analyze(out bool isSupportedFontType, out DWRITE_FONT_FILE_TYPE fontFileType, out DWRITE_FONT_FACE_TYPE fontFaceType, out int numberOfFaces);
+    }
+
+    [ComImport]
+    [Guid("6d4865fe-0ab8-4d91-8f62-5dd6be34a3e0")]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IDWriteFontFileStream
+    {
+        HRESULT ReadFileFragment(out IntPtr fragmentStart, UInt64 fileOffset, UInt64 fragmentSize, out IntPtr fragmentContext);
+        void ReleaseFileFragment(IntPtr fragmentContext);
+        HRESULT GetFileSize(out UInt64 fileSize);
+        HRESULT GetLastWriteTime(out UInt64 lastWriteTime);
+    }
+
+    public enum DWRITE_FONT_FILE_TYPE
+    {
+        /// <summary>
+        /// Font type is not recognized by the DirectWrite font system.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_UNKNOWN,
+        /// <summary>
+        /// OpenType font with CFF outlines.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_CFF,
+        /// <summary>
+        /// OpenType font with TrueType outlines.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_TRUETYPE,
+        /// <summary>
+        /// OpenType font that contains a TrueType collection.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_OPENTYPE_COLLECTION,
+        /// <summary>
+        /// Type 1 PFM font.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_TYPE1_PFM,
+        /// <summary>
+        /// Type 1 PFB font.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_TYPE1_PFB,
+        /// <summary>
+        /// Vector .FON font.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_VECTOR,
+        /// <summary>
+        /// Bitmap .FON font.
+        /// </summary>
+        DWRITE_FONT_FILE_TYPE_BITMAP,
+        // The following name is obsolete, but kept as an alias to avoid breaking existing code.
+        DWRITE_FONT_FILE_TYPE_TRUETYPE_COLLECTION = DWRITE_FONT_FILE_TYPE_OPENTYPE_COLLECTION,
+    }
+
+#endif
 
     // incomplete : d2d1effectauthor.h...
 }

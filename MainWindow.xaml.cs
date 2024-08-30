@@ -132,14 +132,14 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
                     if (pDWriteFactoryPtr != IntPtr.Zero)
                         Marshal.Release(pDWriteFactoryPtr);
-
-                    string sExePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                    
+                    string sExePath = AppContext.BaseDirectory;                 
 
                     var pFontCollectionLoader = new FontCollectionLoader();
                     hr = m_pDWriteFactory7.RegisterFontCollectionLoader(pFontCollectionLoader);
-                    //hr = m_pDWriteFactory7.RegisterFontFileLoader(pFontCollectionLoader);
-                   
-                    var sFullPath = sExePath + "\\Assets";
+                    //hr = m_pDWriteFactory7.RegisterFontFileLoader(pFontCollectionLoader);      
+                    
+                    string sFullPath = System.IO.Path.Combine(sExePath, "Assets");
                     var pFontCollectionKey = Marshal.StringToHGlobalUni(sFullPath);                   
                     IDWriteFontCollection pFontCollection = null;
                     hr = m_pDWriteFactory7.CreateCustomFontCollection(pFontCollectionLoader, pFontCollectionKey, (sFullPath.Length+1)*2, out pFontCollection);
@@ -172,29 +172,26 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                             unorderedSystemFonts.Clear();
                             SafeRelease(ref pFontSet2);
                         }
-
-                        // string sPathFont = sExePath + "/Assets/Amazing Kids.ttf";                   
-                        // string sPathFont = sExePath + "/Assets/Tolky.ttf";                    
-                        // string sPathFont = sExePath + "/Assets/greasy-spoon-nf.regular.ttf";
-                        string sPathFont = sExePath + "/Assets/Lovely Home.ttf";
+                        
+                        string sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Lovely Home.ttf");
                         hr = CreateDWriteTextGeometry("This is a text with slow animated gradient", sPathFont, 60.0f, false, false, out m_pD2DGeometry1, out m_nComputedHeight1);
 
-                        sPathFont = sExePath + "/Assets/Lemon Shake.ttf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Lemon Shake.ttf");
                         CreateDWriteTextGeometry("This is a text with shadow", sPathFont, 80.0f, false, false, out m_pD2DGeometry2, out m_nComputedHeight2);
 
-                        sPathFont = sExePath + "/Assets/Play Story.otf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Play Story.otf");
                         CreateDWriteTextGeometry("This is a text with turbulence", sPathFont, 60.0f, false, false, out m_pD2DGeometry3, out m_nComputedHeight3);
 
-                        sPathFont = sExePath + "/Assets/Simplisicky Fill.ttf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Simplisicky Fill.ttf");
                         CreateDWriteTextGeometry("This is a text with glowing", sPathFont, 80.0f, false, false, out m_pD2DGeometry4, out m_nComputedHeight4);
 
-                        sPathFont = sExePath + "/Assets/Bloody Scene.otf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Bloody Scene.otf");
                         CreateDWriteTextGeometry("This is a text with Bitmap brush", sPathFont, 70.0f, false, false, out m_pD2DGeometry5, out m_nComputedHeight5);
 
-                        sPathFont = sExePath + "/Assets/Love Craft.ttf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\Love Craft.ttf");
                         CreateDWriteTextGeometry("This is a scrolling text", sPathFont, 60.0f, false, false, out m_pD2DGeometry6, out m_nComputedHeight6);
 
-                        sPathFont = sExePath + "/Assets/MagicSchoolOne.ttf";
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\MagicSchoolOne.ttf");
                         CreateDWriteTextGeometry("This is a Magic School text", sPathFont, 90.0f, false, false, out m_pD2DGeometry7, out m_nComputedHeight7);
 
                         //string sFontName = "Segoe UI Emoji";
