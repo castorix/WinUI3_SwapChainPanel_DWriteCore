@@ -207,7 +207,7 @@ public class CustomTextRenderer : IDWriteTextRenderer, IDisposable
 
             if (hr == HRESULT.S_OK)
             {
-                D2D1_SIZE_F size = m_pD2DDeviceContext.GetSize();
+                m_pD2DDeviceContext.GetSize(out D2D1_SIZE_F size);
                 D2D1_RECT_F imageRectangle = new D2D1_RECT_F();
                 imageRectangle.left = 0.0f;
                 imageRectangle.top = 0.0f;
