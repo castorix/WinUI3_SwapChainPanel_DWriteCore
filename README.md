@@ -5,4 +5,5 @@ Test [DWriteCore](https://learn.microsoft.com/en-us/windows/win32/directwrite/dw
 I noticed a loss of quality vs DWrite with IDWriteTextLayout when ID2D1Bitmap1 is created and drawn from IDWriteBitmapRenderTarget3; 
 maybe I missed something...
 
-![image](https://github.com/user-attachments/assets/6a36b463-d1f2-4dbc-8437-6b851f6c84b4)
+<img width="1093" height="617" alt="image" src="https://github.com/user-attachments/assets/580f387b-1e21-4c4d-8bb4-c476353c6634" />
+
