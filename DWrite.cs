@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 using GlobalStructures;
 
-//C: \Users\Christian\.nuget\packages\microsoft.windowsappsdk\1.5.240627000\include
+//C:\Users\Christian\.nuget\packages\microsoft.windowsappsdk\1.5.240627000\include
 //dwrite_core.h
 
 namespace DWrite
 { 
     internal class DWriteTools
     {
-        // C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.1.5_5001.178.1908.0_x86__8wekyb3d8bbwe
-        // C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.1.5_5001.178.1908.0_x64__8wekyb3d8bbwe
+        // C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.1.7_7000.744.1258.0_x64__8wekyb3d8bbwe\DWriteCore.dll
         [DllImport("DWriteCore.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern HRESULT DWriteCoreCreateFactory(DWRITE_FACTORY_TYPE factoryType, ref Guid iid, out IntPtr factory);
 
@@ -126,7 +127,7 @@ namespace DWrite
         [PreserveSig]
         HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -179,7 +180,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -240,7 +241,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -317,7 +318,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -418,7 +419,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -529,7 +530,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -648,7 +649,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -744,7 +745,9 @@ namespace DWrite
         [PreserveSig]
         HRESULT CreateFontSetBuilder6(out IDWriteFontSetBuilder2 fontSetBuilder);
         [PreserveSig]
-        HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection, DWRITE_FONT_AXIS_VALUE fontAxisValues, uint fontAxisValueCount,
+        HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection,
+           /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_FONT_AXIS_VALUE[]*/ IntPtr fontAxisValues,
+            uint fontAxisValueCount,
             float fontSize, string localeName, out IDWriteTextFormat3 textFormat);
     }
 
@@ -765,6 +768,7 @@ namespace DWrite
         new HRESULT CreateCustomFontCollection(IDWriteFontCollectionLoader collectionLoader, IntPtr collectionKey, int collectionKeySize, out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new HRESULT RegisterFontCollectionLoader(IDWriteFontCollectionLoader fontCollectionLoader);
+        [PreserveSig]
         new HRESULT UnregisterFontCollectionLoader(IDWriteFontCollectionLoader fontCollectionLoader);
         //new HRESULT CreateFontFileReference(string filePath, System.Runtime.InteropServices.ComTypes.FILETIME lastWriteTime, out IDWriteFontFile fontFile);
         [PreserveSig]
@@ -781,6 +785,7 @@ namespace DWrite
         new HRESULT CreateCustomRenderingParams(float gamma, float enhancedContrast, float clearTypeLevel, DWRITE_PIXEL_GEOMETRY pixelGeometry, DWRITE_RENDERING_MODE renderingMode, out IDWriteRenderingParams renderingParams);
         [PreserveSig]
         new HRESULT RegisterFontFileLoader(IDWriteFontFileLoader fontFileLoader);
+        [PreserveSig]
         new HRESULT UnregisterFontFileLoader(IDWriteFontFileLoader fontFileLoader);
         [PreserveSig]
         new HRESULT CreateTextFormat([MarshalAs(UnmanagedType.LPWStr)] string fontFamilyName, IDWriteFontCollection fontCollection, DWRITE_FONT_WEIGHT fontWeight, DWRITE_FONT_STYLE fontStyle, DWRITE_FONT_STRETCH fontStretch, float fontSize,
@@ -789,8 +794,10 @@ namespace DWrite
         new HRESULT CreateTypography(out IDWriteTypography typography);
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
+
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -805,6 +812,7 @@ namespace DWrite
             DWRITE_MEASURING_MODE measuringMode, float baselineOriginX, float baselineOriginY, out IDWriteGlyphRunAnalysis glyphRunAnalysis);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetEudcFontCollection(out IDWriteFontCollection fontCollection, bool checkForUpdates = false);
         [PreserveSig]
         new HRESULT CreateCustomRenderingParams1(float gamma, float enhancedContrast, float enhancedContrastGrayscale, float clearTypeLevel,
@@ -886,7 +894,9 @@ namespace DWrite
         [PreserveSig]
         new HRESULT CreateFontSetBuilder6(out IDWriteFontSetBuilder2 fontSetBuilder);
         [PreserveSig]
-        new HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection, DWRITE_FONT_AXIS_VALUE fontAxisValues, uint fontAxisValueCount,
+        new HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection,
+           /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_FONT_AXIS_VALUE[]*/ IntPtr fontAxisValues,
+            uint fontAxisValueCount,
             float fontSize, string localeName, out IDWriteTextFormat3 textFormat);
         #endregion
 
@@ -894,7 +904,7 @@ namespace DWrite
         HRESULT GetSystemFontSet7(bool includeDownloadableFonts,out IDWriteFontSet2 fontSet);
         [PreserveSig]
         HRESULT GetSystemFontCollection7(bool includeDownloadableFonts, DWRITE_FONT_FAMILY_MODEL fontFamilyModel, out IDWriteFontCollection3 fontCollection);
-    }
+     }
 
     [ComImport]
     [Guid("EE0A7FB5-DEF4-4C23-A454-C9C7DC878398")]
@@ -938,7 +948,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetGdiInterop(out IDWriteGdiInterop gdiInterop);
         [PreserveSig]
-        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
+        new HRESULT CreateTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, uint stringLength, IDWriteTextFormat textFormat, float maxWidth, float maxHeight, out IDWriteTextLayout textLayout);
         [PreserveSig]
         new HRESULT CreateGdiCompatibleTextLayout([MarshalAs(UnmanagedType.LPWStr)] string str, int stringLength, IDWriteTextFormat textFormat, float layoutWidth,
             float layoutHeight, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, out IDWriteTextLayout textLayout);
@@ -1034,7 +1044,8 @@ namespace DWrite
         [PreserveSig]
         new HRESULT CreateFontSetBuilder6(out IDWriteFontSetBuilder2 fontSetBuilder);
         [PreserveSig]
-        new HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection, DWRITE_FONT_AXIS_VALUE fontAxisValues, uint fontAxisValueCount,
+        new HRESULT CreateTextFormat6(string fontFamilyName, IDWriteFontCollection fontCollection, 
+           /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_FONT_AXIS_VALUE[]*/ IntPtr fontAxisValues, uint fontAxisValueCount,
             float fontSize, string localeName, out IDWriteTextFormat3 textFormat);
         #endregion
 
@@ -1197,9 +1208,11 @@ namespace DWrite
         new HRESULT CreateFontResource(uint listIndex, out IDWriteFontResource fontResource);
         [PreserveSig]
         new HRESULT CreateFontFace(uint listIndex, out IDWriteFontFace5 fontFace);
+        [PreserveSig]
         new DWRITE_LOCALITY GetFontLocality(uint listIndex);
         #endregion
 
+        [PreserveSig]
         new IntPtr GetExpirationEvent();
         #endregion
 
@@ -1207,7 +1220,8 @@ namespace DWrite
         DWRITE_FONT_SOURCE_TYPE GetFontSourceType(uint fontIndex);
         [PreserveSig]
         uint GetFontSourceNameLength(uint listIndex);
-        HRESULT GetFontSourceName(uint listIndex, System.Text.StringBuilder stringBuffer, uint stringBufferSize);
+        [PreserveSig]
+        HRESULT GetFontSourceName(uint listIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringBuffer, uint stringBufferSize);
     }
 
     [ComImport]
@@ -1262,7 +1276,7 @@ namespace DWrite
         [PreserveSig]
         new uint GetFontSourceNameLength(uint listIndex);
         [PreserveSig]
-        new HRESULT GetFontSourceName(uint listIndex, System.Text.StringBuilder stringBuffer, uint stringBufferSize);
+        new HRESULT GetFontSourceName(uint listIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringBuffer, uint stringBufferSize);
         #endregion
 
         [PreserveSig]
@@ -1334,9 +1348,12 @@ namespace DWrite
         [PreserveSig]
         uint GetCount();
         HRESULT GetLocaleNameLength(uint listIndex, out uint length);
-        HRESULT GetLocaleName(uint listIndex, System.Text.StringBuilder localeName, uint size);
+        [PreserveSig]
+        HRESULT GetLocaleName(uint listIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint size);
+        [PreserveSig]
         HRESULT GetStringLength(uint listIndex, out uint length);
-        HRESULT GetString(uint listIndex, System.Text.StringBuilder stringBuffer, uint stringBufferSize);
+        [PreserveSig]
+        HRESULT GetString(uint listIndex, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringBuffer, uint stringBufferSize);
     }
 
     [ComImport]
@@ -1659,8 +1676,11 @@ namespace DWrite
         new HRESULT CreateStreamFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out IDWriteFontFileStream fontFileStream);
         #endregion
 
+        [PreserveSig]
         HRESULT GetFilePathLengthFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out uint filePathLength);
-        HRESULT GetFilePathFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, System.Text.StringBuilder filePath, uint filePathSize);
+        [PreserveSig]
+        HRESULT GetFilePathFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder filePath, uint filePathSize);
+        [PreserveSig]
         HRESULT GetLastWriteTimeFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out /*FILETIME**/ IntPtr lastWriteTime) ;
     }
 
@@ -1676,6 +1696,7 @@ namespace DWrite
 
         [PreserveSig]
         HRESULT CreateRemoteStreamFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out IDWriteRemoteFontFileStream fontFileStream);
+        [PreserveSig]
         HRESULT GetLocalityFromKey(IntPtr fontFileReferenceKey, uint fontFileReferenceKeySize, out DWRITE_LOCALITY locality);
         [PreserveSig]
         HRESULT CreateFontFileReferenceFromUrl(IDWriteFactory factory, [MarshalAs(UnmanagedType.LPWStr)] string baseUrl, [MarshalAs(UnmanagedType.LPWStr)] string fontFileUrl, out IDWriteFontFile fontFile);
@@ -1832,13 +1853,21 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IDWriteTextFormat
     {
+        [PreserveSig]
         HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -1852,12 +1881,16 @@ namespace DWrite
         DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         float GetIncrementalTabStop();
+        [PreserveSig]
         HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         uint GetFontFamilyNameLength();
-        HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -1868,7 +1901,8 @@ namespace DWrite
         float GetFontSize();
         [PreserveSig]
         uint GetLocaleNameLength();
-        HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
     }
 
     [ComImport]
@@ -1902,7 +1936,8 @@ namespace DWrite
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -1913,9 +1948,11 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
         #endregion
 
+        [PreserveSig]
         HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
@@ -1961,7 +1998,8 @@ namespace DWrite
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -1972,9 +2010,11 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
         #endregion
 
+        [PreserveSig]
         new HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         new DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
@@ -2025,7 +2065,8 @@ namespace DWrite
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2036,9 +2077,11 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
         #endregion
 
+        [PreserveSig]
         new HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         new DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
@@ -2104,7 +2147,9 @@ namespace DWrite
     {
         [PreserveSig]
         HRESULT CreateFontFromLOGFONT(LOGFONT logFont, out IDWriteFont font);
+        [PreserveSig]
         HRESULT ConvertFontToLOGFONT(IDWriteFont font, out LOGFONT logFont, out bool isSystemFont);
+        [PreserveSig]
         HRESULT ConvertFontFaceToLOGFONT(IDWriteFontFace font, out LOGFONT logFont);
         [PreserveSig]
         HRESULT CreateFontFaceFromHdc(IntPtr hdc, out IDWriteFontFace fontFace);
@@ -2118,13 +2163,21 @@ namespace DWrite
     public interface IDWriteTextLayout : IDWriteTextFormat
     {
         #region IDWriteTextFormat
+        [PreserveSig]
         new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -2138,12 +2191,16 @@ namespace DWrite
         new DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         new float GetIncrementalTabStop();
+        [PreserveSig]
         new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2154,52 +2211,87 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
         #endregion
 
+        [PreserveSig]
         HRESULT SetMaxWidth(float maxWidth);
+        [PreserveSig]
         HRESULT SetMaxHeight(float maxHeight);
+        [PreserveSig]
         HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
-        //HRESULT SetDrawingEffect(IUnknown drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         float GetMaxWidth();
         [PreserveSig]
         float GetMaxHeight();
+        [PreserveSig]
         HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        HRESULT GetFontFamilyName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
-        //HRESULT GetDrawingEffect(uint currentPosition, out IUnknown drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        HRESULT GetLocaleName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
-        HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
+        HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
         HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        [PreserveSig]
         HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
-        HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
+        HRESULT GetClusterMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_CLUSTER_METRICS[] clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
         HRESULT DetermineMinWidth(out float minWidth);
+        [PreserveSig]
         HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
     }
 
@@ -2209,13 +2301,21 @@ namespace DWrite
     public interface IDWriteTextLayout1 : IDWriteTextLayout
     {
         #region IDWriteTextLayout
+        [PreserveSig]
         new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -2229,12 +2329,16 @@ namespace DWrite
         new DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         new float GetIncrementalTabStop();
+        [PreserveSig]
         new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2245,55 +2349,97 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
+        [PreserveSig]
         new HRESULT SetMaxWidth(float maxWidth);
+        [PreserveSig]
         new HRESULT SetMaxHeight(float maxHeight);
+        [PreserveSig]
         new HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         new float GetMaxWidth();
         [PreserveSig]
         new float GetMaxHeight();
+        [PreserveSig]
         new HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetLocaleName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
-        new HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
+        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
         new HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        [PreserveSig]
         new HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
-        new HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
+        new HRESULT GetClusterMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_CLUSTER_METRICS[] clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
         new HRESULT DetermineMinWidth(out float minWidth);
+        [PreserveSig]
         new HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
         #endregion
 
+        [PreserveSig]
         HRESULT SetPairKerning(bool isPairKerningEnabled, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetPairKerning(uint currentPosition, ref bool isPairKerningEnabled, ref DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT SetCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         HRESULT GetCharacterSpacing(uint currentPosition, ref float leadingSpacing, out float trailingSpacing, out float minimumAdvanceWidth, out DWRITE_TEXT_RANGE textRange);
     }
 
@@ -2304,13 +2450,21 @@ namespace DWrite
     {
         #region IDWriteTextLayou1
         #region IDWriteTextLayout
+        [PreserveSig]
         new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -2324,12 +2478,16 @@ namespace DWrite
         new DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         new float GetIncrementalTabStop();
+        [PreserveSig]
         new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2340,69 +2498,117 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
+        [PreserveSig]
         new HRESULT SetMaxWidth(float maxWidth);
+        [PreserveSig]
         new HRESULT SetMaxHeight(float maxHeight);
+        [PreserveSig]
         new HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         new float GetMaxWidth();
         [PreserveSig]
         new float GetMaxHeight();
+        [PreserveSig]
         new HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetLocaleName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
-        new HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
+        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
         new HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        [PreserveSig]
         new HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
-        new HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
+        new HRESULT GetClusterMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_CLUSTER_METRICS[] clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
         new HRESULT DetermineMinWidth(out float minWidth);
+        [PreserveSig]
         new HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
         #endregion
 
+        [PreserveSig]
         new HRESULT SetPairKerning(bool isPairKerningEnabled, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetPairKerning(uint currentPosition, ref bool isPairKerningEnabled, ref DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetCharacterSpacing(uint currentPosition, ref float leadingSpacing, out float trailingSpacing, out float minimumAdvanceWidth, out DWRITE_TEXT_RANGE textRange);
         #endregion
 
+        [PreserveSig]
         HRESULT GetMetrics(out DWRITE_TEXT_METRICS1 textMetrics);
+        [PreserveSig]
         HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
+        [PreserveSig]
         HRESULT SetLastLineWrapping(bool isLastLineWrappingEnabled);
         [PreserveSig]
         bool GetLastLineWrapping();
+        [PreserveSig]
         HRESULT SetOpticalAlignment(DWRITE_OPTICAL_ALIGNMENT opticalAlignment);
         [PreserveSig]
         DWRITE_OPTICAL_ALIGNMENT GetOpticalAlignment();
+        [PreserveSig]
         HRESULT SetFontFallback(IDWriteFontFallback fontFallback);
+        [PreserveSig]
         HRESULT GetFontFallback(out IDWriteFontFallback fontFallback);
     }
 
@@ -2412,14 +2618,22 @@ namespace DWrite
     public interface IDWriteTextLayout3 : IDWriteTextLayout2
     {
         #region IDWriteTextLayout1
-        #region IDWriteTextLayout        
+        #region IDWriteTextLayout   
+        [PreserveSig]
         new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -2433,12 +2647,16 @@ namespace DWrite
         new DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         new float GetIncrementalTabStop();
+        [PreserveSig]
         new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2449,70 +2667,118 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
+        [PreserveSig]
         new HRESULT SetMaxWidth(float maxWidth);
+        [PreserveSig]
         new HRESULT SetMaxHeight(float maxHeight);
+        [PreserveSig]
         new HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         new float GetMaxWidth();
         [PreserveSig]
         new float GetMaxHeight();
+        [PreserveSig]
         new HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetLocaleName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
-        new HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
+        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
         new HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        [PreserveSig]
         new HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
-        new HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
+        new HRESULT GetClusterMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_CLUSTER_METRICS[] clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
         new HRESULT DetermineMinWidth(out float minWidth);
+        [PreserveSig]
         new HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
         #endregion
 
+        [PreserveSig]
         new HRESULT SetPairKerning(bool isPairKerningEnabled, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetPairKerning(uint currentPosition, ref bool isPairKerningEnabled, ref DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetCharacterSpacing(uint currentPosition, ref float leadingSpacing, out float trailingSpacing, out float minimumAdvanceWidth, out DWRITE_TEXT_RANGE textRange);
         #endregion
 
         #region <IDWriteTextLayout2>
+        [PreserveSig]
         new  HRESULT GetMetrics(out DWRITE_TEXT_METRICS1 textMetrics);
+        [PreserveSig]
         new HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         new DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
+        [PreserveSig]
         new HRESULT SetLastLineWrapping(bool isLastLineWrappingEnabled);
         [PreserveSig]
         new bool GetLastLineWrapping();
+        [PreserveSig]
         new HRESULT SetOpticalAlignment(DWRITE_OPTICAL_ALIGNMENT opticalAlignment);
         [PreserveSig]
         new DWRITE_OPTICAL_ALIGNMENT GetOpticalAlignment();
+        [PreserveSig]
         new HRESULT SetFontFallback(IDWriteFontFallback fontFallback);
+        [PreserveSig]
         new HRESULT GetFontFallback(out IDWriteFontFallback fontFallback);
         #endregion
 
@@ -2523,8 +2789,8 @@ namespace DWrite
         [PreserveSig]
         HRESULT GetLineSpacing(out DWRITE_LINE_SPACING lineSpacingOptions);
         [PreserveSig]
-        HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics,
-            uint maxLineCount, out uint actualLineCount);
+        HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS1[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+
     }
 
     [ComImport()]
@@ -2533,14 +2799,22 @@ namespace DWrite
     public interface IDWriteTextLayout4 : IDWriteTextLayout3
     {
         #region IDWriteTextLayout1
-        #region IDWriteTextLayout        
+        #region IDWriteTextLayout
+        [PreserveSig]
         new HRESULT SetTextAlignment(DWRITE_TEXT_ALIGNMENT textAlignment);
+        [PreserveSig]
         new HRESULT SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT paragraphAlignment);
+        [PreserveSig]
         new HRESULT SetWordWrapping(DWRITE_WORD_WRAPPING wordWrapping);
+        [PreserveSig]
         new HRESULT SetReadingDirection(DWRITE_READING_DIRECTION readingDirection);
+        [PreserveSig]
         new HRESULT SetFlowDirection(DWRITE_FLOW_DIRECTION flowDirection);
+        [PreserveSig]
         new HRESULT SetIncrementalTabStop(float incrementalTabStop);
+        [PreserveSig]
         new HRESULT SetTrimming(DWRITE_TRIMMING trimmingOptions, IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT SetLineSpacing(DWRITE_LINE_SPACING_METHOD lineSpacingMethod, float lineSpacing, float baseline);
         [PreserveSig]
         new DWRITE_TEXT_ALIGNMENT GetTextAlignment();
@@ -2554,12 +2828,16 @@ namespace DWrite
         new DWRITE_FLOW_DIRECTION GetFlowDirection();
         [PreserveSig]
         new float GetIncrementalTabStop();
+        [PreserveSig]
         new HRESULT GetTrimming(out DWRITE_TRIMMING trimmingOptions, out IDWriteInlineObject trimmingSign);
+        [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING_METHOD lineSpacingMethod, out float lineSpacing, out float baseline);
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new uint GetFontFamilyNameLength();
-        new HRESULT GetFontFamilyName(out string fontFamilyName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetFontWeight();
         [PreserveSig]
@@ -2570,69 +2848,117 @@ namespace DWrite
         new float GetFontSize();
         [PreserveSig]
         new uint GetLocaleNameLength();
-        new HRESULT GetLocaleName(out string localeName, uint nameSize);
+        [PreserveSig]
+        new HRESULT GetLocaleName([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize);
+        [PreserveSig]
         new HRESULT SetMaxWidth(float maxWidth);
+        [PreserveSig]
         new HRESULT SetMaxHeight(float maxHeight);
+        [PreserveSig]
         new HRESULT SetFontCollection(IDWriteFontCollection fontCollection, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontFamilyName(string fontFamilyName, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontWeight(DWRITE_FONT_WEIGHT fontWeight, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStyle(DWRITE_FONT_STYLE fontStyle, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontStretch(DWRITE_FONT_STRETCH fontStretch, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetFontSize(float fontSize, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetUnderline(bool hasUnderline, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetStrikethrough(bool hasStrikethrough, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetDrawingEffect(IntPtr drawingEffect, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetInlineObject(IDWriteInlineObject inlineObject, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetTypography(IDWriteTypography typography, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetLocaleName(string localeName, DWRITE_TEXT_RANGE textRange);
         [PreserveSig]
         new float GetMaxWidth();
         [PreserveSig]
         new float GetMaxHeight();
+        [PreserveSig]
         new HRESULT GetFontCollection(uint currentPosition, out IDWriteFontCollection fontCollection, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontFamilyNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetFontFamilyName(uint currentPosition, out string fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetFontFamilyName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder fontFamilyName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontWeight(uint currentPosition, out DWRITE_FONT_WEIGHT fontWeight, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStyle(uint currentPosition, out DWRITE_FONT_STYLE fontStyle, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontStretch(uint currentPosition, out DWRITE_FONT_STRETCH fontStretch, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetFontSize(uint currentPosition, out float fontSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetUnderline(uint currentPosition, out bool hasUnderline, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetStrikethrough(uint currentPosition, out bool hasStrikethrough, out DWRITE_TEXT_RANGE textRange);
 
+        [PreserveSig]
         new HRESULT GetDrawingEffect(uint currentPosition, out IntPtr drawingEffect, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetInlineObject(uint currentPosition, out IDWriteInlineObject inlineObject, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetTypography(uint currentPosition, out IDWriteTypography typography, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetLocaleNameLength(uint currentPosition, out uint nameLength, out DWRITE_TEXT_RANGE textRange);
-        new HRESULT GetLocaleName(uint currentPosition, out string localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
+        new HRESULT GetLocaleName(uint currentPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint nameSize, out DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY);
-        new HRESULT GetLineMetrics(out DWRITE_LINE_METRICS lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
+        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics, uint maxLineCount, out uint actualLineCount);
+        [PreserveSig]
         new HRESULT GetMetrics(out DWRITE_TEXT_METRICS textMetrics);
+        [PreserveSig]
         new HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
-        new HRESULT GetClusterMetrics(out DWRITE_CLUSTER_METRICS clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
+        new HRESULT GetClusterMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_CLUSTER_METRICS[] clusterMetrics, uint maxClusterCount, out uint actualClusterCount);
+        [PreserveSig]
         new HRESULT DetermineMinWidth(out float minWidth);
+        [PreserveSig]
         new HRESULT HitTestPoint(float pointX, float pointY, out bool isTrailingHit, out bool isInside, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextPosition(uint textPosition, bool isTrailingHit, out float pointX, out float pointY, out DWRITE_HIT_TEST_METRICS hitTestMetrics);
+        [PreserveSig]
         new HRESULT HitTestTextRange(uint textPosition, uint textLength, float originX, float originY, out DWRITE_HIT_TEST_METRICS hitTestMetrics, uint maxHitTestMetricsCount, out uint actualHitTestMetricsCount);
         #endregion
 
+        [PreserveSig]
         new HRESULT SetPairKerning(bool isPairKerningEnabled, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetPairKerning(uint currentPosition, ref bool isPairKerningEnabled, ref DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT SetCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, DWRITE_TEXT_RANGE textRange);
+        [PreserveSig]
         new HRESULT GetCharacterSpacing(uint currentPosition, ref float leadingSpacing, out float trailingSpacing, out float minimumAdvanceWidth, out DWRITE_TEXT_RANGE textRange);
         #endregion
 
         #region <IDWriteTextLayout2>
+        [PreserveSig]
         new HRESULT GetMetrics(out DWRITE_TEXT_METRICS1 textMetrics);
+        [PreserveSig]
         new HRESULT SetVerticalGlyphOrientation(DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation);
         [PreserveSig]
         new DWRITE_VERTICAL_GLYPH_ORIENTATION GetVerticalGlyphOrientation();
+        [PreserveSig]
         new HRESULT SetLastLineWrapping(bool isLastLineWrappingEnabled);
         [PreserveSig]
         new bool GetLastLineWrapping();
+        [PreserveSig]
         new HRESULT SetOpticalAlignment(DWRITE_OPTICAL_ALIGNMENT opticalAlignment);
         [PreserveSig]
         new DWRITE_OPTICAL_ALIGNMENT GetOpticalAlignment();
+        [PreserveSig]
         new HRESULT SetFontFallback(IDWriteFontFallback fontFallback);
+        [PreserveSig]
         new HRESULT GetFontFallback(out IDWriteFontFallback fontFallback);
         #endregion
 
@@ -2644,8 +2970,7 @@ namespace DWrite
         [PreserveSig]
         new HRESULT GetLineSpacing(out DWRITE_LINE_SPACING lineSpacingOptions);
         [PreserveSig]
-        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS[] lineMetrics,
-            uint maxLineCount, out uint actualLineCount);
+        new HRESULT GetLineMetrics([Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_METRICS1[] lineMetrics, uint maxLineCount, out uint actualLineCount);
         #endregion
 
         [PreserveSig]
@@ -2665,10 +2990,13 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IDWriteInlineObject
     {
-        //HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY, bool isSideways, bool isRightToLeft, IUnknown* clientDrawingEffect);
+        [PreserveSig]
         HRESULT Draw(IntPtr clientDrawingContext, IDWriteTextRenderer renderer, float originX, float originY, bool isSideways, bool isRightToLeft, IntPtr clientDrawingEffect);
+        [PreserveSig]
         HRESULT GetMetrics(out DWRITE_INLINE_OBJECT_METRICS metrics);
+        [PreserveSig]
         HRESULT GetOverhangMetrics(out DWRITE_OVERHANG_METRICS overhangs);
+        [PreserveSig]
         HRESULT GetBreakConditions(out DWRITE_BREAK_CONDITION breakConditionBefore, out DWRITE_BREAK_CONDITION breakConditionAfter);
     }
 
@@ -2677,21 +3005,55 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IDWriteTextAnalyzer
     {
-        HRESULT AnalyzeScript(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        HRESULT AnalyzeBidi(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        HRESULT AnalyzeNumberSubstitution(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        HRESULT AnalyzeLineBreakpoints(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        HRESULT GetGlyphs(string textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
-            string localeName, IDWriteNumberSubstitution numberSubstitution, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            int maxGlyphCount, out UInt16 clusterMap, out DWRITE_SHAPING_TEXT_PROPERTIES textProps, out UInt16 glyphIndices, out DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, out int actualGlyphCount);
-        HRESULT GetGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, bool isSideways, bool isRightToLeft,
-            DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
-        HRESULT GetGdiCompatibleGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, DWRITE_MATRIX transform,
-            bool useGdiNatural, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features,
-            int featureRangeLengths, int featureRanges, out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
+        [PreserveSig]
+        HRESULT AnalyzeScript([In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, [In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
+        HRESULT AnalyzeBidi([In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, [In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
+        HRESULT AnalyzeNumberSubstitution([In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, [In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
+        HRESULT AnalyzeLineBreakpoints([In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, [In, MarshalAs(UnmanagedType.Interface)] IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
+        HRESULT GetGlyphs(/*[MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+             [MarshalAs(UnmanagedType.LPWStr)] string localeName, IDWriteNumberSubstitution numberSubstitution,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 10)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features, 
+            int featureRangeLengths, int featureRanges,
+            int maxGlyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] clusterMap,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] ushort[] glyphIndices,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, out uint actualGlyphCount);
+        [PreserveSig]
+        HRESULT GetGlyphPlacements(
+       /* [MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString,  // param 0
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ushort[] clusterMap, // param 1 -> size = textLength (index 3)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, // param 2 -> size = textLength
+        uint textLength,                                     // param 3
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices, // param 4 -> size = glyphCount (index 6)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, // param 5 -> size = glyphCount
+        uint glyphCount,                                     // param 6
+        IDWriteFontFace fontFace,                            // param 7
+        float fontEmSize,                                    // param 8
+        [MarshalAs(UnmanagedType.Bool)] bool isSideways,     // param 9
+        [MarshalAs(UnmanagedType.Bool)] bool isRightToLeft,  // param 10
+        ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,           // param 11
+        [MarshalAs(UnmanagedType.LPWStr)] string localeName, // param 12 (optional)
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features,  // DWRITE_TYPOGRAPHIC_FEATURES** (param 13) - pass IntPtr.Zero if unused
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] uint[] */ IntPtr featureRangeLengths,    // UINT32 const* (param 14) - pass IntPtr.Zero if unused
+        uint featureRanges,            // param 15
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances, // param 16 -> size = glyphCount (index 6)
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets // param 17 -> size = glyphCount
+        );
+        [PreserveSig]
+        HRESULT GetGdiCompatibleGlyphPlacements([MarshalAs(UnmanagedType.LPWStr)] string textString,
+            uint clusterMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, int textLength,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, int glyphCount,
+            IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, /*DWRITE_MATRIX*/ IntPtr transform,
+            bool useGdiNatural, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+            [MarshalAs(UnmanagedType.LPWStr)] string localeName, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] DWRITE_TYPOGRAPHIC_FEATURES[] features,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] uint[]*/ IntPtr featureRangeLengths, int featureRanges,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets);
     }
 
     [ComImport]
@@ -2700,35 +3062,78 @@ namespace DWrite
     public interface IDWriteTextAnalyzer1 : IDWriteTextAnalyzer
     {
         #region IDWriteTextAnalyzer
+        [PreserveSig]
         new HRESULT AnalyzeScript(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeBidi(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeNumberSubstitution(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeLineBreakpoints(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        new HRESULT GetGlyphs(string textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
-            string localeName, IDWriteNumberSubstitution numberSubstitution, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            int maxGlyphCount, out UInt16 clusterMap, out DWRITE_SHAPING_TEXT_PROPERTIES textProps, out UInt16 glyphIndices, out DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, out int actualGlyphCount);
-        new HRESULT GetGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, bool isSideways, bool isRightToLeft,
-            DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
-        new HRESULT GetGdiCompatibleGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, DWRITE_MATRIX transform,
-            bool useGdiNatural, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features,
-            int featureRangeLengths, int featureRanges, out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
+        [PreserveSig]
+        new HRESULT GetGlyphs(/*[MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+             [MarshalAs(UnmanagedType.LPWStr)] string localeName, IDWriteNumberSubstitution numberSubstitution,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 10)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features,
+            int featureRangeLengths, int featureRanges,
+            int maxGlyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] clusterMap,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] ushort[] glyphIndices,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, out uint actualGlyphCount);
+        [PreserveSig]
+        new HRESULT GetGlyphPlacements(
+       /* [MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString,  // param 0
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ushort[] clusterMap, // param 1 -> size = textLength (index 3)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, // param 2 -> size = textLength
+        uint textLength,                                     // param 3
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices, // param 4 -> size = glyphCount (index 6)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, // param 5 -> size = glyphCount
+        uint glyphCount,                                     // param 6
+        IDWriteFontFace fontFace,                            // param 7
+        float fontEmSize,                                    // param 8
+        [MarshalAs(UnmanagedType.Bool)] bool isSideways,     // param 9
+        [MarshalAs(UnmanagedType.Bool)] bool isRightToLeft,  // param 10
+        ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,           // param 11
+        [MarshalAs(UnmanagedType.LPWStr)] string localeName, // param 12 (optional)
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features,  // DWRITE_TYPOGRAPHIC_FEATURES** (param 13) - pass IntPtr.Zero if unused
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] uint[] */ IntPtr featureRangeLengths,    // UINT32 const* (param 14) - pass IntPtr.Zero if unused
+        uint featureRanges,            // param 15
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances, // param 16 -> size = glyphCount (index 6)
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets // param 17 -> size = glyphCount
+        );
+        [PreserveSig]
+        new HRESULT GetGdiCompatibleGlyphPlacements([MarshalAs(UnmanagedType.LPWStr)] string textString,
+            uint clusterMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, int textLength,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, int glyphCount,
+            IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, /*DWRITE_MATRIX*/ IntPtr transform,
+            bool useGdiNatural, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+            [MarshalAs(UnmanagedType.LPWStr)] string localeName, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] DWRITE_TYPOGRAPHIC_FEATURES[] features,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] uint[]*/ IntPtr featureRangeLengths, int featureRanges,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets);
         #endregion
 
+        [PreserveSig]
         HRESULT ApplyCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, uint textLength, uint glyphCount, UInt16 clusterMap,
             float glyphAdvances, DWRITE_GLYPH_OFFSET glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties, out float modifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET modifiedGlyphOffsets);
+        [PreserveSig]
         HRESULT GetBaseline(IDWriteFontFace fontFace, DWRITE_BASELINE baseline, bool isVertical, bool isSimulationAllowed,  DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
             string localeName, out int baselineCoordinate, out bool exists);
+        [PreserveSig]
         HRESULT AnalyzeVerticalGlyphOrientation(IDWriteTextAnalysisSource1 analysisSource, uint textPosition, uint textLength, IDWriteTextAnalysisSink1 analysisSink);
+        [PreserveSig]
         HRESULT GetGlyphOrientationTransform(DWRITE_GLYPH_ORIENTATION_ANGLE glyphOrientationAngle, bool isSideways, out DWRITE_MATRIX transform);
+        [PreserveSig]
         HRESULT GetScriptProperties(DWRITE_SCRIPT_ANALYSIS scriptAnalysis, out DWRITE_SCRIPT_PROPERTIES scriptProperties);
+        [PreserveSig]
         HRESULT GetTextComplexity(string textString, uint textLength, IDWriteFontFace fontFace, out bool isTextSimple, out uint textLengthRead, out UInt16 glyphIndices);
+        [PreserveSig]
         HRESULT GetJustificationOpportunities(IDWriteFontFace fontFace, float fontEmSize, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, uint textLength, uint glyphCount,
             string textString, UInt16 clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties, out DWRITE_JUSTIFICATION_OPPORTUNITY justificationOpportunities);
+        [PreserveSig]
         HRESULT JustifyGlyphAdvances(float lineWidth, uint glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY justificationOpportunities, float glyphAdvances, DWRITE_GLYPH_OFFSET glyphOffsets,
             out float justifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET justifiedGlyphOffsets);
+        [PreserveSig]
         HRESULT GetJustifiedGlyphs(IDWriteFontFace fontFace, float fontEmSize, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, uint textLength, uint glyphCount, uint maxGlyphCount,
             UInt16 clusterMap, UInt16 glyphIndices, float glyphAdvances, float justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties,
             out uint actualGlyphCount, out UInt16 modifiedClusterMap, out UInt16 modifiedGlyphIndices, out float modifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET modifiedGlyphOffsets);
@@ -2741,42 +3146,88 @@ namespace DWrite
     {
         #region IDWriteTextAnalyzer1
         #region IDWriteTextAnalyzer
+        [PreserveSig]
         new HRESULT AnalyzeScript(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeBidi(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeNumberSubstitution(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
+        [PreserveSig]
         new HRESULT AnalyzeLineBreakpoints(IDWriteTextAnalysisSource analysisSource, int textPosition, int textLength, IDWriteTextAnalysisSink analysisSink);
-        new HRESULT GetGlyphs(string textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
-            string localeName, IDWriteNumberSubstitution numberSubstitution, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            int maxGlyphCount, out UInt16 clusterMap, out DWRITE_SHAPING_TEXT_PROPERTIES textProps, out UInt16 glyphIndices, out DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, out int actualGlyphCount);
-        new HRESULT GetGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, bool isSideways, bool isRightToLeft,
-            DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features, int featureRangeLengths, int featureRanges,
-            out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
-        new HRESULT GetGdiCompatibleGlyphPlacements(string textString, UInt16 clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES textProps, int textLength, UInt16 glyphIndices,
-            DWRITE_SHAPING_GLYPH_PROPERTIES glyphProps, int glyphCount, IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, DWRITE_MATRIX transform,
-            bool useGdiNatural, bool isSideways, bool isRightToLeft, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_TYPOGRAPHIC_FEATURES features,
-            int featureRangeLengths, int featureRanges, out float glyphAdvances, out DWRITE_GLYPH_OFFSET glyphOffsets);
+        [PreserveSig]
+        new HRESULT GetGlyphs(/*[MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString, int textLength, IDWriteFontFace fontFace, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+             [MarshalAs(UnmanagedType.LPWStr)] string localeName, IDWriteNumberSubstitution numberSubstitution,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 10)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features,
+            int featureRangeLengths, int featureRanges,
+            int maxGlyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] clusterMap,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] ushort[] glyphIndices,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 11)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, out uint actualGlyphCount);
+        [PreserveSig]
+        new HRESULT GetGlyphPlacements(
+       /* [MarshalAs(UnmanagedType.LPWStr)] string*/ IntPtr  /* const WCHAR* */textString,  // param 0
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] ushort[] clusterMap, // param 1 -> size = textLength (index 3)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, // param 2 -> size = textLength
+        uint textLength,                                     // param 3
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices, // param 4 -> size = glyphCount (index 6)
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, // param 5 -> size = glyphCount
+        uint glyphCount,                                     // param 6
+        IDWriteFontFace fontFace,                            // param 7
+        float fontEmSize,                                    // param 8
+        [MarshalAs(UnmanagedType.Bool)] bool isSideways,     // param 9
+        [MarshalAs(UnmanagedType.Bool)] bool isRightToLeft,  // param 10
+        ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,           // param 11
+        [MarshalAs(UnmanagedType.LPWStr)] string localeName, // param 12 (optional)
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] DWRITE_TYPOGRAPHIC_FEATURES[]*/ IntPtr features,  // DWRITE_TYPOGRAPHIC_FEATURES** (param 13) - pass IntPtr.Zero if unused
+        /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 15)] uint[] */ IntPtr featureRangeLengths,    // UINT32 const* (param 14) - pass IntPtr.Zero if unused
+        uint featureRanges,            // param 15
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances, // param 16 -> size = glyphCount (index 6)
+        [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets // param 17 -> size = glyphCount
+        );
+        [PreserveSig]
+        new HRESULT GetGdiCompatibleGlyphPlacements([MarshalAs(UnmanagedType.LPWStr)] string textString,
+            uint clusterMap, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)] DWRITE_SHAPING_TEXT_PROPERTIES[] textProps, int textLength,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] ushort[] glyphIndices,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_SHAPING_GLYPH_PROPERTIES[] glyphProps, int glyphCount,
+            IDWriteFontFace fontFace, float fontEmSize, float pixelsPerDip, /*DWRITE_MATRIX*/ IntPtr transform,
+            bool useGdiNatural, bool isSideways, bool isRightToLeft, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
+            [MarshalAs(UnmanagedType.LPWStr)] string localeName, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] DWRITE_TYPOGRAPHIC_FEATURES[] features,
+            /* [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 18)] uint[]*/ IntPtr featureRangeLengths, int featureRanges,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] float[] glyphAdvances,
+            [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 6)] DWRITE_GLYPH_OFFSET[] glyphOffsets);
         #endregion
 
+        [PreserveSig]
         new HRESULT ApplyCharacterSpacing(float leadingSpacing, float trailingSpacing, float minimumAdvanceWidth, uint textLength, uint glyphCount, UInt16 clusterMap,
             float glyphAdvances, DWRITE_GLYPH_OFFSET glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties, out float modifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET modifiedGlyphOffsets);
+        [PreserveSig]
         new HRESULT GetBaseline(IDWriteFontFace fontFace, DWRITE_BASELINE baseline, bool isVertical, bool isSimulationAllowed, DWRITE_SCRIPT_ANALYSIS scriptAnalysis,
             string localeName, out int baselineCoordinate, out bool exists);
+        [PreserveSig]
         new HRESULT AnalyzeVerticalGlyphOrientation(IDWriteTextAnalysisSource1 analysisSource, uint textPosition, uint textLength, IDWriteTextAnalysisSink1 analysisSink);
+        [PreserveSig]
         new HRESULT GetGlyphOrientationTransform(DWRITE_GLYPH_ORIENTATION_ANGLE glyphOrientationAngle, bool isSideways, out DWRITE_MATRIX transform);
+        [PreserveSig]
         new HRESULT GetScriptProperties(DWRITE_SCRIPT_ANALYSIS scriptAnalysis, out DWRITE_SCRIPT_PROPERTIES scriptProperties);
+        [PreserveSig]
         new HRESULT GetTextComplexity(string textString, uint textLength, IDWriteFontFace fontFace, out bool isTextSimple, out uint textLengthRead, out UInt16 glyphIndices);
+        [PreserveSig]
         new HRESULT GetJustificationOpportunities(IDWriteFontFace fontFace, float fontEmSize, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, uint textLength, uint glyphCount,
             string textString, UInt16 clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties, out DWRITE_JUSTIFICATION_OPPORTUNITY justificationOpportunities);
+        [PreserveSig]
         new HRESULT JustifyGlyphAdvances(float lineWidth, uint glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY justificationOpportunities, float glyphAdvances, DWRITE_GLYPH_OFFSET glyphOffsets,
             out float justifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET justifiedGlyphOffsets);
+        [PreserveSig]
         new HRESULT GetJustifiedGlyphs(IDWriteFontFace fontFace, float fontEmSize, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, uint textLength, uint glyphCount, uint maxGlyphCount,
             UInt16 clusterMap, UInt16 glyphIndices, float glyphAdvances, float justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES glyphProperties,
             out uint actualGlyphCount, out UInt16 modifiedClusterMap, out UInt16 modifiedGlyphIndices, out float modifiedGlyphAdvances, out DWRITE_GLYPH_OFFSET modifiedGlyphOffsets);
         #endregion
 
+        [PreserveSig]
         HRESULT GetGlyphOrientationTransform(DWRITE_GLYPH_ORIENTATION_ANGLE glyphOrientationAngle, bool isSideways, float originX, float originY, out DWRITE_MATRIX transform);
+        [PreserveSig]
         HRESULT GetTypographicFeatures(IDWriteFontFace fontFace, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, uint maxTagCount, out uint actualTagCount, out DWRITE_FONT_FEATURE_TAG tags);
+        [PreserveSig]
         HRESULT CheckTypographicFeature(IDWriteFontFace fontFace, DWRITE_SCRIPT_ANALYSIS scriptAnalysis, string localeName, DWRITE_FONT_FEATURE_TAG featureTag, uint glyphCount, UInt16 glyphIndices, out byte featureApplies);
     }
 
@@ -2794,11 +3245,15 @@ namespace DWrite
         DWRITE_FONT_STYLE GetStyle();
         [PreserveSig]
         bool IsSymbolFont();
+        [PreserveSig]
         HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         DWRITE_FONT_SIMULATIONS GetSimulations();
+        [PreserveSig]
         void GetMetrics(out DWRITE_FONT_METRICS fontMetrics);
+        [PreserveSig]
         HRESULT HasCharacter(int unicodeValue, out bool exists);
         [PreserveSig]
         HRESULT CreateFontFace(out IDWriteFontFace fontFace);
@@ -2819,19 +3274,26 @@ namespace DWrite
         new DWRITE_FONT_STYLE GetStyle();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         new DWRITE_FONT_SIMULATIONS GetSimulations();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontMetrics);
+        [PreserveSig]
         new HRESULT HasCharacter(int unicodeValue, out bool exists);
         [PreserveSig]
         new HRESULT CreateFontFace(out IDWriteFontFace fontFace);
         #endregion
 
+        [PreserveSig]
         void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
         //void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         void GetPanose(out IntPtr panose);
+        [PreserveSig]
         HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         bool IsMonospacedFont();
@@ -3238,18 +3700,26 @@ namespace DWrite
         new DWRITE_FONT_STYLE GetStyle();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
+        [PreserveSig]
         new DWRITE_FONT_SIMULATIONS GetSimulations();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontMetrics);
+        [PreserveSig]
         new HRESULT HasCharacter(int unicodeValue, out bool exists);
         [PreserveSig]
         new HRESULT CreateFontFace(out IDWriteFontFace fontFace);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
@@ -3276,18 +3746,26 @@ namespace DWrite
         new DWRITE_FONT_STYLE GetStyle();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
+        [PreserveSig]
         new DWRITE_FONT_SIMULATIONS GetSimulations();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontMetrics);
+        [PreserveSig]
         new HRESULT HasCharacter(int unicodeValue, out bool exists);
         [PreserveSig]
         new HRESULT CreateFontFace(out IDWriteFontFace fontFace);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
@@ -3301,6 +3779,7 @@ namespace DWrite
         HRESULT CreateFontFace(out IDWriteFontFace3 fontFace);
         [PreserveSig]
         bool Equals(IDWriteFont font);
+        [PreserveSig]
         HRESULT GetFontFaceReference( out IDWriteFontFaceReference fontFaceReference);
         [PreserveSig]
         bool HasCharacter(uint unicodeValue);
@@ -3315,11 +3794,16 @@ namespace DWrite
     {
         [PreserveSig]
         int GetCount();
+        [PreserveSig]
         HRESULT FindLocaleName(string localeName, out uint index, out bool exists);
+        [PreserveSig]
         HRESULT GetLocaleNameLength(uint index, out uint length);
-        HRESULT GetLocaleName(uint index, out string localeName, uint size);
+        [PreserveSig]
+        HRESULT GetLocaleName(uint index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName, uint size);
+        [PreserveSig]
         HRESULT GetStringLength(uint index, out uint length);
-        HRESULT GetString(uint index, System.Text.StringBuilder stringBuffer, uint size);
+        [PreserveSig]
+        HRESULT GetString(uint index, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder stringBuffer, uint size);
     }
 
     [ComImport]
@@ -3328,14 +3812,19 @@ namespace DWrite
     public interface IDWriteFontFamily : IDWriteFontList
     {
         #region IDWriteFontList
+        [PreserveSig]
         new HRESULT GetFontCollection(out IDWriteFontCollection fontCollection);
         [PreserveSig]
         new int GetFontCount();
+        [PreserveSig]
         new HRESULT GetFont(int index, out IDWriteFont font);
         #endregion
 
+        [PreserveSig]
         HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         HRESULT GetFirstMatchingFont(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFont matchingFont);
+        [PreserveSig]
         HRESULT GetMatchingFonts(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFontList matchingFonts);
     }
 
@@ -3352,13 +3841,19 @@ namespace DWrite
         new HRESULT GetFont(int index, out IDWriteFont font);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFirstMatchingFont(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFont matchingFont);
+        [PreserveSig]
         new HRESULT GetMatchingFonts(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFontList matchingFonts);
         #endregion
 
+        [PreserveSig]
         DWRITE_LOCALITY GetFontLocality(uint listIndex);
+        [PreserveSig]
         HRESULT GetFont(uint listIndex, out IDWriteFont3 font);
+        [PreserveSig]
         HRESULT GetFontFaceReference(uint listIndex, out IDWriteFontFaceReference fontFaceReference);
     }
 
@@ -3376,17 +3871,25 @@ namespace DWrite
         new HRESULT GetFont(int index, out IDWriteFont font);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFirstMatchingFont(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFont matchingFont);
+        [PreserveSig]
         new HRESULT GetMatchingFonts(DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STRETCH stretch, DWRITE_FONT_STYLE style, out IDWriteFontList matchingFonts);
         #endregion
 
+        [PreserveSig]
         new DWRITE_LOCALITY GetFontLocality(uint listIndex);
+        [PreserveSig]
         new HRESULT GetFont(uint listIndex, out IDWriteFont3 font);
+        [PreserveSig]
         new HRESULT GetFontFaceReference(uint listIndex, out IDWriteFontFaceReference fontFaceReference);
         #endregion
 
-        HRESULT GetMatchingFonts(DWRITE_FONT_AXIS_VALUE fontAxisValues, uint fontAxisValueCount, out IDWriteFontList2 matchingFonts); 
+        [PreserveSig]
+        HRESULT GetMatchingFonts(DWRITE_FONT_AXIS_VALUE fontAxisValues, uint fontAxisValueCount, out IDWriteFontList2 matchingFonts);
+        [PreserveSig]
         HRESULT GetFontSet(out IDWriteFontSet1 fontSet);
     }
 
@@ -3441,17 +3944,38 @@ namespace DWrite
         HRESULT GetFontSet(out IDWriteFontSet1 fontSet);
     }
 
+    //[ComImport]
+    //[Guid("688e1a58-5094-47c8-adc8-fbcea60ae92b")]
+    //[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    //public interface IDWriteTextAnalysisSource
+    //{
+    //    [PreserveSig]
+    //    HRESULT GetTextAtPosition(int textPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder textString, out int textLength);
+    //    [PreserveSig]
+    //    HRESULT GetTextBeforePosition(int textPosition, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder textString, out int textLength);
+    //    [PreserveSig]
+    //    DWRITE_READING_DIRECTION GetParagraphReadingDirection();
+    //    [PreserveSig]
+    //    HRESULT GetLocaleName(int textPosition, out int textLength, [Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder localeName);
+    //    [PreserveSig]
+    //    HRESULT GetNumberSubstitution(int textPosition, out int textLength, out IDWriteNumberSubstitution numberSubstitution);
+    //}
+
     [ComImport]
     [Guid("688e1a58-5094-47c8-adc8-fbcea60ae92b")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IDWriteTextAnalysisSource
+    public unsafe interface IDWriteTextAnalysisSource
     {
-        HRESULT GetTextAtPosition(int textPosition, out string textString, out int textLength);
-        HRESULT GetTextBeforePosition(int textPosition, out string textString, out int textLength);
+        [PreserveSig]
+        HRESULT GetTextAtPosition(uint position, [Out] out IntPtr text, /* WCHAR const** */ [Out] out uint text_len);
+        [PreserveSig]
+        HRESULT GetTextBeforePosition(uint position, [Out] out IntPtr text, /* WCHAR const** */ [Out] out uint text_len);       
         [PreserveSig]
         DWRITE_READING_DIRECTION GetParagraphReadingDirection();
-        HRESULT GetLocaleName(int textPosition, out int textLength, out string localeName);
-        HRESULT GetNumberSubstitution(int textPosition, out int textLength, out IDWriteNumberSubstitution numberSubstitution);
+        [PreserveSig]
+        HRESULT GetLocaleName(uint position, [Out] out uint text_len, [Out] out IntPtr locale); /* WCHAR const** */   
+        [PreserveSig]
+        HRESULT GetNumberSubstitution(uint position, [Out] out uint text_len, [Out, MarshalAs(UnmanagedType.Interface)] out IDWriteNumberSubstitution substitution);
     }
 
     [ComImport]
@@ -3460,14 +3984,19 @@ namespace DWrite
     public interface IDWriteTextAnalysisSource1 : IDWriteTextAnalysisSource
     {
         #region IDWriteTextAnalysisSource
-        new HRESULT GetTextAtPosition(int textPosition, out string textString, out int textLength);
-        new HRESULT GetTextBeforePosition(int textPosition, out string textString, out int textLength);
+        [PreserveSig]
+        new HRESULT GetTextAtPosition(uint position, [Out] out IntPtr text, /* WCHAR const** */ [Out] out uint text_len);
+        [PreserveSig]
+        new HRESULT GetTextBeforePosition(uint position, [Out] out IntPtr text, /* WCHAR const** */ [Out] out uint text_len);
         [PreserveSig]
         new DWRITE_READING_DIRECTION GetParagraphReadingDirection();
-        new HRESULT GetLocaleName(int textPosition, out int textLength, out string localeName);
-        new HRESULT GetNumberSubstitution(int textPosition, out int textLength, out IDWriteNumberSubstitution numberSubstitution);
+        [PreserveSig]
+        new HRESULT GetLocaleName(uint position, [Out] out uint text_len, [Out] out IntPtr locale); /* WCHAR const** */
+        [PreserveSig]
+        new HRESULT GetNumberSubstitution(uint position, [Out] out uint text_len, [Out, MarshalAs(UnmanagedType.Interface)] out IDWriteNumberSubstitution substitution);
         #endregion
 
+        [PreserveSig]
         HRESULT GetVerticalGlyphOrientation(uint textPosition, out uint textLength, out DWRITE_VERTICAL_GLYPH_ORIENTATION glyphOrientation, out byte bidiLevel);
     }
 
@@ -3485,7 +4014,8 @@ namespace DWrite
     public interface IDWriteFontFace
     {
         [PreserveSig]
-        DWRITE_FONT_FACE_TYPE GetType();       
+        DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         int GetIndex();
@@ -3493,17 +4023,25 @@ namespace DWrite
         DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         bool IsSymbolFont();
+        [PreserveSig]
         void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         UInt16 GetGlyphCount();
+        [PreserveSig]
         HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
     }
 
@@ -3515,6 +4053,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3522,34 +4061,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX  transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         bool IsMonospacedFont();
+        [PreserveSig]
         HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         bool HasKerningPairs();
+        [PreserveSig]
         HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, 
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         bool HasVerticalGlyphVariants();
@@ -3564,6 +4120,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3571,34 +4128,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -3610,7 +4184,9 @@ namespace DWrite
         uint GetColorPaletteCount();
         [PreserveSig]
         uint GetPaletteEntryCount();
+        [PreserveSig]
         HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
@@ -3626,6 +4202,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3633,34 +4210,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -3672,14 +4266,18 @@ namespace DWrite
         new uint GetColorPaletteCount();
         [PreserveSig]
         new uint GetPaletteEntryCount();
+        [PreserveSig]
         new HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
         #endregion
 
+        [PreserveSig]
         HRESULT GetFontFaceReference(out IDWriteFontFaceReference fontFaceReference);
         //void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         void GetPanose(out IntPtr panose);
         [PreserveSig]
         DWRITE_FONT_WEIGHT GetWeight();
@@ -3687,18 +4285,24 @@ namespace DWrite
         DWRITE_FONT_STRETCH GetStretch();
         [PreserveSig]
         DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
         HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
-        bool HasCharacter(uint unicodeValue); 
+        bool HasCharacter(uint unicodeValue);
+        [PreserveSig]
         HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, DWRITE_OUTLINE_THRESHOLD outlineThreshold,
             DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE1 renderingMode, out DWRITE_GRID_FIT_MODE gridFitMode);
         [PreserveSig]
         bool IsCharacterLocal(uint unicodeValue);
         [PreserveSig]
-        bool IsGlyphLocal(UInt16 glyphId); 
+        bool IsGlyphLocal(UInt16 glyphId);
+        [PreserveSig]
         HRESULT AreCharactersLocal(string characters, uint characterCount, bool enqueueIfNotLocal, out bool isLocal);
+        [PreserveSig]
         HRESULT AreGlyphsLocal(UInt16 glyphIndices, uint glyphCount, bool enqueueIfNotLocal, out bool isLocal);
     }
 
@@ -3713,6 +4317,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3720,34 +4325,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -3759,14 +4381,18 @@ namespace DWrite
         new uint GetColorPaletteCount();
         [PreserveSig]
         new uint GetPaletteEntryCount();
+        [PreserveSig]
         new HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFontFaceReference(out IDWriteFontFaceReference fontFaceReference);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetWeight();
@@ -3774,25 +4400,34 @@ namespace DWrite
         new DWRITE_FONT_STRETCH GetStretch();
         [PreserveSig]
         new DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         new bool HasCharacter(uint unicodeValue);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, DWRITE_OUTLINE_THRESHOLD outlineThreshold,
             DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE1 renderingMode, out DWRITE_GRID_FIT_MODE gridFitMode);
         [PreserveSig]
         new bool IsCharacterLocal(uint unicodeValue);
         [PreserveSig]
         new bool IsGlyphLocal(UInt16 glyphId);
+        [PreserveSig]
         new HRESULT AreCharactersLocal(string characters, uint characterCount, bool enqueueIfNotLocal, out bool isLocal);
+        [PreserveSig]
         new HRESULT AreGlyphsLocal(UInt16 glyphIndices, uint glyphCount, bool enqueueIfNotLocal, out bool isLocal);
         #endregion
 
         [PreserveSig]
         DWRITE_GLYPH_IMAGE_FORMATS GetGlyphImageFormats();
+        [PreserveSig]
         HRESULT GetGlyphImageFormats(UInt16 glyphId, uint pixelsPerEmFirst, uint pixelsPerEmLast, out DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormats);
+        [PreserveSig]       
         HRESULT GetGlyphImageData(UInt16 glyphId, uint pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormat, out DWRITE_GLYPH_IMAGE_DATA glyphData, out IntPtr glyphDataContext);
+        [PreserveSig]
         void ReleaseGlyphImageData(IntPtr glyphDataContext);
     }
 
@@ -3807,7 +4442,8 @@ namespace DWrite
         #region IDWriteFontFace1
         #region IDWriteFontFace
         [PreserveSig]
-        new DWRITE_FONT_FACE_TYPE GetType();        
+        new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3815,34 +4451,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -3854,14 +4507,18 @@ namespace DWrite
         new uint GetColorPaletteCount();
         [PreserveSig]
         new uint GetPaletteEntryCount();
+        [PreserveSig]
         new HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFontFaceReference(out IDWriteFontFaceReference fontFaceReference);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetWeight();
@@ -3869,25 +4526,34 @@ namespace DWrite
         new DWRITE_FONT_STRETCH GetStretch();
         [PreserveSig]
         new DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         new bool HasCharacter(uint unicodeValue);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, DWRITE_OUTLINE_THRESHOLD outlineThreshold,
             DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE1 renderingMode, out DWRITE_GRID_FIT_MODE gridFitMode);
         [PreserveSig]
         new bool IsCharacterLocal(uint unicodeValue);
         [PreserveSig]
         new bool IsGlyphLocal(UInt16 glyphId);
+        [PreserveSig]
         new HRESULT AreCharactersLocal(string characters, uint characterCount, bool enqueueIfNotLocal, out bool isLocal);
+        [PreserveSig]
         new HRESULT AreGlyphsLocal(UInt16 glyphIndices, uint glyphCount, bool enqueueIfNotLocal, out bool isLocal);
         #endregion
 
         [PreserveSig]
         new DWRITE_GLYPH_IMAGE_FORMATS GetGlyphImageFormats();
+        [PreserveSig]
         new HRESULT GetGlyphImageFormats(UInt16 glyphId, uint pixelsPerEmFirst, uint pixelsPerEmLast, out DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormats);
+        [PreserveSig]
         new HRESULT GetGlyphImageData(UInt16 glyphId, uint pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormat, out DWRITE_GLYPH_IMAGE_DATA glyphData, out IntPtr glyphDataContext);
+        [PreserveSig]
         new void ReleaseGlyphImageData(IntPtr glyphDataContext);
         #endregion
 
@@ -3915,6 +4581,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -3922,34 +4589,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -3961,14 +4645,18 @@ namespace DWrite
         new uint GetColorPaletteCount();
         [PreserveSig]
         new uint GetPaletteEntryCount();
+        [PreserveSig]
         new HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFontFaceReference(out IDWriteFontFaceReference fontFaceReference);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetWeight();
@@ -3976,25 +4664,34 @@ namespace DWrite
         new DWRITE_FONT_STRETCH GetStretch();
         [PreserveSig]
         new DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         new bool HasCharacter(uint unicodeValue);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, DWRITE_OUTLINE_THRESHOLD outlineThreshold,
             DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE1 renderingMode, out DWRITE_GRID_FIT_MODE gridFitMode);
         [PreserveSig]
         new bool IsCharacterLocal(uint unicodeValue);
         [PreserveSig]
         new bool IsGlyphLocal(UInt16 glyphId);
+        [PreserveSig]
         new HRESULT AreCharactersLocal(string characters, uint characterCount, bool enqueueIfNotLocal, out bool isLocal);
+        [PreserveSig]
         new HRESULT AreGlyphsLocal(UInt16 glyphIndices, uint glyphCount, bool enqueueIfNotLocal, out bool isLocal);
         #endregion
 
         [PreserveSig]
         new DWRITE_GLYPH_IMAGE_FORMATS GetGlyphImageFormats();
+        [PreserveSig]
         new HRESULT GetGlyphImageFormats(UInt16 glyphId, uint pixelsPerEmFirst, uint pixelsPerEmLast, out DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormats);
+        [PreserveSig]
         new HRESULT GetGlyphImageData(UInt16 glyphId, uint pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormat, out DWRITE_GLYPH_IMAGE_DATA glyphData, out IntPtr glyphDataContext);
+        [PreserveSig]
         new void ReleaseGlyphImageData(IntPtr glyphDataContext);
         #endregion
 
@@ -4029,6 +4726,7 @@ namespace DWrite
         #region IDWriteFontFace
         [PreserveSig]
         new DWRITE_FONT_FACE_TYPE GetType();
+        [PreserveSig]
         new HRESULT GetFiles([In, Out] ref uint numberOfFiles, [Out, MarshalAs(UnmanagedType.LPArray)] IDWriteFontFile[] fontFiles);
         [PreserveSig]
         new int GetIndex();
@@ -4036,34 +4734,51 @@ namespace DWrite
         new DWRITE_FONT_SIMULATIONS GetSimulations();
         [PreserveSig]
         new bool IsSymbolFont();
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS fontFaceMetrics);
         [PreserveSig]
         new UInt16 GetGlyphCount();
+        [PreserveSig]
         new HRESULT GetDesignGlyphMetrics([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices, int glyphCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_GLYPH_METRICS[] glyphMetrics, bool isSideways = false);
         [PreserveSig]
         new HRESULT GetGlyphIndices([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] uint[] codePoints, int codePointCount, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] ushort[] glyphIndices);
+        [PreserveSig]
         new HRESULT TryGetFontTable(int openTypeTableTag, out IntPtr tableData, out int tableSize, out IntPtr tableContext, out bool exists);
+        [PreserveSig]
         new void ReleaseFontTable(IntPtr tableContext);
+        [PreserveSig]
         new HRESULT GetGlyphRunOutline(float emSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] ushort[] glyphIndices, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] float[] glyphAdvances, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 4)] DWRITE_GLYPH_OFFSET[] glyphOffsets, int glyphCount, bool isSideways, bool isRightToLeft, ID2D1SimplifiedGeometrySink geometrySink);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float emSize, float pixelsPerDip, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS fontFaceMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, UInt16 glyphIndices, int glyphCount, out DWRITE_GLYPH_METRICS glyphMetrics, bool isSideways = false);
         #endregion
 
+        [PreserveSig]
         new void GetMetrics(out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleMetrics(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, out DWRITE_FONT_METRICS1 fontMetrics);
+        [PreserveSig]
         new void GetCaretMetrics(out DWRITE_CARET_METRICS caretMetrics);
+        [PreserveSig]
         new HRESULT GetUnicodeRanges(uint maxRangeCount, out DWRITE_UNICODE_RANGE unicodeRanges, out uint actualRangeCount);
         [PreserveSig]
         new bool IsMonospacedFont();
+        [PreserveSig]
         new HRESULT GetDesignGlyphAdvances(uint glyphCount, UInt16 glyphIndices, out int glyphAdvances, bool isSideways = false);
+        [PreserveSig]
         new HRESULT GetGdiCompatibleGlyphAdvances(float emSize, float pixelsPerDip, DWRITE_MATRIX transform, bool useGdiNatural, bool isSideways, uint glyphCount,
             UInt16 glyphIndices, out int glyphAdvances);
+        [PreserveSig]
         new HRESULT GetKerningPairAdjustments(uint glyphCount, UInt16 glyphIndices, out int glyphAdvanceAdjustments);
         [PreserveSig]
         new bool HasKerningPairs();
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, out DWRITE_RENDERING_MODE renderingMode);
+        [PreserveSig]
         new HRESULT GetVerticalGlyphVariants(uint glyphCount, UInt16 nominalGlyphIndices, out UInt16 verticalGlyphIndices);
         [PreserveSig]
         new bool HasVerticalGlyphVariants();
@@ -4075,14 +4790,18 @@ namespace DWrite
         new uint GetColorPaletteCount();
         [PreserveSig]
         new uint GetPaletteEntryCount();
+        [PreserveSig]
         new HRESULT GetPaletteEntries(uint colorPaletteIndex, uint firstEntryIndex, uint entryCount, out DWRITE_COLOR_F paletteEntries);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways,
             DWRITE_OUTLINE_THRESHOLD outlineThreshold, DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE renderingMode,
             out DWRITE_GRID_FIT_MODE gridFitMode);
         #endregion
 
+        [PreserveSig]
         new HRESULT GetFontFaceReference(out IDWriteFontFaceReference fontFaceReference);
         //new void GetPanose(out DWRITE_PANOSE panose);
+        [PreserveSig]
         new void GetPanose(out IntPtr panose);
         [PreserveSig]
         new DWRITE_FONT_WEIGHT GetWeight();
@@ -4090,25 +4809,34 @@ namespace DWrite
         new DWRITE_FONT_STRETCH GetStretch();
         [PreserveSig]
         new DWRITE_FONT_STYLE GetStyle();
+        [PreserveSig]
         new HRESULT GetFamilyNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetFaceNames(out IDWriteLocalizedStrings names);
+        [PreserveSig]
         new HRESULT GetInformationalStrings(DWRITE_INFORMATIONAL_STRING_ID informationalStringID, out IDWriteLocalizedStrings informationalStrings, out bool exists);
         [PreserveSig]
         new bool HasCharacter(uint unicodeValue);
+        [PreserveSig]
         new HRESULT GetRecommendedRenderingMode(float fontEmSize, float dpiX, float dpiY, DWRITE_MATRIX transform, bool isSideways, DWRITE_OUTLINE_THRESHOLD outlineThreshold,
             DWRITE_MEASURING_MODE measuringMode, IDWriteRenderingParams renderingParams, out DWRITE_RENDERING_MODE1 renderingMode, out DWRITE_GRID_FIT_MODE gridFitMode);
         [PreserveSig]
         new bool IsCharacterLocal(uint unicodeValue);
         [PreserveSig]
         new bool IsGlyphLocal(UInt16 glyphId);
+        [PreserveSig]
         new HRESULT AreCharactersLocal(string characters, uint characterCount, bool enqueueIfNotLocal, out bool isLocal);
+        [PreserveSig]
         new HRESULT AreGlyphsLocal(UInt16 glyphIndices, uint glyphCount, bool enqueueIfNotLocal, out bool isLocal);
         #endregion
 
         [PreserveSig]
         new DWRITE_GLYPH_IMAGE_FORMATS GetGlyphImageFormats();
+        [PreserveSig]
         new HRESULT GetGlyphImageFormats(UInt16 glyphId, uint pixelsPerEmFirst, uint pixelsPerEmLast, out DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormats);
+        [PreserveSig]
         new HRESULT GetGlyphImageData(UInt16 glyphId, uint pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS glyphImageFormat, out DWRITE_GLYPH_IMAGE_DATA glyphData, out IntPtr glyphDataContext);
+        [PreserveSig]
         new void ReleaseGlyphImageData(IntPtr glyphDataContext);
         #endregion
 
@@ -4144,16 +4872,25 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IDWritePaintReader
     {
+        [PreserveSig]
         HRESULT SetCurrentGlyph(uint glyphIndex,/*DWRITE_PAINT_ELEMENT**/ IntPtr paintElement, uint structSize,
             out Direct2D.D2D1_RECT_F clipBox, IntPtr /*out DWRITE_PAINT_ATTRIBUTES*/ glyphAttributes);
+        [PreserveSig]
         HRESULT SetTextColor(ref DWRITE_COLOR_F textColor);
+        [PreserveSig]
         HRESULT SetColorPaletteIndex(uint colorPaletteIndex);
+        [PreserveSig]
         HRESULT SetCustomColorPalette([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_COLOR_F[] paletteEntries, uint paletteEntryCount);
+        [PreserveSig]
         HRESULT MoveToFirstChild(IntPtr /*DWRITE_PAINT_ELEMENT**/ paintElement, uint structSize);
+        [PreserveSig]
         HRESULT MoveToNextSibling(IntPtr /*DWRITE_PAINT_ELEMENT**/ paintElement, uint structSize);
+        [PreserveSig]
         HRESULT MoveToParent();
+        [PreserveSig]
         HRESULT GetGradientStops(uint firstGradientStopIndex, uint gradientStopCount,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] Direct2D.D2D1_GRADIENT_STOP[] gradientStops);
+        [PreserveSig]
         HRESULT GetGradientStopColors(uint firstGradientStopIndex, uint gradientStopCount,
             [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_PAINT_COLOR[] gradientStopColors);
     }
@@ -4510,10 +5247,15 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IDWriteTextAnalysisSink
     {
-        HRESULT SetScriptAnalysis(int textPosition, int textLength, DWRITE_SCRIPT_ANALYSIS scriptAnalysis);
-        HRESULT SetLineBreakpoints(int textPosition, int textLength, DWRITE_LINE_BREAKPOINT lineBreakpoints);
-        HRESULT SetBidiLevel(int textPosition, int textLength, byte explicitLevel, byte resolvedLevel);
-        HRESULT SetNumberSubstitution(int textPosition, int textLength, IDWriteNumberSubstitution numberSubstitution);
+        [PreserveSig]
+        HRESULT SetScriptAnalysis(uint textPosition, uint textLength, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis);
+        [PreserveSig]
+        //HRESULT SetLineBreakpoints(uint textPosition, uint textLength, ref DWRITE_LINE_BREAKPOINT lineBreakpoints);
+        HRESULT SetLineBreakpoints(uint textPosition, uint textLength, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_BREAKPOINT[] lineBreakpoints);
+        [PreserveSig]
+        HRESULT SetBidiLevel(uint textPosition, uint textLength, byte explicitLevel, byte resolvedLevel);
+        [PreserveSig]
+        HRESULT SetNumberSubstitution(uint textPosition, uint textLength, IDWriteNumberSubstitution numberSubstitution);
     }
 
     [ComImport]
@@ -4522,12 +5264,18 @@ namespace DWrite
     public interface IDWriteTextAnalysisSink1 : IDWriteTextAnalysisSink
     {
         #region IDWriteTextAnalysisSink
-        new HRESULT SetScriptAnalysis(int textPosition, int textLength, DWRITE_SCRIPT_ANALYSIS scriptAnalysis);
-        new HRESULT SetLineBreakpoints(int textPosition, int textLength, DWRITE_LINE_BREAKPOINT lineBreakpoints);
-        new HRESULT SetBidiLevel(int textPosition, int textLength, byte explicitLevel, byte resolvedLevel);
-        new HRESULT SetNumberSubstitution(int textPosition, int textLength, IDWriteNumberSubstitution numberSubstitution);
+        [PreserveSig]
+        new HRESULT SetScriptAnalysis(uint textPosition, uint textLength, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis);
+        [PreserveSig]
+        //new HRESULT SetLineBreakpoints(uint textPosition, uint textLength, ref DWRITE_LINE_BREAKPOINT lineBreakpoints);
+        new HRESULT SetLineBreakpoints(uint textPosition, uint textLength, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] DWRITE_LINE_BREAKPOINT[] lineBreakpoints);
+        [PreserveSig]
+        new HRESULT SetBidiLevel(uint textPosition, uint textLength, byte explicitLevel, byte resolvedLevel);
+        [PreserveSig]
+        new HRESULT SetNumberSubstitution(uint textPosition, uint textLength, IDWriteNumberSubstitution numberSubstitution);
         #endregion
 
+        [PreserveSig]
         HRESULT SetGlyphOrientation(uint textPosition,uint textLength, DWRITE_GLYPH_ORIENTATION_ANGLE glyphOrientationAngle, byte adjustedBidiLevel,
             bool isSideways, bool isRightToLeft);
     }
@@ -4612,12 +5360,19 @@ namespace DWrite
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface ID2D1SimplifiedGeometrySink
     {
+        [PreserveSig]
         HRESULT SetFillMode(D2D1_FILL_MODE fillMode);
+        [PreserveSig]
         HRESULT SetSegmentFlags(D2D1_PATH_SEGMENT vertexFlags);
+        [PreserveSig]
         HRESULT BeginFigure(D2D1_POINT_2F startPoint, D2D1_FIGURE_BEGIN figureBegin);
-        HRESULT AddLines([MarshalAs(UnmanagedType.LPArray)] D2D1_POINT_2F[] points, uint pointsCount);
-        HRESULT AddBeziers(D2D1_BEZIER_SEGMENT beziers, uint beziersCount);
+        [PreserveSig]
+        HRESULT AddLines([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] D2D1_POINT_2F[] points, int pointsCount);
+        [PreserveSig]
+        HRESULT AddBeziers([MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] D2D1_BEZIER_SEGMENT[] beziers, int beziersCount);
+        [PreserveSig]
         HRESULT EndFigure(D2D1_FIGURE_END figureEnd);
+        [PreserveSig]
         HRESULT Close();
     }
 
@@ -5664,20 +6419,27 @@ namespace DWrite
         }
     }
 
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct DWRITE_SCRIPT_ANALYSIS
+    //{
+    //    / <summary>
+    //    / Zero-based index representation of writing system script.
+    //    / </summary>
+    //    public UInt16 script;
+    //    / <summary>
+    //    / Additional shaping requirement of text.
+    //    / </summary>
+    //    public DWRITE_SCRIPT_SHAPES shapes;
+    //}
+
     [StructLayout(LayoutKind.Sequential)]
     public struct DWRITE_SCRIPT_ANALYSIS
     {
-        /// <summary>
-        /// Zero-based index representation of writing system script.
-        /// </summary>
-        public UInt16 script;
-        /// <summary>
-        /// Additional shaping requirement of text.
-        /// </summary>
-        public DWRITE_SCRIPT_SHAPES shapes;
+        public ushort script;
+        public DWRITE_SCRIPT_SHAPES shapes; // DWRITE_SCRIPT_SHAPES as ushort
     }
 
-    public enum DWRITE_SCRIPT_SHAPES
+    public enum DWRITE_SCRIPT_SHAPES : ushort
     {
         /// <summary>
         /// No additional shaping requirement. Text is shaped with the writing system default behavior.
@@ -5704,6 +6466,13 @@ namespace DWrite
         [MarshalAs(UnmanagedType.U2, SizeConst = 15)]
         public UInt16 reserved;
     }
+
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct DWRITE_SHAPING_TEXT_PROPERTIES
+    //{
+    //    public byte isShapedAlone;
+    //    public byte reserved;
+    //}
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DWRITE_SHAPING_GLYPH_PROPERTIES
@@ -5737,6 +6506,20 @@ namespace DWrite
         public UInt16 reserved;
     }
 
+    //[StructLayout(LayoutKind.Sequential)]
+    //public struct DWRITE_SHAPING_GLYPH_PROPERTIES
+    //{
+    //    public byte justification;
+    //    public byte isClusterStart;
+    //    public byte isDiacritic;
+    //    public byte isZeroWidth;
+    //    // pad/reserved bytes to match native alignment and avoid corruption
+    //    public byte reserved1;
+    //    public byte reserved2;
+    //    public byte reserved3;
+    //    public byte reserved4;
+    //}
+
     [StructLayout(LayoutKind.Sequential)]
     public struct DWRITE_LINE_METRICS
     {
@@ -5769,6 +6552,53 @@ namespace DWrite
         /// </summary>
         public bool isTrimmed;
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DWRITE_LINE_METRICS1
+    {
+        /// <summary>
+        /// The number of total text positions in the line.
+        /// This includes any trailing whitespace and newline characters.
+        /// </summary>
+        public int length;
+        /// <summary>
+        /// The number of whitespace positions at the end of the line.  Newline
+        /// sequences are considered whitespace.
+        /// </summary>
+        public int trailingWhitespaceLength;
+        /// <summary>
+        /// The number of characters in the newline sequence at the end of the line.
+        /// If the count is zero, then the line was either wrapped or it is the
+        /// end of the text.
+        /// </summary>
+        public int newlineLength;
+        /// <summary>
+        /// Height of the line as measured from top to bottom.
+        /// </summary>
+        public float height;
+        /// <summary>
+        /// Distance from the top of the line to its baseline.
+        /// </summary>
+        public float baseline;
+        /// <summary>
+        /// The line is trimmed.
+        /// </summary>
+        public bool isTrimmed;
+
+        /// <summary>
+        /// White space before the content of the line. This is included in the line height and baseline distances.
+        /// If the line is formatted horizontally either with a uniform line spacing or with proportional
+        /// line spacing, this value represents the extra space above the content.
+        /// </summary>
+        public float leadingBefore;
+
+        /// <summary>
+        /// White space after the content of the line. This is included in the height of the line.
+        /// If the line is formatted horizontally either with a uniform line spacing or with proportional
+        /// line spacing, this value represents the extra space below the content.
+        /// </summary>
+        public float leadingAfter;
+    };
 
     [StructLayout(LayoutKind.Sequential)]
     public struct DWRITE_TEXT_METRICS
@@ -5815,11 +6645,11 @@ namespace DWrite
         /// If the layout has no bidirectional text or no text at all,
         /// the minimum level is 1.
         /// </summary>
-        public int maxBidiReorderingDepth;
+        public uint maxBidiReorderingDepth;
         /// <summary>
         /// Total number of lines.
         /// </summary>
-        public int lineCount;
+        public uint lineCount;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -6186,11 +7016,11 @@ namespace DWrite
         /// If the layout has no bidirectional text or no text at all,
         /// the minimum level is 1.
         /// </summary>
-        public int maxBidiReorderingDepth;
+        public uint maxBidiReorderingDepth;
         /// <summary>
         /// Total number of lines.
         /// </summary>
-        public int lineCount;
+        public uint lineCount;
         /// <summary>
         /// The height of the formatted text taking into account the
         /// trailing whitespace at the end of each line, which will

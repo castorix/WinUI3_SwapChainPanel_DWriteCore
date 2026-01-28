@@ -208,11 +208,11 @@ public class CustomTextRenderer : IDWriteTextRenderer, IDisposable
             if (hr == HRESULT.S_OK)
             {
                 m_pD2DDeviceContext.GetSize(out D2D1_SIZE_F size);
-                D2D1_RECT_F imageRectangle = new D2D1_RECT_F();
-                imageRectangle.left = 0.0f;
-                imageRectangle.top = 0.0f;
-                imageRectangle.right = size.width;
-                imageRectangle.bottom = size.height;
+                //D2D1_RECT_F imageRectangle = new D2D1_RECT_F();
+                //imageRectangle.left = 0.0f;
+                //imageRectangle.top = 0.0f;
+                //imageRectangle.right = size.width;
+                //imageRectangle.bottom = size.height;
                 //imageRectangle.right = Microsoft.UI.Windowing.DisplayArea.Primary.WorkArea.Width;
                 //imageRectangle.bottom = Microsoft.UI.Windowing.DisplayArea.Primary.WorkArea.Height;
 
@@ -221,7 +221,7 @@ public class CustomTextRenderer : IDWriteTextRenderer, IDisposable
                 // or displayed to screen DC from GetMemoryDC with BitBlt
 
                 //m_pD2DDeviceContext.Clear(null);
-                m_pD2DDeviceContext.DrawImage(pBitmap1, pt, ref imageRectangle, D2D1_INTERPOLATION_MODE.D2D1_INTERPOLATION_MODE_LINEAR, D2D1_COMPOSITE_MODE.D2D1_COMPOSITE_MODE_SOURCE_OVER);
+                m_pD2DDeviceContext.DrawImage(pBitmap1, pt, IntPtr.Zero, D2D1_INTERPOLATION_MODE.D2D1_INTERPOLATION_MODE_LINEAR, D2D1_COMPOSITE_MODE.D2D1_COMPOSITE_MODE_SOURCE_OVER);
     
                 SafeRelease(ref pBitmap1);
             }

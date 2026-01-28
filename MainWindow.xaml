@@ -8,61 +8,167 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>-->
+    <Grid x:Name="mainGrid">
 
-    <Grid x:Name="mainGrid" >
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <!--<Button x:Name="myButton" Click="myButton_Click" Margin="10, 10, 0, 0" VerticalAlignment="Center" >Set font for text with shadow</Button>-->
-            <TextBlock Margin="10, 10, 0, 0" VerticalAlignment="Center" >Font for shadowed text :</TextBlock>
-            <TextBlock Margin="10, 10, 0, 0" VerticalAlignment="Center" >Custom fonts :</TextBlock>
-            <ComboBox x:Name="FontListCustom" Width="300" Margin="10, 10, 0, 0" VerticalAlignment="Center"
+        <Grid Grid.Row="0" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Margin="10,10,0,0"
+                       VerticalAlignment="Center"
+                       Text="Font for shadowed text :" />
+
+            <TextBlock Grid.Column="1"
+                       Margin="10,10,0,0"
+                       VerticalAlignment="Center"
+                       Text="Custom fonts :" />
+
+            <ComboBox Grid.Column="2"
+                      x:Name="FontListCustom"
+                      Width="300"
+                      Margin="10,10,0,0"
+                      VerticalAlignment="Center"
                       SelectionChanged="FontListCustom_SelectionChanged"
-                     ItemsSource="{x:Bind CustomFonts}">
+                      ItemsSource="{x:Bind CustomFonts}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="local:Font">
-                        <TextBlock FontFamily="{x:Bind FontFamilyPath}" FontSize="24" Text="{x:Bind Name}" />
+                        <TextBlock FontFamily="{x:Bind FontFamilyPath}"
+                                   FontSize="24"
+                                   Text="{x:Bind Name}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock Margin="10, 10, 0, 0" VerticalAlignment="Center" >System fonts :</TextBlock>
-            <ComboBox x:Name="FontListSystem" Width="500" Margin="10, 10, 0, 0" VerticalAlignment="Center"
+
+            <TextBlock Grid.Column="3"
+                       Margin="10,10,0,0"
+                       VerticalAlignment="Center"
+                       Text="System fonts :" />
+
+            <!-- Shrink column -->
+            <ComboBox Grid.Column="4"
+                      x:Name="FontListSystem"
+                      MinWidth="150"
+                      HorizontalAlignment="Stretch"
+                      Margin="10,10,10,0"
+                      VerticalAlignment="Center"
                       SelectionChanged="FontListSystem_SelectionChanged"
                       ItemsSource="{x:Bind SystemFonts}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate x:DataType="local:Font">
-                        <TextBlock FontFamily="{x:Bind FontFamilyPath}" FontWeight="{x:Bind FontWeight}" FontStyle="{x:Bind Style}"
-                                  FontStretch="{x:Bind Stretch}" FontSize="24" Text="{x:Bind Name}" />                       
+                        <TextBlock FontFamily="{x:Bind FontFamilyPath}"
+                                   FontWeight="{x:Bind FontWeight}"
+                                   FontStyle="{x:Bind Style}"
+                                   FontStretch="{x:Bind Stretch}"
+                                   FontSize="24"
+                                   Text="{x:Bind Name}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-        </StackPanel>
-        <SwapChainPanel x:Name="scp1" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="10, 10, 10, 10"
-                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        RenderTransformOrigin="0.5 0.5" >
+        </Grid>
+      
+        <NavigationView
+            Grid.Row="1"
+            x:Name="NavView"
+            PaneDisplayMode="Left"
+            IsSettingsVisible="False"
+            IsPaneToggleButtonVisible="False"
+            CompactPaneLength="48"
+            OpenPaneLength="120"
+            ItemInvoked="NavView_ItemInvoked">
 
-            <!--Width ="800" Height="400"-->
-            <!--HorizontalAlignment="Center" VerticalAlignment="Center"-->
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:NavItem">
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                Margin="0,8">
+                        <ContentPresenter Content="{x:Bind Icon}" />
+                        <TextBlock Text="{x:Bind Text}"
+                                   FontSize="12"
+                                   TextAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
 
-            <!--<SwapChainPanel.RenderTransform>
-                <ScaleTransform ScaleY="1" ScaleX="1" />
-                -->
-            <!--<ScaleTransform ScaleY="1.25" ScaleX="1.25" />-->
-            <!--
-            </SwapChainPanel.RenderTransform>-->
-        </SwapChainPanel>
+            <!-- Top menu -->
+            <NavigationView.MenuItems>
+                <local:NavItem Text="Gradient" Tag="Gradient">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F308;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Shadow" Tag="Shadow">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="🌒" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Turbulence" Tag="Turbulence">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F32C;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <!--<local:NavItem Text="Waves" Tag="Waves">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x3030;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>-->
+
+                <local:NavItem Text="Glowing" Tag="Glowing">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x2728;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Bitmap" Tag="Bitmap">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F5BC;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Scrolling" Tag="Scrolling">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x2B05;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Collapse" Tag="Collapse">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F386;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
+                <local:NavItem Text="Point-diffuse&#x0A;lighting" Tag="Point-diffuse lighting">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x2600;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+            </NavigationView.MenuItems>
+
+            <!-- Footer menu -->
+            <!--<NavigationView.FooterMenuItems>
+                <local:NavItem Text="Library" Tag="library">
+                    <local:NavItem.Icon>
+                        <SymbolIcon Symbol="Library"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+            </NavigationView.FooterMenuItems>-->
+
+            <!-- Central content -->
+            <Frame x:Name="ContentFrame"/>
+        </NavigationView>
 
     </Grid>
 </Window>
