@@ -155,6 +155,12 @@
                         <FontIcon Glyph="&#x2600;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
                     </local:NavItem.Icon>
                 </local:NavItem>
+
+                <local:NavItem Text="Gold" Tag="Gold">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F4AB;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
             </NavigationView.MenuItems>
 
             <!-- Footer menu -->

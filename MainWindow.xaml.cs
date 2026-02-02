@@ -65,7 +65,10 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         ID2D1LinearGradientBrush m_pD2DLinearGradientBrush2 = null;
         ID2D1Bitmap m_pD2DBitmap1 = null;
         ID2D1BitmapBrush m_pD2DBitmapBrush1 = null;
+        ID2D1BitmapBrush m_pD2DBitmapBrushGold = null;
+        ID2D1LinearGradientBrush m_pSweepBrush = null;
         ID2D1Bitmap m_pD2DBitmap2 = null;
+        ID2D1Bitmap m_pStarBitmap = null;
 
         IDWriteFactory7 m_pDWriteFactory7 = null;
         ID2D1Geometry m_pD2DGeometry1 = null;
@@ -75,6 +78,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         ID2D1Geometry m_pD2DGeometry5 = null;
         ID2D1Geometry m_pD2DGeometry6 = null;
         ID2D1Geometry m_pD2DGeometry7 = null;
+        ID2D1Geometry m_pD2DGeometry8 = null;
         float m_nComputedHeight1 = 0, m_nComputedHeight2 = 0, m_nComputedHeight3 = 0, m_nComputedHeight4 = 0,
             m_nComputedHeight5 = 0, m_nComputedHeight6 = 0, m_nComputedHeight7 = 0;
         IDWriteTextLayout m_pTextLayout = null;
@@ -185,6 +189,10 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
                         sPathFont = System.IO.Path.Combine(sExePath, "Assets\\MagicSchoolOne.ttf");
                         CreateDWriteTextGeometry("This is a collapsing text", sPathFont, 90.0f, true, false, false, out m_pD2DGeometry7, out m_nComputedHeight7);
+
+                        sPathFont = System.IO.Path.Combine(sExePath, "Assets\\The Golden Flower.ttf");
+                        CreateDWriteTextGeometry("This is a gold text", sPathFont, 90.0f, true, false, false, out m_pD2DGeometry8, out m_nComputedHeight7);
+
 
                         //string sFontName = "Segoe UI Emoji";
                         //string sFontName = "Tolkien";
@@ -323,6 +331,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             SCROLLING = 6,
             COLLAPSE = 7,
             POINT_DIFFUSE_LIGHTING = 8,
+            GOLD = 9,
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -350,13 +359,17 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         m_nTextEffect = (int)TEXT_EFFECT.BITMAP;
                         break;
                     case "Scrolling":
-                        m_nTextEffect = (int)TEXT_EFFECT.SCROLLING;
+                        m_nTextEffect = (int)TEXT_EFFECT.SCROLLING;                      
                         break;
                     case "Collapse":
                         m_nTextEffect = (int)TEXT_EFFECT.COLLAPSE;
                         break;
                     case "Point-diffuse lighting":
                         m_nTextEffect = (int)TEXT_EFFECT.POINT_DIFFUSE_LIGHTING;
+                        break;
+                    case "Gold":
+                        m_nTextEffect = (int)TEXT_EFFECT.GOLD;
+                        _animClock.Restart();
                         break;
                 }
             }
@@ -1072,7 +1085,9 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                             D2D1_RECT_F sourceRectangle = new D2D1_RECT_F(0, 1, rtSize.width, rtSize.height * 3);
                             IntPtr pSourceRectangle = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(D2D1_RECT_F)));
                             Marshal.StructureToPtr(sourceRectangle, pSourceRectangle, false);
+
                             m_pD2DDeviceContext.DrawImage((ID2D1Image)pDisplacementMapEffect, ptShadowPos, pSourceRectangle, D2D1_INTERPOLATION_MODE.D2D1_INTERPOLATION_MODE_LINEAR, D2D1_COMPOSITE_MODE.D2D1_COMPOSITE_MODE_SOURCE_OVER);
+
                             Marshal.FreeHGlobal(pSourceRectangle);
                             SafeRelease(ref pDisplacementMapEffect);
                             SafeRelease(ref pCompatibleBitmap);
@@ -1136,6 +1151,128 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                     }
                 }
 
+                // Not great...
+                // A better effect would be to do like : https://elements.envato.com/golden-titles-cinematic-royale-luxury-gold-pack-EP3GBVT
+                else if (m_nTextEffect == (int)TEXT_EFFECT.GOLD)
+                {
+                    if (m_pD2DGeometry8 != null)
+                    {                        
+                        CenterGeometry(m_pD2DDeviceContext, m_pD2DGeometry8, 1.0f);
+
+                        // Save transform
+                        m_pD2DDeviceContext.GetTransform(out var savedTransform);
+                        D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);
+
+                        m_pD2DGeometry8.GetBounds(null, out var geoBounds);
+
+                        m_imageGoldScrollX -= 0.75f;
+                        if (m_imageGoldScrollX <= -10000) m_imageGoldScrollX = 0;
+
+                        m_pD2DBitmapBrushGold.SetTransform(Matrix3x2F.Translation(m_imageGoldScrollX, 0));
+
+                        m_pD2DDeviceContext.DrawGeometry(m_pD2DGeometry8, m_pD2DMainBrush, 2.0f);
+
+                        float time = (float)_animClock.Elapsed.TotalSeconds;
+                        float t = (time * 0.15f) % 1.0f;
+
+                        float width = geoBounds.right - geoBounds.left;
+                        float height = geoBounds.bottom - geoBounds.top;
+                        float x = geoBounds.left + t * (width * 2) - width;
+
+                        m_pSweepBrush.SetStartPoint(new Direct2D.D2D1_POINT_2F(x, geoBounds.top));
+                        m_pSweepBrush.SetEndPoint(new Direct2D.D2D1_POINT_2F(x + width, geoBounds.top + height));
+
+                        D2D1_LAYER_PARAMETERS lp = LayerParameters(InfiniteRect(), m_pD2DGeometry8);
+
+                        m_pD2DDeviceContext.PushLayer(ref lp);
+
+                        m_pD2DDeviceContext.FillRectangle(ref geoBounds, m_pD2DBitmapBrushGold);
+                        m_pD2DDeviceContext.FillRectangle(ref geoBounds, m_pSweepBrush);
+
+                        m_pD2DDeviceContext.PopLayer();
+                        SafeRelease(ref lp.geometricMask);
+                        
+                        // Edge points (build once)
+                       
+                        if (!_bEdgePointsBuilt)
+                        {
+                            var sink = new EdgePointSink();
+                            m_pD2DGeometry8.Simplify(D2D1_GEOMETRY_SIMPLIFICATION_OPTION.D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES, mSavedTransform, 0.75f, sink);
+                            _edgePoints = sink.Points;
+                            _bEdgePointsBuilt = true;
+                        }                      
+
+                        float sweepCenterX = x + width * 0.5f;
+                        float band = width * 0.35f;
+
+                        float dt = (float)Math.Min(time - _lastFrameTime, 0.05f);
+                        _lastFrameTime = time;
+
+                        const int nMaxStars = 20;
+
+                        if (_edgePoints.Count > 0 && _rng.NextDouble() < 0.25 && _sparkles.Count < nMaxStars)
+                        {
+                            int nIndex = _rng.Next(_edgePoints.Count);
+                            var p = _edgePoints[nIndex];
+
+                            _sparkles.Add(new StarParticle
+                            {
+                                Pos = p,
+                                //Rotation = (float)_rng.NextDouble() * MathF.Tau,
+                                Rotation = (float)_rng.NextDouble() * MathF.Tau + 0.2f, 
+                                RotationSpeed = ((float)_rng.NextDouble() - 0.5f) * 26.0f,
+                                Life = 0f,
+                                MaxLife = 1.6f + (float)_rng.NextDouble() * 0.8f,
+                                Size = 80f + (float)_rng.NextDouble() * 60f
+                            });
+                        }
+                        
+                        // Draw stars
+
+                        m_pStarBitmap.GetSize(out D2D1_SIZE_F bmpSize);
+
+                        for (int i = _sparkles.Count - 1; i >= 0; i--)
+                        {
+                            var s = _sparkles[i];
+                            s.Life += dt;
+                            if (s.Life >= s.MaxLife)
+                            {
+                                _sparkles.RemoveAt(i);
+                                continue;
+                            }
+
+                            float u = s.Life / s.MaxLife;
+
+                            // Smooth AE-like fade
+                            float alpha = MathF.Sin(u * MathF.PI);
+                            //alpha *= 0.9f;
+                            alpha = Math.Clamp(alpha * 1.1f, 0f, 1f);
+
+                            s.Rotation += s.RotationSpeed * dt;
+                            float scale = s.Size / Math.Min(bmpSize.width, bmpSize.height);
+
+                            var starTransform =
+                                Matrix3x2F.Translation(-bmpSize.width / 2f, -bmpSize.height / 2f) * // move origin to center
+                                Matrix3x2F.Rotation(s.Rotation) *                                    // rotate first
+                                Matrix3x2F.Scale(scale, scale) *                                      // then scale
+                                Matrix3x2F.Translation(s.Pos.x, s.Pos.y);                             // move to position
+                            m_pD2DDeviceContext.SetTransform(starTransform);
+                           
+                            D2D1_RECT_F dest = new D2D1_RECT_F(0, 0, bmpSize.width, bmpSize.height);
+                            D2D1_RECT_F src = new D2D1_RECT_F(0, 0, bmpSize.width, bmpSize.height);
+                            m_pD2DDeviceContext.DrawBitmap(m_pStarBitmap, ref dest, alpha, D2D1_BITMAP_INTERPOLATION_MODE.D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, ref src);
+
+                            _sparkles[i] = s;
+                        }
+                    
+                        if (_sparkles.Count > nMaxStars)
+                            _sparkles.RemoveRange(0, _sparkles.Count - nMaxStars);
+
+                        // restore transform
+                        m_pD2DDeviceContext.SetTransform(Matrix3x2F.Identity());
+                    }
+                }
+
                 hr = m_pD2DDeviceContext.EndDraw(out ulong tag1, out ulong tag2);
                 if ((uint)hr == D2DTools.D2DERR_RECREATE_TARGET)
                 {
@@ -1151,6 +1288,61 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             }
             return (hr);
         }
+
+        // For stars displayed on gold text 
+        class EdgePointSink : Direct2D.ID2D1SimplifiedGeometrySink
+        {
+            public readonly List<Direct2D.D2D1_POINT_2F> Points = new();
+            Direct2D.D2D1_POINT_2F _last;
+            //bool _bLast;
+
+            public HRESULT BeginFigure(Direct2D.D2D1_POINT_2F start, Direct2D.D2D1_FIGURE_BEGIN _)
+            {
+                _last = start;
+                //_bLast = true;
+                return HRESULT.S_OK;
+            }
+
+            public HRESULT AddLines(Direct2D.D2D1_POINT_2F[] pts, int nCount)
+            {
+                for (int i = 0; i < nCount; i++)
+                {
+                    var p = pts[i];
+                    float dx = p.x - _last.x;
+                    float dy = p.y - _last.y;
+
+                    if (dx * dx + dy * dy > 1.0f)
+                        Points.Add(p);
+
+                    _last = p;
+                }
+                return HRESULT.S_OK;
+            }
+
+            public HRESULT AddBeziers(Direct2D.D2D1_BEZIER_SEGMENT[] _, int __) => HRESULT.S_OK;
+            public HRESULT EndFigure(Direct2D.D2D1_FIGURE_END _) { /*_bLast = false;*/ return HRESULT.S_OK; }
+            public HRESULT SetFillMode(Direct2D.D2D1_FILL_MODE _) => HRESULT.S_OK;
+            public HRESULT SetSegmentFlags(Direct2D.D2D1_PATH_SEGMENT _) => HRESULT.S_OK;
+            public HRESULT Close() => HRESULT.S_OK;
+        } 
+       
+        List<Direct2D.D2D1_POINT_2F> _edgePoints = new();
+        bool _bEdgePointsBuilt = false;
+        List<StarParticle> _sparkles = new();
+        Random _rng = new Random();  
+
+        class StarParticle
+        {
+            public Direct2D.D2D1_POINT_2F Pos;
+            public float Rotation;
+            public float RotationSpeed;
+            public float Life;
+            public float MaxLife;
+            public float Size;
+        }
+
+        private readonly System.Diagnostics.Stopwatch _animClock = new System.Diagnostics.Stopwatch();
+        double _lastFrameTime = 0;
 
         private void CenterGeometry(ID2D1DeviceContext pD2DDeviceContext, ID2D1Geometry pD2DGeometry, float scale)
         {
@@ -1199,7 +1391,6 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             pRT.SetTransform(transform);
         }
 
-
         float m_nY1 = 0.0f;
 
         float m_nShadowTranslate = 4.0f;
@@ -1225,6 +1416,8 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         float m_LightTime = 0.0f;
         float m_LightSpeed = 0.025f;
         float m_LightZ = 50.0f;
+
+        float m_imageGoldScrollX = 0.0f;
 
 
         // From Copilot
@@ -1569,7 +1762,10 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
         private void scp1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Resize(e.NewSize);           
+            Resize(e.NewSize);
+            // For stars on gold text
+            _bEdgePointsBuilt = false;
+            _sparkles.Clear();
         }
 
         HRESULT Resize(Windows.Foundation.Size sz)
@@ -1624,11 +1820,11 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         public HRESULT CreateDeviceContext()
         {
             HRESULT hr = HRESULT.S_OK;
-            uint creationFlags = (uint)D3D11_CREATE_DEVICE_FLAG.D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+            uint nCreationFlags = (uint)D3D11_CREATE_DEVICE_FLAG.D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
             // Needs "Enable native code Debugging"
 #if DEBUG
-            creationFlags |= (uint)D3D11_CREATE_DEVICE_FLAG.D3D11_CREATE_DEVICE_DEBUG;
+            nCreationFlags |= (uint)D3D11_CREATE_DEVICE_FLAG.D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
             int[] aD3D_FEATURE_LEVEL = new int[] { (int)D3D_FEATURE_LEVEL.D3D_FEATURE_LEVEL_11_1, (int)D3D_FEATURE_LEVEL.D3D_FEATURE_LEVEL_11_0,
@@ -1639,7 +1835,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             hr = D2DTools.D3D11CreateDevice(null,    // specify null to use the default adapter
                 D3D_DRIVER_TYPE.D3D_DRIVER_TYPE_HARDWARE,
                 IntPtr.Zero,
-                creationFlags,      // optionally set debug and Direct2D compatibility flags
+                nCreationFlags,      // optionally set debug and Direct2D compatibility flags
                 aD3D_FEATURE_LEVEL, // list of feature levels this app can support
                 (uint)aD3D_FEATURE_LEVEL.Length, // number of possible feature levels
                 D2DTools.D3D11_SDK_VERSION,
@@ -1759,8 +1955,8 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         //    myButton.Content = "Clicked";
         //}
 
-        HRESULT LoadBitmapFromFile(ID2D1DeviceContext3 pDeviceContext3, IWICImagingFactory pIWICFactory, string uri, uint destinationWidth,
-            uint destinationHeight, out ID2D1Bitmap pD2DBitmap, out IWICBitmapSource pBitmapSource)
+        HRESULT LoadBitmapFromFile(ID2D1DeviceContext3 pDeviceContext3, IWICImagingFactory pIWICFactory, string uri, uint nDestinationWidth,
+            uint nDestinationHeight, out ID2D1Bitmap pD2DBitmap, out IWICBitmapSource pBitmapSource)
         {
             HRESULT hr = HRESULT.S_OK;
             pD2DBitmap = null;
@@ -1780,26 +1976,25 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                     hr = pIWICFactory.CreateFormatConverter(out pConverter);
                     if (SUCCEEDED(hr))
                     {
-                        if (destinationWidth != 0 || destinationHeight != 0)
-                        {
-                            uint originalWidth, originalHeight;
-                            hr = pSource.GetSize(out originalWidth, out originalHeight);
+                        if (nDestinationWidth != 0 || nDestinationHeight != 0)
+                        {                           
+                            hr = pSource.GetSize(out uint nOriginalWidth, out uint nOriginalHeight);
                             if (SUCCEEDED(hr))
                             {
-                                if (destinationWidth == 0)
+                                if (nDestinationWidth == 0)
                                 {
-                                    float scalar = (float)(destinationHeight) / (float)(originalHeight);
-                                    destinationWidth = (uint)(scalar * (float)(originalWidth));
+                                    float scalar = (float)(nDestinationHeight) / (float)(nOriginalHeight);
+                                    nDestinationWidth = (uint)(scalar * (float)(nOriginalWidth));
                                 }
-                                else if (destinationHeight == 0)
+                                else if (nDestinationHeight == 0)
                                 {
-                                    float scalar = (float)(destinationWidth) / (float)(originalWidth);
-                                    destinationHeight = (uint)(scalar * (float)(originalHeight));
+                                    float scalar = (float)(nDestinationWidth) / (float)(nOriginalWidth);
+                                    nDestinationHeight = (uint)(scalar * (float)(nOriginalHeight));
                                 }
                                 hr = pIWICFactory.CreateBitmapScaler(out pScaler);
                                 if (SUCCEEDED(hr))
                                 {
-                                    hr = pScaler.Initialize(pSource, destinationWidth, destinationHeight, WICBitmapInterpolationMode.WICBitmapInterpolationModeCubic);
+                                    hr = pScaler.Initialize(pSource, nDestinationWidth, nDestinationHeight, WICBitmapInterpolationMode.WICBitmapInterpolationModeCubic);
                                     if (SUCCEEDED(hr))
                                     {
                                         hr = pConverter.Initialize(pScaler, GUID_WICPixelFormat32bppPBGRA, WICBitmapDitherType.WICBitmapDitherTypeNone, null, 0.0f, WICBitmapPaletteType.WICBitmapPaletteTypeMedianCut);
@@ -1927,7 +2122,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         GradientStop(0.5f, new ColorF(ColorF.Enum.Orange, 1.0f)),
                         GradientStop(1.0f, new ColorF(ColorF.Enum.Yellow, 1.0f))
                     };
-                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(gs, 3, D2D1_GAMMA.D2D1_GAMMA_2_2, D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_MIRROR, out pGSC);
+                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(gs, (uint)gs.Length, D2D1_GAMMA.D2D1_GAMMA_2_2, D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_MIRROR, out pGSC);
                     if (SUCCEEDED(hr))
                     {
                         var lgbp = new D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(new Direct2D.D2D1_POINT_2F(0.0f, m_nComputedHeight1 / 3.0f), new Direct2D.D2D1_POINT_2F(0.0f, m_nComputedHeight1));
@@ -1943,7 +2138,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         //GradientStop(1.0f, new ColorF(ColorF.Enum.DimGray, 1.0f))
                         GradientStop(1.0f, new ColorF(0x3B/255.0f, 0x3B/255.0f,0x3B/255.0f, 1.0f))
                     };
-                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(gs, 2, D2D1_GAMMA.D2D1_GAMMA_2_2, D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_CLAMP, out pGSC);
+                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(gs, (uint)gs.Length, D2D1_GAMMA.D2D1_GAMMA_2_2, D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_CLAMP, out pGSC);
                     if (SUCCEEDED(hr))
                     {
                         var lgbp = new D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(new Direct2D.D2D1_POINT_2F(0.0f, 0.0f), new Direct2D.D2D1_POINT_2F(0.0f, 1.0f));
@@ -1970,20 +2165,84 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
                 IWICBitmapSource pWICBitmapSource2 = null;
                 sAbsolutePath = "/Assets/BlueNoise.jpg";
+                //sAbsolutePath = "/Assets/GrayNoise.jpg";
                 if (sAbsolutePath.StartsWith("/"))
                     sAbsolutePath = sExePath + sAbsolutePath;
                 hr = LoadBitmapFromFile(m_pD2DDeviceContext3, m_pWICImagingFactory, sAbsolutePath,
                    0, 0, out m_pD2DBitmap2, out pWICBitmapSource1);
                 SafeRelease(ref pWICBitmapSource2);
+
+                IWICBitmapSource pWICBitmapSource3 = null;
+                sAbsolutePath = "/Assets/Liquid_Gold3.jpg";
+                if (sAbsolutePath.StartsWith("/"))
+                    sAbsolutePath = sExePath + sAbsolutePath;
+                SafeRelease(ref m_pD2DBitmap1);
+                hr = LoadBitmapFromFile(m_pD2DDeviceContext3, m_pWICImagingFactory, sAbsolutePath, 0, 0, out m_pD2DBitmap1, out pWICBitmapSource3);
+                SafeRelease(ref pWICBitmapSource3);
+
+                if (m_pD2DBitmap1 != null)
+                {
+                    if (m_pD2DBitmapBrushGold == null)
+                    {
+                        hr = m_pD2DDeviceContext.CreateBitmapBrush(m_pD2DBitmap1, BitmapBrushProperties(D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_WRAP, D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_WRAP), BrushProperties(), out m_pD2DBitmapBrushGold);
+                    }
+                }
+
+                if (m_pSweepBrush == null)
+                {
+                    ID2D1GradientStopCollection pGSC = null;
+                    D2D1_GRADIENT_STOP[] gs = new[]
+                    {
+                        GradientStop(0.00f, new ColorF(1, 1, 1, 0.0f)),
+                        GradientStop(0.45f, new ColorF(1, 1, 1, 0.0f)),
+                        GradientStop(0.50f, new ColorF(1, 1, 1, 0.85f)),
+                        GradientStop(0.55f, new ColorF(1, 1, 1, 0.0f)),
+                        GradientStop(1.00f, new ColorF(1, 1, 1, 0.0f))
+                    };
+                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(
+                        gs,
+                        (uint)gs.Length,
+                        D2D1_GAMMA.D2D1_GAMMA_2_2,
+                        D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_CLAMP,
+                        out pGSC
+                    );
+                    if (SUCCEEDED(hr))
+                    {
+                        var lgbp = new D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES(
+                            new Direct2D.D2D1_POINT_2F(0, 0),
+                            new Direct2D.D2D1_POINT_2F(300, 300) // diagonal sweep
+                        );
+
+                        hr = m_pD2DDeviceContext.CreateLinearGradientBrush(
+                            ref lgbp,
+                            IntPtr.Zero,
+                            pGSC,
+                            out m_pSweepBrush
+                        );
+                        SafeRelease(ref pGSC);
+                    }
+                }
+
+                IWICBitmapSource pWICBitmapSource4 = null;
+                sAbsolutePath = "/Assets/White_Star_4_Pointed.png";               
+                if (sAbsolutePath.StartsWith("/"))
+                    sAbsolutePath = sExePath + sAbsolutePath;
+                hr = LoadBitmapFromFile(m_pD2DDeviceContext3, m_pWICImagingFactory, sAbsolutePath,
+                   0, 0, out m_pStarBitmap, out pWICBitmapSource4);
+                SafeRelease(ref pWICBitmapSource4);
+
             }
             return hr;
         }
 
         void CleanDeviceResources()
-        {
+        {            
+            SafeRelease(ref m_pStarBitmap);
             SafeRelease(ref m_pD2DBitmap2);
             SafeRelease(ref m_pD2DBitmap1);           
             SafeRelease(ref m_pD2DBitmapBrush1);
+            SafeRelease(ref m_pSweepBrush);         
+            SafeRelease(ref m_pD2DBitmapBrushGold);            
             SafeRelease(ref m_pD2DSolidColorBrushRed);
             SafeRelease(ref m_pD2DSolidColorBrushGreen);
             SafeRelease(ref m_pD2DSolidColorBrushBlue);
@@ -2009,6 +2268,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             SafeRelease(ref m_pD2DGeometry5);
             SafeRelease(ref m_pD2DGeometry6);
             SafeRelease(ref m_pD2DGeometry7);
+            SafeRelease(ref m_pD2DGeometry8);
 
             SafeRelease(ref m_pDWriteFactory7);
 
@@ -2063,7 +2323,6 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         public string Text { get; set; }
         public string Tag { get; set; }
     }
-
 
     // From WPF source code
     public unsafe class TextAnalyzerSource : IDWriteTextAnalysisSource
@@ -2212,7 +2471,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         }
     }
 
-
+    // With help from ChatGPT...
     sealed class SimpleTextAnalysisSink : IDWriteTextAnalysisSink
     {
         public struct TextRun
@@ -2225,28 +2484,24 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
         public readonly List<TextRun> Runs = new();
 
-        // ----------------------------------------------------------------
-        // IDWriteTextAnalysisSink implementation
-        // ----------------------------------------------------------------
-
-        public HRESULT SetScriptAnalysis(uint textPosition, uint textLength, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis)
+        public HRESULT SetScriptAnalysis(uint nTextPosition, uint nTextLength, ref DWRITE_SCRIPT_ANALYSIS scriptAnalysis)
         {
             Runs.Add(new TextRun
             {
-                Start = (int)textPosition,
-                Length = (int)textLength,
+                Start = (int)nTextPosition,
+                Length = (int)nTextLength,
                 Script = scriptAnalysis,
                 BidiLevel = 0 // will be set later
             });
             return HRESULT.S_OK;
         }       
 
-        public HRESULT SetBidiLevel(uint textPosition, uint textLength, byte explicitLevel, byte resolvedLevel)
+        public HRESULT SetBidiLevel(uint nTextPosition, uint nTextLength, byte explicitLevel, byte resolvedLevel)
         {
             for (int i = 0; i < Runs.Count; i++)
             {
                 var r = Runs[i];
-                if (textPosition <= r.Start && textPosition + textLength >= r.Start + r.Length)
+                if (nTextPosition <= r.Start && nTextPosition + nTextLength >= r.Start + r.Length)
                 {
                     r.BidiLevel = resolvedLevel;
                     Runs[i] = r;
@@ -2255,18 +2510,16 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             return HRESULT.S_OK;
         }
 
-        public HRESULT SetLineBreakpoints(uint textPosition, uint textLength, DWRITE_LINE_BREAKPOINT[] lineBreakpoints)
+        public HRESULT SetLineBreakpoints(uint nTextPosition, uint nTextLength, DWRITE_LINE_BREAKPOINT[] lineBreakpoints)
         {
             // We don’t need line breakpoints for geometry, so just ignore
             return HRESULT.S_OK;
         }
 
-        public HRESULT SetNumberSubstitution(uint textPosition, uint textLength, IDWriteNumberSubstitution numberSubstitution)
+        public HRESULT SetNumberSubstitution(uint nTextPosition, uint nTextLength, IDWriteNumberSubstitution numberSubstitution)
         {
             // Optional: ignore number substitution
             return HRESULT.S_OK;
         }
     }
-
-
 }
