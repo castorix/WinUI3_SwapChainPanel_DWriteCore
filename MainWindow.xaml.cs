@@ -351,6 +351,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         break;
                     case "Waves":
                         m_nTextEffect = (int)TEXT_EFFECT.WAVES;
+                        _animClock.Restart();
                         break;
                     case "Glowing":
                         m_nTextEffect = (int)TEXT_EFFECT.GLOWING;
@@ -831,43 +832,38 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                 }
                 else if (m_nTextEffect == (int)TEXT_EFFECT.WAVES)
                 {
-                    // Slow (geometries in loop...)
-                    //if (m_pD2DGeometry3 != null)
-                    //{                        
-                    //    CenterGeometry(m_pD2DDeviceContext, m_pD2DGeometry3);
+                    if (m_pD2DGeometry6 != null)
+                    {
+                        float time = (float)_animClock.Elapsed.TotalSeconds;
 
-                    //    m_pD2DGeometry3.GetBounds(Matrix3x2F.Identity(), out var geoBounds);
+                        CenterGeometry(m_pD2DDeviceContext, m_pD2DGeometry6, 1.0f);
 
-                    //    float sliceWidth = 2.0f;          // width of each vertical slice
-                    //    float amplitude = 12.0f;          // wave height
-                    //    float wavelength = 120.0f;        // horizontal wavelength
-                    //    float frequency = (2.0f * MathF.PI) / wavelength;
-                    //    float time = m_nWaveTime;
+                        // Warp geometry using sine wave
+                        m_pD2DFactory1.CreatePathGeometry(out ID2D1PathGeometry pWarpedGeometry);
+                        pWarpedGeometry.Open(out ID2D1GeometrySink pGeometrySink);
 
-                    //    for (float x = geoBounds.left; x < geoBounds.right; x += sliceWidth)
-                    //    {
-                    //        float xCenter = x + sliceWidth * 0.5f;
-                    //        float yOffset = MathF.Sin((xCenter * frequency) + time) * amplitude;
+                        var warpSink = new SineWarpSink((Direct2D.ID2D1SimplifiedGeometrySink)pGeometrySink,
+                            time * 3f,   // animation speed
+                            40f,         // amplitude
+                            0.02f        // frequency
+                        );
+                       
+                        float flatteningTolerance = 0.25f;
+                        D2D1_MATRIX_3X2_F worldTransform = Matrix3x2F.Identity();
+                        m_pD2DGeometry6.Simplify(
+                            D2D1_GEOMETRY_SIMPLIFICATION_OPTION.D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES,
+                            worldTransform,
+                            flatteningTolerance,
+                            warpSink
+                        );
 
-                    //        // Create transformed geometry for this slice
-                    //        m_pD2DFactory1.CreateTransformedGeometry(m_pD2DGeometry3, Matrix3x2F.Translation(0, yOffset), out ID2D1TransformedGeometry sliceGeom);
-
-                    //        // Clip slice
-                    //        var clipRect = new D2D1_RECT_F(x, geoBounds.top - amplitude, x + sliceWidth, geoBounds.bottom + amplitude);
-                    //        m_pD2DDeviceContext.PushAxisAlignedClip(ref clipRect, D2D1_ANTIALIAS_MODE.D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
-
-                    //        m_pD2DDeviceContext.FillGeometry(sliceGeom, m_pD2DSolidColorBrushWhite);
-
-                    //        m_pD2DDeviceContext.PopAxisAlignedClip();
-                    //        SafeRelease(ref sliceGeom);
-                    //    }
-
-                    //    // Animate
-                    //    m_nWaveTime += 0.2f;
-                    //    if (m_nWaveTime > MathF.PI * 2.0f)
-                    //        m_nWaveTime -= MathF.PI * 2.0f;
-                    //}
-
+                        pGeometrySink.Close();
+                       
+                        m_pD2DDeviceContext.FillGeometry(pWarpedGeometry, m_pD2DSolidColorBrushBlue);
+                        
+                        SafeRelease(ref pGeometrySink);
+                        SafeRelease(ref pWarpedGeometry);
+                    }
                 }
                 else if (m_nTextEffect == (int)TEXT_EFFECT.GLOWING)
                 {
@@ -1267,8 +1263,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                     
                         if (_sparkles.Count > nMaxStars)
                             _sparkles.RemoveRange(0, _sparkles.Count - nMaxStars);
-
-                        // restore transform
+                        
                         m_pD2DDeviceContext.SetTransform(Matrix3x2F.Identity());
                     }
                 }
@@ -1289,8 +1284,79 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             return (hr);
         }
 
+        // For waves
+        sealed class SineWarpSink : Direct2D.ID2D1SimplifiedGeometrySink
+        {
+            private readonly Direct2D.ID2D1SimplifiedGeometrySink _pInnerGeometrySink;
+            private readonly float _time;
+            private readonly float _amplitude;
+            private readonly float _frequency;
+
+            public SineWarpSink(Direct2D.ID2D1SimplifiedGeometrySink pInnerGeometrySink,
+                float time,
+                float amplitude,
+                float frequency)
+            {
+                _pInnerGeometrySink = pInnerGeometrySink;
+                _time = time;
+                _amplitude = amplitude;
+                _frequency = frequency;
+            }
+
+            public HRESULT SetFillMode(Direct2D.D2D1_FILL_MODE fillMode)
+                => _pInnerGeometrySink.SetFillMode(fillMode);
+
+            public HRESULT SetSegmentFlags(Direct2D.D2D1_PATH_SEGMENT vertexFlags)
+                => _pInnerGeometrySink.SetSegmentFlags(vertexFlags);
+
+            public HRESULT BeginFigure(Direct2D.D2D1_POINT_2F startPoint, Direct2D.D2D1_FIGURE_BEGIN figureBegin)
+            {
+                Warp(ref startPoint);
+                return _pInnerGeometrySink.BeginFigure(startPoint, figureBegin);
+            }
+
+            public HRESULT AddLines(Direct2D.D2D1_POINT_2F[] points, int pointsCount)
+            {
+                var warped = new Direct2D.D2D1_POINT_2F[pointsCount];
+
+                for (int i = 0; i < pointsCount; i++)
+                {
+                    warped[i] = points[i];
+                    Warp(ref warped[i]);
+                }
+
+                return _pInnerGeometrySink.AddLines(warped, pointsCount);
+            }
+
+            public HRESULT AddBeziers(Direct2D.D2D1_BEZIER_SEGMENT[] beziers, int beziersCount)
+            {
+                var warped = new Direct2D.D2D1_BEZIER_SEGMENT[beziersCount];
+                for (int i = 0; i < beziersCount; i++)
+                {
+                    warped[i] = beziers[i];
+
+                    Warp(ref warped[i].point1);
+                    Warp(ref warped[i].point2);
+                    Warp(ref warped[i].point3);
+                }
+                return _pInnerGeometrySink.AddBeziers(warped, beziersCount);
+            }
+
+            public HRESULT EndFigure(Direct2D.D2D1_FIGURE_END figureEnd)
+                => _pInnerGeometrySink.EndFigure(figureEnd);
+
+            public HRESULT Close()
+                => _pInnerGeometrySink.Close();
+
+            private void Warp(ref Direct2D.D2D1_POINT_2F p)
+            {
+                // sine along X : vertical displacement
+                p.y += MathF.Sin(p.x * _frequency + _time) * _amplitude;
+            }
+        }
+
         // For stars displayed on gold text 
-        class EdgePointSink : Direct2D.ID2D1SimplifiedGeometrySink
+        sealed class EdgePointSink : Direct2D.ID2D1SimplifiedGeometrySink
         {
             public readonly List<Direct2D.D2D1_POINT_2F> Points = new();
             Direct2D.D2D1_POINT_2F _last;
@@ -1397,9 +1463,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         float m_nShadowTranslateDirection = 1.0f;
 
         float m_nTurbulenceBaseFrequencyX = 0.0f;
-        float m_nTurbulenceDirection = 1.0f;
-
-        float m_nWaveTime = 0.0f;
+        float m_nTurbulenceDirection = 1.0f;      
 
         float m_nShadowStandardDeviation = 0.0f;
         float m_nShadowDirection = 1.0f;

@@ -5923,7 +5923,7 @@ namespace DWrite
         /// <summary>
         /// The physical font face to draw with.
         /// </summary>
-        public IntPtr fontFace;
+        public IDWriteFontFace fontFace;
         /// <summary>
         /// Logical size of the font in DIPs, not points (equals 1/96 inch).
         /// </summary>

@@ -25,8 +25,8 @@ sealed class GeometryTextRenderer : IDWriteTextRenderer, IDWritePixelSnapping
         IntPtr clientDrawingEffect)
     {
         HRESULT hr = HRESULT.S_OK;
-        var fontFace = Marshal.GetObjectForIUnknown(glyphRun.fontFace) as IDWriteFontFace;
-        if (fontFace == null) return HRESULT.E_FAIL;
+        //var fontFace = Marshal.GetObjectForIUnknown(glyphRun.fontFace) as IDWriteFontFace;
+        //if (fontFace == null) return HRESULT.E_FAIL;
 
         int glyphCount = (int)glyphRun.glyphCount;
 
@@ -50,7 +50,7 @@ sealed class GeometryTextRenderer : IDWriteTextRenderer, IDWritePixelSnapping
         if (hr != HRESULT.S_OK) { SafeRelease(ref path); return hr; }
 
         // Fill sink with proper shaped glyph outlines ---
-        fontFace.GetGlyphRunOutline(
+        glyphRun.fontFace.GetGlyphRunOutline(
             glyphRun.fontEmSize,
             glyphIndices,
             glyphAdvances,
@@ -156,7 +156,7 @@ sealed class OutlineTextRenderer : IDWriteTextRenderer, IDWritePixelSnapping
         IntPtr clientDrawingEffect)
     {
         // Get shaped font face
-        var fontFace = (IDWriteFontFace)Marshal.GetObjectForIUnknown(glyphRun.fontFace);
+        //var fontFace = (IDWriteFontFace)Marshal.GetObjectForIUnknown(glyphRun.fontFace);
 
         int glyphCount = (int)glyphRun.glyphCount;
 
@@ -198,7 +198,7 @@ sealed class OutlineTextRenderer : IDWriteTextRenderer, IDWritePixelSnapping
         _sink.SetFillMode(Direct2D.D2D1_FILL_MODE.D2D1_FILL_MODE_WINDING);
 
         // Append the run outline
-        fontFace.GetGlyphRunOutline(
+        glyphRun.fontFace.GetGlyphRunOutline(
             glyphRun.fontEmSize,
             glyphIndices,
             glyphAdvances,

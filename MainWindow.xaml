@@ -102,6 +102,7 @@
 
             <!-- Top menu -->
             <NavigationView.MenuItems>
+                
                 <local:NavItem Text="Gradient" Tag="Gradient">
                     <local:NavItem.Icon>
                         <FontIcon Glyph="&#x1F308;" FontFamily="Segoe UI Emoji"/>
@@ -118,13 +119,7 @@
                     <local:NavItem.Icon>
                         <FontIcon Glyph="&#x1F32C;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
                     </local:NavItem.Icon>
-                </local:NavItem>
-
-                <!--<local:NavItem Text="Waves" Tag="Waves">
-                    <local:NavItem.Icon>
-                        <FontIcon Glyph="&#x3030;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
-                    </local:NavItem.Icon>
-                </local:NavItem>-->
+                </local:NavItem>   
 
                 <local:NavItem Text="Glowing" Tag="Glowing">
                     <local:NavItem.Icon>
@@ -161,6 +156,13 @@
                         <FontIcon Glyph="&#x1F4AB;" FontFamily="Segoe UI Emoji"/>
                     </local:NavItem.Icon>
                 </local:NavItem>
+
+                <local:NavItem Text="Waves" Tag="Waves">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x3030;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+                
             </NavigationView.MenuItems>
 
             <!-- Footer menu -->
