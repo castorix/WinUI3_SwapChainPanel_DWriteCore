@@ -67,6 +67,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         ID2D1BitmapBrush m_pD2DBitmapBrush1 = null;
         ID2D1BitmapBrush m_pD2DBitmapBrushGold = null;
         ID2D1LinearGradientBrush m_pSweepBrush = null;
+        ID2D1LinearGradientBrush m_pFadeBrush = null;
         ID2D1Bitmap m_pD2DBitmap2 = null;
         ID2D1Bitmap m_pStarBitmap = null;
 
@@ -993,9 +994,22 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
                         // Save transform
                         m_pD2DDeviceContext.GetTransform(out var savedTransform);
-                        D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);
+                        D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);                     
 
-                        m_pD2DGeometry6.GetBounds(null, out var geoBounds);
+                        m_pFadeBrush.SetStartPoint(new Direct2D.D2D1_POINT_2F(0, 0));
+                        m_pFadeBrush.SetEndPoint(new Direct2D.D2D1_POINT_2F(size.width, 0));
+                        
+                        m_pD2DDeviceContext.SetTransform(Matrix3x2F.Identity());
+
+                        var lp = new D2D1_LAYER_PARAMETERS
+                        {
+                            contentBounds = new D2D1_RECT_F(0, 0, size.width, size.height),                            
+                            opacity = 1.0f,
+                            opacityBrush = m_pFadeBrush,
+                            layerOptions = D2D1_LAYER_OPTIONS.D2D1_LAYER_OPTIONS_NONE
+                        };
+
+                        m_pD2DDeviceContext.PushLayer(lp, null);
 
                         D2D1_MATRIX_3X2_F scrollTransform = new D2D1_MATRIX_3X2_F
                         {
@@ -1012,8 +1026,11 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         m_pD2DDeviceContext.FillGeometry(m_pD2DGeometry6, m_pD2DSolidColorBrushPink);
 
                         m_nXScroll -= 2.0f;
-                        if (m_nXScroll <= -(geoBounds.right - geoBounds.left))
+                        if (m_nXScroll <= -(size.width))
                             m_nXScroll = size.width;
+                        
+                        m_pD2DDeviceContext.PopLayer();                       
+                        SafeRelease(ref lp.opacityBrush);
                     }
                 }
                 else if (m_nTextEffect == (int)TEXT_EFFECT.COLLAPSE)
@@ -1471,7 +1488,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         float m_imageScrollX = 0.0f;
         float m_imageScrollY = 0.0f;
 
-        float m_nXScroll = 300.0f;
+        float m_nXScroll = -3000.0f;
 
         float m_nDisplacementMapScale = 0.1f;
         float m_nDisplacementMapDirection = -1.0f;
@@ -2277,12 +2294,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                             new Direct2D.D2D1_POINT_2F(300, 300) // diagonal sweep
                         );
 
-                        hr = m_pD2DDeviceContext.CreateLinearGradientBrush(
-                            ref lgbp,
-                            IntPtr.Zero,
-                            pGSC,
-                            out m_pSweepBrush
-                        );
+                        hr = m_pD2DDeviceContext.CreateLinearGradientBrush(ref lgbp, IntPtr.Zero, pGSC, out m_pSweepBrush);
                         SafeRelease(ref pGSC);
                     }
                 }
@@ -2295,6 +2307,30 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                    0, 0, out m_pStarBitmap, out pWICBitmapSource4);
                 SafeRelease(ref pWICBitmapSource4);
 
+                if (m_pFadeBrush == null)
+                {
+                    var gs = new D2D1_GRADIENT_STOP[]
+                    {
+                        new D2D1_GRADIENT_STOP { position = 0.0f, color = new ColorF(1,1,1,0) }, // fully transparent
+                        new D2D1_GRADIENT_STOP { position = 0.15f, color = new ColorF(1,1,1,1) }, // fade in
+                        new D2D1_GRADIENT_STOP { position = 0.85f, color = new ColorF(1,1,1,1) }, // fully visible
+                        new D2D1_GRADIENT_STOP { position = 1.0f, color = new ColorF(1,1,1,0) }  // fade out
+                    };
+
+                    hr = m_pD2DDeviceContext.CreateGradientStopCollection(gs, (uint)gs.Length, D2D1_GAMMA.D2D1_GAMMA_2_2,
+                        D2D1_EXTEND_MODE.D2D1_EXTEND_MODE_CLAMP, out ID2D1GradientStopCollection pGSC);
+                    if (SUCCEEDED(hr))
+                    {
+                        var lgbp = new D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES
+                        {
+                            startPoint = new Direct2D.D2D1_POINT_2F(0, 0),
+                            endPoint = new Direct2D.D2D1_POINT_2F(1, 0) // horizontal fade
+                        };
+
+                        hr = m_pD2DDeviceContext.CreateLinearGradientBrush(lgbp, IntPtr.Zero, pGSC, out m_pFadeBrush);
+                        SafeRelease(ref pGSC);
+                    }
+                }
             }
             return hr;
         }
@@ -2305,7 +2341,8 @@ namespace WinUI3_SwapChainPanel_DWriteCore
             SafeRelease(ref m_pD2DBitmap2);
             SafeRelease(ref m_pD2DBitmap1);           
             SafeRelease(ref m_pD2DBitmapBrush1);
-            SafeRelease(ref m_pSweepBrush);         
+            SafeRelease(ref m_pSweepBrush);
+            SafeRelease(ref m_pFadeBrush);
             SafeRelease(ref m_pD2DBitmapBrushGold);            
             SafeRelease(ref m_pD2DSolidColorBrushRed);
             SafeRelease(ref m_pD2DSolidColorBrushGreen);

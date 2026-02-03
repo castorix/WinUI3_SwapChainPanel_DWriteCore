@@ -1716,7 +1716,7 @@ namespace Direct2D
         public D2D1_MATRIX_3X2_F maskTransform;
         public float opacity;
         //_Field_size_opt_(1) ID2D1Brush* opacityBrush;
-        public IntPtr opacityBrush;
+        public ID2D1Brush opacityBrush;
         public D2D1_LAYER_OPTIONS layerOptions;
     }
 
@@ -8952,7 +8952,7 @@ namespace Direct2D
             D2D1_ANTIALIAS_MODE maskAntialiasMode = D2D1_ANTIALIAS_MODE.D2D1_ANTIALIAS_MODE_PER_PRIMITIVE,
             D2D1_MATRIX_3X2_F maskTransform = default,
             float opacity = 1.0f,
-            IntPtr opacityBrush = default,
+            ID2D1Brush opacityBrush = default,
             D2D1_LAYER_OPTIONS layerOptions = D2D1_LAYER_OPTIONS.D2D1_LAYER_OPTIONS_NONE)
         {
             if (contentBounds.Equals(default(D2D1_RECT_F)))
