@@ -23,6 +23,7 @@ using static WIC.WICTools;
 using DWrite;
 using static DWrite.DWriteTools;
 using System.Text;
+using Microsoft.UI.Xaml.Documents;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -325,14 +326,15 @@ namespace WinUI3_SwapChainPanel_DWriteCore
         {
             GRADIENT = 0,
             SHADOW = 1,
-            TURBULENCE = 2,
-            WAVES = 3,
-            GLOWING = 4,
-            BITMAP = 5,
-            SCROLLING = 6,
-            COLLAPSE = 7,
-            POINT_DIFFUSE_LIGHTING = 8,
-            GOLD = 9,
+            TURBULENCE = 2,           
+            GLOWING = 3,
+            BITMAP = 4,
+            SCROLLING = 5,
+            COLLAPSE = 6,
+            POINT_DIFFUSE_LIGHTING = 7,
+            GOLD = 8,
+            WAVES = 9,
+            SCALE = 10,
         }
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -361,7 +363,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         m_nTextEffect = (int)TEXT_EFFECT.BITMAP;
                         break;
                     case "Scrolling":
-                        m_nTextEffect = (int)TEXT_EFFECT.SCROLLING;                      
+                        m_nTextEffect = (int)TEXT_EFFECT.SCROLLING;                       
                         break;
                     case "Collapse":
                         m_nTextEffect = (int)TEXT_EFFECT.COLLAPSE;
@@ -371,6 +373,10 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         break;
                     case "Gold":
                         m_nTextEffect = (int)TEXT_EFFECT.GOLD;
+                        _animClock.Restart();
+                        break;
+                    case "Scale":
+                        m_nTextEffect = (int)TEXT_EFFECT.SCALE;
                         _animClock.Restart();
                         break;
                 }
@@ -830,42 +836,7 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                             SafeRelease(ref pCompatibleRenderTarget);
                         }
                     }
-                }
-                else if (m_nTextEffect == (int)TEXT_EFFECT.WAVES)
-                {
-                    if (m_pD2DGeometry6 != null)
-                    {
-                        float time = (float)_animClock.Elapsed.TotalSeconds;
-
-                        CenterGeometry(m_pD2DDeviceContext, m_pD2DGeometry6, 1.0f);
-
-                        // Warp geometry using sine wave
-                        m_pD2DFactory1.CreatePathGeometry(out ID2D1PathGeometry pWarpedGeometry);
-                        pWarpedGeometry.Open(out ID2D1GeometrySink pGeometrySink);
-
-                        var warpSink = new SineWarpSink((Direct2D.ID2D1SimplifiedGeometrySink)pGeometrySink,
-                            time * 3f,   // animation speed
-                            40f,         // amplitude
-                            0.02f        // frequency
-                        );
-                       
-                        float flatteningTolerance = 0.25f;
-                        D2D1_MATRIX_3X2_F worldTransform = Matrix3x2F.Identity();
-                        m_pD2DGeometry6.Simplify(
-                            D2D1_GEOMETRY_SIMPLIFICATION_OPTION.D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES,
-                            worldTransform,
-                            flatteningTolerance,
-                            warpSink
-                        );
-
-                        pGeometrySink.Close();
-                       
-                        m_pD2DDeviceContext.FillGeometry(pWarpedGeometry, m_pD2DSolidColorBrushBlue);
-                        
-                        SafeRelease(ref pGeometrySink);
-                        SafeRelease(ref pWarpedGeometry);
-                    }
-                }
+                }               
                 else if (m_nTextEffect == (int)TEXT_EFFECT.GLOWING)
                 {
                     if (m_pD2DGeometry4 != null)
@@ -994,16 +965,16 @@ namespace WinUI3_SwapChainPanel_DWriteCore
 
                         // Save transform
                         m_pD2DDeviceContext.GetTransform(out var savedTransform);
-                        D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);                     
+                        D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);
 
                         m_pFadeBrush.SetStartPoint(new Direct2D.D2D1_POINT_2F(0, 0));
                         m_pFadeBrush.SetEndPoint(new Direct2D.D2D1_POINT_2F(size.width, 0));
-                        
+
                         m_pD2DDeviceContext.SetTransform(Matrix3x2F.Identity());
 
                         var lp = new D2D1_LAYER_PARAMETERS
                         {
-                            contentBounds = new D2D1_RECT_F(0, 0, size.width, size.height),                            
+                            contentBounds = new D2D1_RECT_F(0, 0, size.width, size.height),
                             opacity = 1.0f,
                             opacityBrush = m_pFadeBrush,
                             layerOptions = D2D1_LAYER_OPTIONS.D2D1_LAYER_OPTIONS_NONE
@@ -1028,8 +999,8 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         m_nXScroll -= 2.0f;
                         if (m_nXScroll <= -(size.width))
                             m_nXScroll = size.width;
-                        
-                        m_pD2DDeviceContext.PopLayer();                       
+
+                        m_pD2DDeviceContext.PopLayer();
                         SafeRelease(ref lp.opacityBrush);
                     }
                 }
@@ -1284,6 +1255,49 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                         m_pD2DDeviceContext.SetTransform(Matrix3x2F.Identity());
                     }
                 }
+                else if (m_nTextEffect == (int)TEXT_EFFECT.WAVES)
+                {
+                    if (m_pD2DGeometry6 != null)
+                    {
+                        float time = (float)_animClock.Elapsed.TotalSeconds;
+
+                        CenterGeometry(m_pD2DDeviceContext, m_pD2DGeometry6, 1.0f);
+
+                        // Warp geometry using sine wave
+                        m_pD2DFactory1.CreatePathGeometry(out ID2D1PathGeometry pWarpedGeometry);
+                        pWarpedGeometry.Open(out ID2D1GeometrySink pGeometrySink);
+
+                        var warpSink = new SineWarpSink((Direct2D.ID2D1SimplifiedGeometrySink)pGeometrySink,
+                            time * 3f,   // animation speed
+                            40f,         // amplitude
+                            0.02f        // frequency
+                        );
+
+                        float flatteningTolerance = 0.25f;
+                        D2D1_MATRIX_3X2_F worldTransform = Matrix3x2F.Identity();
+                        m_pD2DGeometry6.Simplify(
+                            D2D1_GEOMETRY_SIMPLIFICATION_OPTION.D2D1_GEOMETRY_SIMPLIFICATION_OPTION_LINES,
+                            worldTransform,
+                            flatteningTolerance,
+                            warpSink
+                        );
+
+                        pGeometrySink.Close();
+
+                        m_pD2DDeviceContext.FillGeometry(pWarpedGeometry, m_pD2DSolidColorBrushBlue);
+
+                        SafeRelease(ref pGeometrySink);
+                        SafeRelease(ref pWarpedGeometry);
+                    }
+                }
+                else if(m_nTextEffect == (int)TEXT_EFFECT.SCALE)
+                {
+                    if (m_pD2DGeometry6 != null)
+                    {                        
+                        RecalculateLayout(m_pD2DDeviceContext, m_pD2DGeometry6);
+                        DrawAnimatedGeometry(m_pD2DDeviceContext, m_pD2DGeometry6, m_pD2DSolidColorBrushRed);
+                    }
+                }
 
                 hr = m_pD2DDeviceContext.EndDraw(out ulong tag1, out ulong tag2);
                 if ((uint)hr == D2DTools.D2DERR_RECREATE_TARGET)
@@ -1299,6 +1313,97 @@ namespace WinUI3_SwapChainPanel_DWriteCore
                 hr = m_pDXGISwapChain1.Present(1, 0);
             }
             return (hr);
+        }
+
+        // For scale
+
+        float m_baseScale = 1.0f;
+        D2D1_RECT_F m_geometryBounds;
+
+        void RecalculateLayout(ID2D1DeviceContext dc, ID2D1Geometry geometry)
+        {           
+            dc.SetTransform(Matrix3x2F.Identity());
+
+            geometry.GetBounds(null, out m_geometryBounds);
+
+            dc.GetSize(out var size);
+
+            float geoWidth = m_geometryBounds.right - m_geometryBounds.left;
+            float geoHeight = m_geometryBounds.bottom - m_geometryBounds.top;
+
+            float scaleX = size.width / geoWidth;
+            float scaleY = size.height / geoHeight;
+
+            // Fit inside panel
+            m_baseScale = Math.Min(scaleX, scaleY) * 0.9f; // margin
+        }
+
+        // Formula from ChatGPT
+        static float BounceEaseOut(float t)
+        {
+            if (t < 1f / 2.75f)
+                return 7.5625f * t * t;
+            else if (t < 2f / 2.75f)
+            {
+                t -= 1.5f / 2.75f;
+                return 7.5625f * t * t + 0.75f;
+            }
+            else if (t < 2.5f / 2.75f)
+            {
+                t -= 2.25f / 2.75f;
+                return 7.5625f * t * t + 0.9375f;
+            }
+            else
+            {
+                t -= 2.625f / 2.75f;
+                return 7.5625f * t * t + 0.984375f;
+            }
+        }
+
+        float GetAnimatedScale()
+        {
+            float t = (float)_animClock.Elapsed.TotalSeconds;
+            if (t < 1.2f)
+            {
+                return BounceEaseOut(t / 1.2f);
+            }
+
+            float bt = t - 1.2f;
+            if (bt < 1.5f)
+            {
+                float damping = MathF.Exp(-3.5f * bt);
+                float scale = 1.0f + MathF.Sin(bt * 12f) * 0.025f * damping;
+                return Math.Min(scale, 1.03f);
+
+            }
+            return 1.0f;
+        }
+
+        void DrawAnimatedGeometry(ID2D1DeviceContext pD2DDeviceContext, ID2D1Geometry pD2DGeometry, ID2D1SolidColorBrush pD2DSolidColorBrush)
+        {
+            float animScale = GetAnimatedScale();
+            float scale = m_baseScale * animScale;
+
+            pD2DDeviceContext.GetSize(out var size);
+
+            float screenCx = size.width * 0.5f;
+            float screenCy = size.height * 0.5f;
+            float geoCx = (m_geometryBounds.left + m_geometryBounds.right) * 0.5f;
+            float geoCy = (m_geometryBounds.top + m_geometryBounds.bottom) * 0.5f;
+
+            pD2DDeviceContext.GetTransform(out var savedTransform);
+            D2D1_MATRIX_3X2_F mSavedTransform = ToClass(savedTransform);
+
+            var transform =
+                Matrix3x2F.Translation(-geoCx, -geoCy) *
+                Matrix3x2F.Scale(scale, scale) *
+                Matrix3x2F.Translation(screenCx, screenCy);
+            pD2DDeviceContext.SetTransform(transform);
+
+            pD2DDeviceContext.FillGeometry(pD2DGeometry, pD2DSolidColorBrush);
+            pD2DDeviceContext.DrawGeometry(pD2DGeometry, m_pD2DMainBrush, 3.0f);
+
+            pD2DDeviceContext.SetTransform(mSavedTransform);
         }
 
         // For waves

@@ -162,7 +162,13 @@
                         <FontIcon Glyph="&#x3030;&#xFE0F;" FontFamily="Segoe UI Emoji"/>
                     </local:NavItem.Icon>
                 </local:NavItem>
-                
+
+                <local:NavItem Text="Scale" Tag="Scale">
+                    <local:NavItem.Icon>
+                        <FontIcon Glyph="&#x1F5DA;" FontFamily="Segoe UI Emoji"/>
+                    </local:NavItem.Icon>
+                </local:NavItem>
+
             </NavigationView.MenuItems>
 
             <!-- Footer menu -->
