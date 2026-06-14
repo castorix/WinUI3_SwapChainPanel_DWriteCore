@@ -84,18 +84,20 @@
             IsSettingsVisible="False"
             IsPaneToggleButtonVisible="False"
             CompactPaneLength="48"
-            OpenPaneLength="120"
+            OpenPaneLength="144"
             ItemInvoked="NavView_ItemInvoked">
 
             <NavigationView.MenuItemTemplate>
                 <DataTemplate x:DataType="local:NavItem">
-                    <StackPanel Orientation="Vertical"
-                                HorizontalAlignment="Center"
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
                                 Margin="0,8">
-                        <ContentPresenter Content="{x:Bind Icon}" />
+                        <ContentPresenter Content="{x:Bind Icon}" Width="24" HorizontalAlignment="Center"/>
                         <TextBlock Text="{x:Bind Text}"
                                    FontSize="12"
-                                   TextAlignment="Center" />
+                                   TextAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   Margin="8,2,0,-2"/>
                     </StackPanel>
                 </DataTemplate>
             </NavigationView.MenuItemTemplate>
